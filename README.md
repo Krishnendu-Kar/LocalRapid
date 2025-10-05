@@ -1,2 +1,3 @@
 # LocalRapid
 This a website for my home shop. To sell product so fast online. I made it at the age of 17.
+Author - Krishnendu Kar
