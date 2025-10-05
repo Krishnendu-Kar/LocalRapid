@@ -1,0 +1,191 @@
+:root{
+    --bg: #0f1724;
+    --card-bg: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.06);
+    --accent-1: #7c3aed; /* purple */
+    --accent-2: #06b6d4; /* teal */
+    --accent-3: #f97316; /* orange */
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background: linear-gradient(180deg, var(--bg), #071024 120%);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #e6eef6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+    padding:32px;
+    box-sizing:border-box;
+  }
+
+  /* wrapper to show three demos in a row / column responsive */
+  .wrap {
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .demo {
+    width:80vw;
+    height:400px;
+    position:relative;
+    border-radius:16px;
+    padding:20px;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    backdrop-filter: blur(6px) saturate(120%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+    overflow:visible; /* to show border glows */
+  }
+
+  .demo h3{
+    margin:0;
+    font-size:18px;
+    letter-spacing:0.2px;
+  }
+
+  /* ---------- 1. Gradient animated border (soft glow) ---------- */
+  .gradient-border {
+    --pad: 3px; /* thickness */
+    padding: calc(20px + var(--pad));
+    border-radius: 18px;
+  }
+
+  .gradient-border::before{
+    content: "";
+    position: absolute;
+    inset: -6px; /* how far the animated border extends */
+    z-index: -1;
+    background: conic-gradient(
+      from 140deg,
+      var(--accent-1),
+      var(--accent-2),
+      var(--accent-3),
+      var(--accent-1)
+    );
+    border-radius: 20px;
+    filter: blur(10px);
+    opacity: 0.9;
+    animation: spin 6s linear infinite;
+    transform-origin: center;
+    /* create a ring effect by masking the center */
+    -webkit-mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    padding: 6px; /* this defines thickness together with inset */
+  }
+
+  /* We add another pseudo-element to make the inner crisp stroke */
+  .gradient-border::after{
+    content:"";
+    position:absolute;
+    inset: -1px;
+    z-index:0;
+    border-radius:18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    pointer-events:none;
+  }
+
+  @keyframes spin{
+    to { transform: rotate(360deg); }
+  }
+
+  .gradient-border .label {
+    position:relative;
+    color: #bcd6ee;
+    z-index:2;
+    height: 350px;
+    width:80vw;
+  }
+
+  .gradient-border:hover::before{
+    filter: blur(14px);
+    animation-duration: 4s;
+  }
+
+  /* ---------- 2. Marching dashed border (neat, modern) ---------- */
+  .dash-border {
+    --dash-color: rgba(125,211,252,0.95);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px;
+  }
+
+  .dash-border::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    border-radius:14px;
+    padding:3px;
+    background:
+      linear-gradient(0deg, transparent, transparent),
+      repeating-linear-gradient(90deg, var(--dash-color) 0 6px, transparent 6px 12px);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events:none;
+    animation: march 1.6s linear infinite;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes march{
+    from { background-position: 0 0; }
+    to   { background-position: 24px 0; }
+  }
+
+  .dash-border .label{
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---------- 3. Neon corner accents + subtle border ---------- */
+  .neon-border {
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius:12px;
+    box-shadow: 0 6px 10px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  }
+
+  .neon-border::before,
+  .neon-border::after{
+    content:"";
+    position:absolute;
+    width:70%;
+    height:70%;
+    left:15%;
+    top:15%;
+    z-index:0;
+    border-radius:10px;
+    pointer-events:none;
+    background: radial-gradient(closest-side, rgba(124,58,237,0.14), transparent 60%);
+    mix-blend-mode: screen;
+    filter: blur(18px);
+    opacity:0.9;
+    animation: pulse 3.8s ease-in-out infinite;
+  }
+
+  .neon-border::after{
+    background: radial-gradient(closest-side, rgba(6,182,212,0.12), transparent 60%);
+    animation-delay: 1.1s;
+  }
+
+  @keyframes pulse{
+    0%,100%{ transform: scale(0.98); opacity:0.9; }
+    50%{ transform: scale(1.04); opacity:1; }
+  }
+
+  /* small responsive tweaks */
+ 

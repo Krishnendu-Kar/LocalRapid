@@ -1,0 +1,333 @@
+/* --- AMAR DOKAN - Checkout Page Styles --- */
+
+/* 1. Global Styles & Variables
+-------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0d6efd; /* Bootstrap blue for consistency */
+    --primary-dark: #0a58ca;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --body-bg: #f4f7fc;
+    --card-bg: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--body-bg);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+/* 2. Page Structure & Layout
+-------------------------------------------------- */
+.container-fluid {
+    max-width: 1400px;
+    padding: 20px;
+}
+
+.row {
+    --bs-gutter-x: 2rem;
+}
+
+/* 3. Navbar Header
+-------------------------------------------------- */
+.navbar {
+    background: linear-gradient(90deg, var(--primary-color) 0%, #ffe100 50%, red 100%);
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2.5rem !important;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-weight: 500;
+    text-decoration:none;
+    transition: all var(--transition-speed) ease;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px;
+}
+
+.nav-link:hover {
+    color: var(--light-color) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+
+/* 4. Card Styling
+-------------------------------------------------- */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    animation: fadeInUp 0.8s ease-out backwards;
+    /* Animation delay for staggered effect */
+    animation-delay: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--light-color) 0%, #ffffff 100%);
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.25rem 1.5rem;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.card-header h5 {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.card-header .bi {
+    color: var(--primary-color);
+}
+
+.card-body {
+    padding: 1.5rem 2rem;
+}
+
+
+/* 5. Form Elements
+-------------------------------------------------- */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+
+/* 6. Payment Method Selection
+-------------------------------------------------- */
+.form-check .border {
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.8em;
+    cursor: pointer;
+}
+
+.form-check label:hover,
+.form-check .border:hover {
+    background-color: #f8f9fa;
+    border-color: var(--primary-dark) !important;
+}
+
+.form-check-input:checked + label .border {
+    border-color: var(--primary-color) !important;
+    background-color: #eef5ff;
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.1);
+}
+
+#cod-timer-section {
+    border: 1px dashed var(--success-color);
+    background-color: #f0fff8 !important;
+    transition: all var(--transition-speed) ease;
+}
+
+
+/* 7. Order Summary Card
+-------------------------------------------------- */
+.sticky-top {
+    top: 20px;
+}
+
+#checkout-cart-items .d-flex {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+#checkout-cart-items .d-flex:last-child {
+    border-bottom: none;
+}
+
+
+/* 8. Buttons
+-------------------------------------------------- */
+.btn {
+    font-weight: 600;
+    padding: 0.85rem 1.5rem;
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-success {
+    background: linear-gradient(90deg, #198754 0%, #157347 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 7px 20px rgba(25, 135, 84, 0.4);
+}
+
+
+/* 9. Loading Overlay & Animations
+-------------------------------------------------- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1060;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.loading-overlay.d-flex {
+    display: flex !important;
+    opacity: 1;
+}
+
+.spinner-border {
+    color: var(--primary-color);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 10. Responsive Design
+-------------------------------------------------- */
+@media (max-width: 991px) {
+    .col-lg-8, .col-lg-4 {
+        animation: none; /* Disable animations on smaller screens for performance */
+    }
+    .card {
+        margin-bottom: 2rem !important;
+    }
+    .sticky-top {
+        position: static;
+    }
+}
+
+/* --- Fallbacks and Bootstrap classes (if not using Bootstrap CSS) --- */
+/* These ensure basic layout works even without the full Bootstrap file */
+.text-center { text-align: center; }
+.text-white { color: #fff; }
+.mt-3 { margin-top: 1rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+.navbar { display: flex; justify-content: space-between; align-items: center; }
+.navbar-nav { display: flex; }
+.ms-auto { margin-left: auto; }
+.me-1 { margin-right: 0.25rem; }
+.me-2 { margin-right: 0.5rem; }
+.me-3 { margin-right: 1rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.p-3 { padding: 1rem; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.w-100 { width: 100%; }
+.fw-bold { font-weight: 700; }
+.text-muted { color: #6c757d; }
+.text-success { color: #198754; }
+.text-danger { color: #dc3545; }
+.text-primary { color: #0d6efd; }
+.bg-primary { background-color: #0d6efd; }
+.bg-warning {
+  background-color: #f76b48;
+  padding: 2px;
+  color: #fdfbfe; /* Converted rgb(253, 252, 254) to hex for consistency */
+  border: 3px solid #dba505; /* Removed transparency (da) for better compatibility and consistency */
+  border-radius: 6px;
+  font-weight:600;
+  box-shadow: 0 2px 8px #0e0b05bc;
+}
+.bg-light { background-color: #f8f9fa; }
+.rounded { border-radius: 0.375rem; }
+.border { border: 1px solid #dee2e6; }
+.row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+.col-lg-8 { flex: 0 0 auto; width: 66.66666667%; padding-right: 15px; padding-left: 15px; }
+.col-lg-4 { flex: 0 0 auto; width: 33.33333333%; padding-right: 15px; padding-left: 15px; }
+.col-md-6 { flex: 0 0 auto; width: 50%; padding-right: 15px; padding-left: 15px; }
+.col-md-4 { flex: 0 0 auto; width: 33.33333333%; padding-right: 15px; padding-left: 15px; }
+.container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; }
+
+@media (min-width: 576px) {
+  .container { max-width: 540px; }
+}
+@media (min-width: 768px) {
+  .container { max-width: 720px; }
+}
+@media (min-width: 992px) {
+  .container { max-width: 960px; }
+}
+@media (min-width: 1200px) {
+  .container { max-width: 1140px; }
+}
+
+@media (max-width: 991px) {
+    .col-lg-8, .col-lg-4 { width: 100%; }
+}
+@media (max-width: 767px) {
+    .col-md-6, .col-md-4 { width: 100%; }
+}

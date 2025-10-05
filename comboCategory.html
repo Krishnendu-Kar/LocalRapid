@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- SEO Meta -->
+        <meta name="description" content="PickRapid - Fast, reliable, and secure e-commerce shopping. Get trusted products with quick delivery and excellent customer support.">
+        <meta name="keywords" content="PickRapid, online shopping, fast delivery, secure e-commerce, reliable service">
+        <meta name="author" content="Krishnendu Kar">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+        <meta property="og:title" content="PickRapid - Our Official Website">
+        <meta property="og:description" content="Shop many types oils (hair oil food oil) faster and safer with PickRapid.We provide secure and fastest delivey.">
+        <meta property="og:image" content="https://pickrapid.com/pickrapid.png">
+        <meta property="og:url" content="https://pickrapid.com">
+        <meta property="og:type" content="website">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="PickRapid - Our Official Website">
+        <meta name="twitter:description" content="Shop faster and safer with PickRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta name="twitter:image" content="https://pickrapid.com/pickrapid.png">
+
+        <!-- Preloads -->
+        <link rel="preload" href="category.css" as="style">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preload" href="https://pickrapid.com/pickrapid.png" as="image">
+
+        <!-- Canonical -->
+        <link rel="canonical" href="https://pickrapid.com">
+
+        <!-- Favicon & Apple Icon -->
+        <link rel="shortcut icon" href="pickrapid.ico" type="image/x-icon">
+        <link rel="icon" href="pickrapid.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="pickrapid.ico" sizes="180x180">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="category.css">
+
+        <!-- Title -->
+        <title>comboCategory.html - PickRapid Fast & Reliable E-commerce Shopping</title>
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <!-- Hamburger Button -->
+                <div class="hamburger border" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars-staggered"></i> All
+                </div>
+                <!-- Sidebar -->
+                <div class="sidebar" id="sidebar">
+                    
+                    <a class="active-a bar-a" href="index.html">Home</a>
+                    <a class="bar-a" href="bestdealCategory.html">best deal</a>
+                    <a class="bar-a" href="comboCategory.html">combo offer</a>
+                    <a class="bar-a" href="groceryCategory.html">staples</a>
+                    <a class="bar-a" href="medicineCategory.html">Medicine</a>
+                    <a class="bar-a" href="candleCategory.html">Candle</a>
+                    <a class="bar-a" href="soapSampooDiterjentCategory.html">Soap Sampoo Diterjents</a>
+                    <a class="bar-a" href="oilCategory.html">Oil</a>
+                    <a class="bar-a" href="biscuitCategory.html">Biscuits</a>
+                    <a class="bar-a" href="colddrinkCategory.html">cold drink</a>
+                    <a class="bar-a" href="dailyProductCategory.html">Many daily use products</a>
+                    <a class="bar-a" href="fruits-vegetableCategory.html">Vegetables</a>
+                    <a class="bar-a" href="otherCategory.html">Other</a>
+                    <a class="bar-a" href="about_us.html">About Us</a>
+                </div>
+
+                <!-- Overlay -->
+                <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+                <script>
+                    function toggleSidebar() {
+                    document.getElementById("sidebar").classList.toggle("active");
+                    document.getElementById("overlay").classList.toggle("active");
+                    }
+                    // Sidebar toggle
+                        function toggleSidebar() {
+                            document.getElementById("sidebar").classList.toggle("active");
+                            document.getElementById("overlay").classList.toggle("active");
+                        }
+                </script>
+                <div class="nav-logo border" onclick="window.location.href='index.html'">
+                    <div class="logo-name">PickRapid</div>
+                    <div class="logo" load="lazy"></div>
+                </div>
+                <div class="nav-select border">
+                        <label for="sub-category"></label>
+                            <select id="gender" class="nav-select" name="gender" required>
+                            <option value="all" >All</option>
+                            <option value="little-packs">Little packs</option>
+                            <option value="big-packs">Big packs</option>
+                            </select>
+                    </div>
+                <div class="nav-search border">
+                    <input class="search-input search-boxAni" placeholder="" id="productSearch"  onkeyup="searchProducts()">
+                    <div class="search-icon"><p><i class="fa-solid fa-magnifying-glass"></i></p></div>
+                </div>
+                <div class="cart border" onclick="window.location.href='cart.html'">
+                    <p class="cart-amount">0</p>
+                    <div class="cart-icon">
+                        <p><i class="fa-solid fa-cart-arrow-down"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="shop-section" id="productList">
+                
+            </div>
+        </main>
+        <footer>
+            ©2025 PickRapid; All Right will be reserved
+        </footer>
+        <script src="category search-box Animation.js"></script>
+        <script src="products.js"></script>
+        <script src="app.js"></script>
+
+        <script>
+            // This function runs when the page is fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                // Get the current filename (e.g., "biscuitCategory.html")
+                const path = window.location.pathname;
+                const pageFilename = path.split("/").pop(); 
+                
+                // Extract the category name from the filename. 
+                // IMPORTANT: The name must match the category in products.js!
+                // "biscuitCategory.html" becomes "biscuit"
+                const categoryName = pageFilename.replace('Category.html', '');
+
+                // Filter the global 'products' array to get only items of this category
+                const categoryProducts = products.filter(product => product.category === categoryName);
+                
+                // Use the shared function from app.js to display the products
+                displayProducts(categoryProducts, 'productList');
+
+                // Dynamically highlight the active link in the sidebar
+                setActiveSidebarLink(pageFilename);
+            });
+
+            // Cleaned up functions for this page
+            function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("active");
+                document.getElementById("overlay").classList.toggle("active");
+            }
+
+            function searchProducts() {
+                const input = document.getElementById('productSearch').value.toLowerCase();
+                const pageFilename = window.location.pathname.split("/").pop();
+                const categoryName = pageFilename.replace('Category.html', '');
+
+                // Filter products based on the current category and the search term
+                const filteredProducts = products
+                    .filter(p => p.category === categoryName)
+                    .filter(p => p.name.toLowerCase().includes(input));
+
+                displayProducts(filteredProducts, 'productList');
+            }
+
+            // ⭐ Bonus: This function automatically sets the 'active' link in your sidebar
+            function setActiveSidebarLink(currentPage) {
+                const sidebarLinks = document.querySelectorAll('.sidebar a');
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active-a'); // First, remove active from all links
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active-a'); // Then, add it to the matching link
+                    }
+                });
+            }
+        </script>
+
+
+    </body>
+</html>

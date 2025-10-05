@@ -1,1 +1,303 @@
-<p>Hello</p>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- SEO Meta -->
+        <meta name="description" content="Amar Dokan - Fast, reliable, and secure e-commerce shopping. Get trusted products with quick delivery and excellent customer support.">
+        <meta name="keywords" content="Amar Dokan, online shopping, fast delivery, secure e-commerce, reliable service">
+        <meta name="author" content="Krishnendu Kar">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+        <meta property="og:title" content="Amar Dokan - Our Official Website">
+        <meta property="og:description" content="Shop faster and safer with Amar Dokan – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta property="og:image" content="https://AmarDokan.com/AmarDokan.png">
+        <meta property="og:url" content="https://AmarDokan.com">
+        <meta property="og:type" content="website">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Amar Dokan - Our Official Website">
+        <meta name="twitter:description" content="Shop faster and safer with Amar Dokan – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta name="twitter:image" content="https://AmarDokan.com/AmarDokan.png">
+
+        <!-- Preloads -->
+        <link rel="preload" href="style.css" as="style">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preload" href="https://AmarDokan.com/AmarDokan.png" as="image">
+
+        <!-- Canonical -->
+        <link rel="canonical" href="https://AmarDokan.com">
+
+        <!-- Favicon & Apple Icon -->
+        <link rel="shortcut icon" href="Amar Dokan logo.ico" type="image/x-icon">
+        <link rel="icon" href="Amar Dokan logo.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="krish.png" sizes="180x180">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Title -->
+        <title>Amar Dokan - Fast & Reliable E-commerce Shopping</title>
+    </head>
+    <body>
+            <div class="loader-container" id="page-loader">
+                <div class="loaderout">
+                    <div class="loaderin1">
+                        <div class="loaderin2">
+                            <div class="loaderin3"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="loader-p" id="loader-text">Please wait...</p>
+            </div>
+        <header>
+            <div class="navbar">
+                <div class="nav-logo border" onclick="window.location.href='index.html'">
+                    <div class="logo-name">Amar Dokan</div>
+                    <div class="logo" load="lazy"></div>
+                </div>
+                <div class="nav-address border">
+                    <p class="location">location</p>
+                 <div class="address-icon">
+                    <p><i class="fa-solid fa-location-dot"></i>
+                    tamluk</p>
+                 </div>
+                </div>
+                <div class="nav-search border">
+                    <input type="search" class="search-input search-boxAni" id="productSearch" onkeyup="searchProducts()" placeholder=" ">
+                    <div class="search-icon"><p><i class="fa-solid fa-magnifying-glass"></i></p></div>
+                </div>
+                <div class="cart border" onclick="window.location.href='cart.html'">
+                    <p class="cart-amount">0</p>
+                    <div class="cart-icon">
+                        <p><i class="fa-solid fa-cart-arrow-down"></i>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="feedback border full-feedback">
+                    <a href="https://forms.gle/o6QnsSHPTd5EUZ2q6" target="_blank" class="feedback-btn">
+                        Give your Feedback Here
+                    </a>
+                </div>
+                    <div class="feedback border short-feedback">
+                        <a href="https://forms.gle/o6QnsSHPTd5EUZ2q6" target="_blank" class="feedback-btn">Feedback</a>
+                    </div>
+            </div>
+            <div class="panel">
+                <!-- Hamburger Button -->
+                <div class="hamburger border" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars-staggered"></i> All
+                </div>
+
+                
+
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                
+                    <a class="active-a bar-a" href="index.html">Home</a>
+                    <a class="bar-a" href="bestdealCategory.html">best deal</a>
+                    <a class="bar-a" href="comboCategory.html">combo offer</a>
+                    <a class="bar-a" href="groceryCategory.html">staples</a>
+                    <a class="bar-a" href="medicineCategory.html">Medicine</a>
+                    <a class="bar-a" href="candleCategory.html">Candle</a>
+                    <a class="bar-a" href="soapSampooDiterjentCategory.html">Soap Sampoo Diterjents</a>
+                    <a class="bar-a" href="oilCategory.html">Oil</a>
+                    <a class="bar-a" href="biscuitCategory.html">Biscuits</a>
+                    <a class="bar-a" href="colddrinkCategory.html">cold drink</a>
+                    <a class="bar-a" href="dailyProductCategory.html">Many daily use products</a>
+                    <a class="bar-a" href="fruits-vegetableCategory.html">Vegetables</a>
+                    <a class="bar-a" href="otherCategory.html">Other</a>
+                    <a class="bar-a" href="about_us.html">About Us</a>
+                </div>
+
+            <!-- Overlay -->
+            <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+            <script>
+                function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("active");
+                document.getElementById("overlay").classList.toggle("active");
+                }
+            </script>
+                <!-- Navbar Links -->
+                <ul>
+                    <li><a class="border" href="snacksCategory.html">snacks</a></li>
+                    <li><a class="border" href="comboCategory.html">combo packs</a></li>
+                    <li><a class="border" href="bestdealCategory.html">best Deals</a></li>
+                    <li><a class="border" href="oilCategory.html">oils</a></li>
+                </ul>
+                </div>
+            <div class="message-box1 border">
+                <div class="message-box2">
+                    <div class="message-text">
+                       Oops! We don’t deliver yet… but your wait won’t be long. Soon your daily use produts will fly to your doorstep. You can order here to keep reserved what you want in our shop (for now)
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="hero-section">
+                <div class="box1 box">
+                    <div class="box1a sub-box box-border " onclick="window.location.href='comboCategory.html'">combo packs</div>
+                    <div class="box1b sub-box box-border" onclick="window.location.href='bestdealCategory.html'">best deal</div> 
+                    </div>
+                <div class="box2 box">
+                    <div class="box2a sub-box box-border" onclick="window.location.href='groceryCategory.html'">staples</div>
+                    <div class="box2b sub-box box-border" onclick="window.location.href='colddrinkCategory.html'">cold drinks</div>
+                </div>
+                <div class="box3 box">
+                    <div class="box3a sub-box box-border" onclick="window.location.href='snacksCategory.html'">snacks</div>
+                    <div class="box3b sub-box box-border" onclick="window.location.href='biscuitCategory.html'">biscuits</div>
+                </div>
+                <div class="box4 box ">
+                    <div class="box4a sub-box box-border" onclick="window.location.href='medicineCategory.html'">medicine</div>
+                    <div class="box4b sub-box box-border" onclick="window.location.href='oilCategory.html'">oil</div>
+                </div>
+            </div>
+            <div class="shop-section" id="productList">
+                
+            </div>
+        </main>
+        <footer>
+            ©2025 AMAR DOKAN ; All Right will be reserved
+        </footer>
+        
+
+        <script src="products.js"></script><script src="products_weightable.js"></script> <script src="app.js"></script> 
+        <script>
+     
+        const messages = [
+            "Fetching the best deals for you...",
+            "Getting the latest products...",
+            "Almost there, don’t go anywhere...",
+            "Loading happiness to your doorstep..."
+        ];
+
+        let i = 0;
+        const loaderText = document.getElementById("loader-text");
+
+        // Rotate messages every 2s
+        setInterval(() => {
+            loaderText.textContent = messages[i];
+            i = (i + 1) % messages.length;
+        }, 2000);
+
+        // Hide loader once page is ready (with min 10ms wait)
+        window.addEventListener("load", function() {
+            setTimeout(() => {
+            document.getElementById("page-loader").style.display = "none";
+            }, 10);
+        });
+
+
+
+
+            const searchInput = document.querySelector(".search-boxAni");
+
+                // Full texts for big screens
+                const fullTexts = [
+                " Search products...",
+                " Search categories...",
+                " Search offers..."
+                ];
+
+                // Short texts for small screens
+                const shortTexts = [
+                " Products...",
+                " Categories...",
+                " Offers..."
+                ];
+
+                let texts = []; // will update depending on screen size
+                let textIndex = 0;
+                let charIndex = 0;
+                let currentText = "";
+                let typing = true;
+
+                function updateTexts() {
+                if (window.matchMedia("(max-width: 475px)").matches) {
+                    texts = shortTexts;
+                } else {
+                    texts = fullTexts;
+                }
+                }
+
+                function typeAnimation() {
+                if (typing) {
+                    // Typing characters
+                    currentText = texts[textIndex].slice(0, ++charIndex);
+                    searchInput.setAttribute("placeholder", currentText);
+
+                    if (charIndex === texts[textIndex].length) {
+                    typing = false;
+                    setTimeout(typeAnimation, 1500); // pause before deleting
+                    return;
+                    }
+                } else {
+                    // Deleting characters
+                    currentText = texts[textIndex].slice(0, --charIndex);
+                    searchInput.setAttribute("placeholder", currentText);
+
+                    if (charIndex === 0) {
+                    typing = true;
+                    textIndex = (textIndex + 1) % texts.length;
+                    }
+                }
+
+                setTimeout(typeAnimation, typing ? 70 : 60);
+                }
+
+                // Initialize texts once
+                updateTexts();
+
+                // Also update texts dynamically when screen resizes
+                window.addEventListener("resize", updateTexts);
+
+                // Start animation
+                typeAnimation();
+            // Helper function to display the initial 40 random products
+            function displayInitialProducts() {
+                // 1. IMPROVEMENT: Create a safe copy of the products array before sorting
+                // This prevents the original 'products' array from being permanently shuffled.
+                const productCopy = [...products];
+
+                // 2. Get 40 random products from the copy
+                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 40);
+                
+                // Display the products (using the default 'initial' context)
+                displayProducts(featuredProducts, 'productList');
+            }
+
+            // This function runs when the page is fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                displayInitialProducts();
+            });
+
+            // This function is called every time the user types in the search bar
+            function searchProducts() {
+                const query = document.getElementById("productSearch").value.toLowerCase();
+                
+                // 3. BUG FIX: Check if the search bar is empty
+                if (query === '') {
+                    // If it's empty, show the initial 40 products and stop
+                    displayInitialProducts();
+                    return;
+                }
+
+                // If there is a query, filter and show the results
+                const filteredProducts = products.filter(product =>
+                    product.name.toLowerCase().includes(query)
+                );
+                
+                displayProducts(filteredProducts, 'productList', 'search');
+            }
+
+        </script>
+    </body>
+</html>

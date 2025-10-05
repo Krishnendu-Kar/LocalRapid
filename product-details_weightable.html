@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details</title>
+        <link rel="icon" href="pickrapid.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="product-details_weightable.css">
+        <script src="products_weightable.js"></script> 
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="nav-logo border" onclick="window.location.href='index.html'">
+                    <div class="logo-name">PickRapid</div>
+                    <div class="logo" load="lazy"></div>
+                </div>
+                
+                
+                <div class="cart border" onclick="window.location.href='cart.html'">
+                    <span class="cart-amount">0</span>
+                    <div class="cart-icon">
+                        <span><i class="fa-solid fa-cart-arrow-down"></i></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="product">
+                    <div class="product-gallery">
+                        <img id="main-image" src="" alt="Product Image" loading="lazy" decoding="async">
+                    </div>
+                    <div class="product-info" id="product-info">
+                        </div>
+                </div>
+                
+                <div class="reviews">
+                    <a href="https://forms.gle/o6QnsSHPTd5EUZ2q6" target="_blank" class="feedback-btn">
+                        Share Your Experience With Us
+                    </a>
+                </div>
+                
+                <div class="recommended-container">
+                    <h2>You Might Also Like</h2>
+                    <div class="product-scroll" id="recommended-products">
+                        </div>
+                </div>
+            </div>
+        </main>
+
+        <script>
+        // --- Cart functions (unchanged) ---
+        function getCart() { return JSON.parse(localStorage.getItem("cart")) || []; }
+
+        function saveCart(cart) { localStorage.setItem("cart", JSON.stringify(cart)); }
+        
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartAmountElement = document.querySelector(".cart-amount");
+            if(cartAmountElement) {
+                cartAmountElement.textContent = count;
+            }
+        }
+        document.addEventListener("DOMContentLoaded", updateCartCount);
+
+        function addToCart(product) {
+            let cart = getCart();
+            const cartItemId = `${product.id}-${product.amount}`; 
+            const existingItemIndex = cart.findIndex(item => item.cartItemId === cartItemId);
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1, cartItemId: cartItemId });
+            }
+            saveCart(cart);
+            updateCartCount();
+            alert(`${product.name} (${product.amount}) added to cart!`);
+        }
+
+        // =================================
+        // NEW: Recommended Products Function
+        // =================================
+        function displayRecommendedProducts(currentProduct) {
+            const container = document.getElementById('recommended-products');
+            if (!container) return;
+
+            // 1. Find recommendations (same category, not the current product)
+            const recommendations = products
+                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+                .sort(() => 0.5 - Math.random()) // Shuffle for variety
+                .slice(0, 5); // Take the first 5
+
+            if (recommendations.length === 0) {
+                document.querySelector('.recommended-container').style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = ''; // Clear previous content
+            
+            // 2. Create and inject the HTML for each recommendation card
+            recommendations.forEach(recProduct => {
+                const weightOptionsHTML = recProduct.available_weights.map(w =>
+                    `<option value="${w.price}">${w.weight}</option>`
+                ).join('');
+
+                const cardHTML = `
+                    <div class="product-card" data-product-id="${recProduct.id}">
+                        <a href="?id=${recProduct.id}">
+                            <img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy">
+                            <h4>${recProduct.name}</h4>
+                        </a>
+                        <p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p>
+                        <select class="weight-selector-rec">
+                            ${weightOptionsHTML}
+                        </select>
+                        <p class="product-price" id="price-rec-${recProduct.id}">₹${recProduct.available_weights[0].price}</p>
+                        <button class="add-btn-rec">Add to Cart</button>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+
+            // 3. Add Event Listeners for the new recommended cards
+            // For price updates
+            container.querySelectorAll('.weight-selector-rec').forEach(selector => {
+                selector.addEventListener('change', function(e) {
+                    const card = e.target.closest('.product-card');
+                    const priceEl = card.querySelector('.product-price');
+                    priceEl.textContent = `₹${e.target.value}`;
+                });
+            });
+
+            // For adding to cart
+            container.querySelectorAll('.add-btn-rec').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const card = e.target.closest('.product-card');
+                    const productId = parseInt(card.dataset.productId);
+                    const productToAdd = products.find(p => p.id === productId);
+
+                    const selector = card.querySelector('.weight-selector-rec');
+                    const selectedWeightText = selector.options[selector.selectedIndex].text;
+                    const selectedPrice = parseFloat(selector.value);
+
+                    const item = { ...productToAdd, price: selectedPrice, amount: selectedWeightText };
+                    addToCart(item);
+                });
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get("id"));
+            const product = products.find(p => p.id === productId);
+
+            if (product) {
+                document.title = `${product.name} - Details`;
+                document.getElementById('main-image').src = product.image;
+                document.getElementById('main-image').alt = product.name;
+
+                // --- All the main product display logic from before ---
+                const productInfoContainer = document.getElementById('product-info');
+                productInfoContainer.innerHTML = `
+                    <h1>${product.name}</h1>
+             <!--   <p class="product-subcategory">${product.sub_category}</p> -->
+                    <p class="price-comparison">Reference Rate: <b>₹${product.price_per_100gm} / 100gm</b></p>
+                    <div class="calculator">
+                        <div class="input-group"><label for="weight-input">Weight:</label><input type="number" id="weight-input" placeholder="e.g., 250"><span>gm</span></div>
+                        <div class="input-group"><label for="cost-input">Cost:</label><span>₹</span><input type="number" id="cost-input" placeholder="e.g., 55"></div>
+                    </div>
+                    <div class="product-details"><h2>Product Details</h2><p>${product.details || 'No details available.'}</p></div>
+                    <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add Custom Amount</button>
+                `;
+
+                const weightInput = document.getElementById('weight-input');
+                const costInput = document.getElementById('cost-input');
+                const pricePerGram = product.price_per_100gm / 100;
+
+                weightInput.addEventListener('input', () => {
+                    const weight = parseFloat(weightInput.value) || 0;
+                    costInput.value = weight > 0 ? (weight * pricePerGram).toFixed(2) : '';
+                });
+
+                costInput.addEventListener('input', () => {
+                    const cost = parseFloat(costInput.value) || 0;
+                    weightInput.value = cost > 0 ? (cost / pricePerGram).toFixed(2) : '';
+                });
+                
+                productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
+                    const finalWeight = parseFloat(weightInput.value);
+                    const finalCost = parseFloat(costInput.value);
+                    if (!finalWeight || !finalCost || finalWeight <= 0) {
+                        alert("Please enter a valid weight or cost.");
+                        return;
+                    }
+                    addToCart({ ...product, price: finalCost, amount: `${finalWeight} gm` });
+                });
+
+                // --- Call the new function to populate recommended products ---
+                displayRecommendedProducts(product);
+
+            } else {
+                document.querySelector('.container').innerHTML = '<h1>Product not found!</h1>';
+            }
+
+            updateCartCount();
+        });
+        </script>
+
+    </body>
+</html>
