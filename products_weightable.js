@@ -1,4 +1,4 @@
-// products_weightable.js
+
 
 const products = [
     {

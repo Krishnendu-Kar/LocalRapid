@@ -1,287 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Getfast</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="cart.css">
-    <link rel="icon" href="Amar Dokan logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-shop me-2"></i>AMAR DOKAN
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link text-white me-3" href="index.html">
-                    <i class="bi bi-house me-1"></i>Home
-                </a>
-            </div>
-        </div>
-    </nav>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- SEO Meta -->
+        <meta name="description" content="LocaalRapid - Fast, reliable, and secure e-commerce shopping. Get snacks biscuits cake at very low price.">
+        <meta name="keywords" content="LocaalRapid, online shopping, fast delivery, secure e-commerce, reliable service, chips, noddles, cake">
+        <meta name="author" content="Krishnendu Kar">
+        <meta name="robots" content="index, follow">
+        <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+        <meta property="og:title" content="Cart - LocaalRapid Official e-commerce website">
+        <meta property="og:description" content="Shop snacks faster and safer with LocaalRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta property="og:image" content="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.png">
+        <meta property="og:url" content="https://krishnendu-kar.github.io/LocalRapid/cart.html">
+        <meta property="og:type" content="e-commerce website">
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.png">
+        <meta name="twitter:title" content="Snacks - LocaalRapid Official e-commerce websitee">
+        <meta name="twitter:description" content="LocaalRapid - Fast, reliable, and secure e-commerce shopping. Get snacks biscuits cake at very low price.">
+        <meta name="twitter:image" content="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.png">
+        <!-- Preloads -->
+        <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" as="style">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Canonical -->
+        <link rel="canonical" href="https://krishnendu-kar.github.io/LocalRapid/cart.html">
+        <!-- Favicon & Apple Icon -->
+        <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" sizes="180x180">
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="mb-4">
-                    <i class="bi bi-cart me-2"></i>Shopping Cart
-                </h2>
-            </div>
-        </div>
-
-        <div id="cart-container">
-            </div>
-
-        <div id="cart-summary" class="card mt-4 d-none">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h5>Total Items: <span id="total-items">0</span></h5>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+        <title>Cart- LocaalRapid Fast & Reliable E-commerce Shopping</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="bi bi-shop me-2"></i>LocaalRapid
+                    </a>
+                    <div class="navbar-nav ms-auto">
+                        <a class="nav-link text-white me-3" href="index.html">
+                            <i class="bi bi-house me-1"></i>Home
+                        </a>
                     </div>
-                    <div class="col-md-4 text-end">
-                        <h4>Listing price: ₹<span id="listing-price">0</span></h4>
-                        <h4 class="text-success">You save: ₹<span id="you-save">0</span></h4>
-                        <h4 id="delivery-charge-row" class="text-muted" style="display: none;"></h4>
-                        <h4>Total: ₹<span id="total-price">0</span></h4>
-                        <button class="btn btn-success btn-lg w-100" id="checkout-btn">
-                            <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
-                        </button>
+                </div>
+            </nav>
+        </header>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-4">
+                        <i class="bi bi-cart me-2"></i>Shopping Cart
+                    </h2>
+                </div>
+            </div>
+
+            <div id="cart-container">
+                </div>
+
+            <div id="cart-summary" class="card mt-4 d-none">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Total Items: <span id="total-items">0</span></h5>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <h4>Listing price: ₹<span id="listing-price">0</span></h4>
+                            <h4 class="text-success">You save: ₹<span id="you-save">0</span></h4>
+                            <h4 id="delivery-charge-row" class="text-muted" style="display: none;"></h4>
+                            <h4>Total: ₹<span id="total-price">0</span></h4>
+                            <button class="btn btn-success btn-lg w-100" id="checkout-btn">
+                                <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        function getCart() {
-            return JSON.parse(localStorage.getItem('cart')) || [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        // --- MODIFIED FUNCTION ---
-        // Now accepts a uniqueId (like 'productID-amount') instead of just productId
-        function updateQuantity(uniqueId, change) {
-            let cart = getCart();
-            const item = cart.find(i => (i.cartItemId || i.id) == uniqueId);
-
-            if (item) {
-                // --- NEW: Add confirmation before quantity becomes zero ---
-                if (item.quantity === 1 && change < 0) {
-                    if (!confirm("This will remove the item from your cart. Are you sure?")) {
-                        return; // Exit if user cancels
-                    }
-                }
-
-                item.quantity += change;
-
-                if (item.quantity <= 0) {
-                    // --- FIX: Filter using the uniqueId to remove only the specific variant ---
-                    cart = cart.filter(i => (i.cartItemId || i.id) != uniqueId);
-                }
-                saveCart(cart);
-                loadCart();
+        <script>
+            function getCart() {
+                return JSON.parse(localStorage.getItem('cart')) || [];
             }
-        }
 
-        // --- MODIFIED FUNCTION ---
-        function removeItem(uniqueIdToRemove) {
-            // --- NEW: Add confirmation alert before removing ---
-            if (confirm("Are you sure you want to remove this item from your cart?")) {
+            function saveCart(cart) {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            // --- MODIFIED FUNCTION ---
+            // Now accepts a uniqueId (like 'productID-amount') instead of just productId
+            function updateQuantity(uniqueId, change) {
                 let cart = getCart();
-                cart = cart.filter(item => {
-                    const currentItemUniqueId = item.cartItemId || item.id;
-                    return currentItemUniqueId != uniqueIdToRemove;
-                });
-                saveCart(cart);
-                loadCart(); // Refresh the cart display
-            }
-        }
+                const item = cart.find(i => (i.cartItemId || i.id) == uniqueId);
 
-        function loadCart() {
-            const cart = getCart();
-            const cartContainer = document.getElementById('cart-container');
-            const cartSummary = document.getElementById('cart-summary');
+                if (item) {
+                    // --- NEW: Add confirmation before quantity becomes zero ---
+                    if (item.quantity === 1 && change < 0) {
+                        if (!confirm("This will remove the item from your cart. Are you sure?")) {
+                            return; // Exit if user cancels
+                        }
+                    }
 
-            if (cart.length === 0) {
-                cartContainer.innerHTML = `
-                    <div class="text-center py-5">
-                        <i class="bi bi-cart-x text-muted" style="font-size: 4rem;"></i>
-                        <h4 class="mt-3 text-muted">Your cart is empty</h4>
-                        <p class="text-muted">Add some products to get started</p>
-                        <a href="index.html" class="btn btn-primary">
-                            <i class="bi bi-shop me-1"></i>Continue Shopping
-                        </a>
-                    </div>
-                `;
-                cartSummary.classList.add('d-none');
-                return;
+                    item.quantity += change;
+
+                    if (item.quantity <= 0) {
+                        // --- FIX: Filter using the uniqueId to remove only the specific variant ---
+                        cart = cart.filter(i => (i.cartItemId || i.id) != uniqueId);
+                    }
+                    saveCart(cart);
+                    loadCart();
+                }
             }
 
-            let totalItems = 0;
-            let totaloriginalPrice = 0; // Total MRP
-            let itemsSubtotal = 0; // Total price after discounts, before delivery
-            let cartHTML = '';
+            // --- MODIFIED FUNCTION ---
+            function removeItem(uniqueIdToRemove) {
+                // --- NEW: Add confirmation alert before removing ---
+                if (confirm("Are you sure you want to remove this item from your cart?")) {
+                    let cart = getCart();
+                    cart = cart.filter(item => {
+                        const currentItemUniqueId = item.cartItemId || item.id;
+                        return currentItemUniqueId != uniqueIdToRemove;
+                    });
+                    saveCart(cart);
+                    loadCart(); // Refresh the cart display
+                }
+            }
 
-            const freeDeliveryThreshold = 300;
-            const deliveryCharge = 5;
+            function loadCart() {
+                const cart = getCart();
+                const cartContainer = document.getElementById('cart-container');
+                const cartSummary = document.getElementById('cart-summary');
 
-            cart.forEach(item => {
-                const detailPage = (item.available_weights && Array.isArray(item.available_weights))
-                    ? 'product-details_weightable.html'
-                    : 'product-details.html';
-
-                const uniqueId = item.cartItemId || item.id;
-                const price = Number(item.price) || 0;
-                const originalPrice = Number(item.originalPrice) || price;
-                const itemMrpTotal = originalPrice * item.quantity;
-                const itemTotal = price * item.quantity;
-
-                totalItems += item.quantity;
-                itemsSubtotal += itemTotal;
-                totaloriginalPrice += itemMrpTotal;
-
-                let priceHTML;
-                if (itemTotal === itemMrpTotal) {
-                    priceHTML = `₹${itemTotal.toFixed(2)}`;
-                } else {
-                    priceHTML = `<span class="text-success">₹${itemTotal.toFixed(2)}</span> <del class="text-muted">₹${itemMrpTotal.toFixed(2)}</del>`;
+                if (cart.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="bi bi-cart-x text-muted" style="font-size: 4rem;"></i>
+                            <h4 class="mt-3 text-muted">Your cart is empty</h4>
+                            <p class="text-muted">Add some products to get started</p>
+                            <a href="index.html" class="btn btn-primary">
+                                <i class="bi bi-shop me-1"></i>Continue Shopping
+                            </a>
+                        </div>
+                    `;
+                    cartSummary.classList.add('d-none');
+                    return;
                 }
 
-                cartHTML += `
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-md-2">
-                                    <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" loading="lazy" width="100" height="100" style="max-height: 100px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${detailPage}?id=${item.id}'">
-                                </div>
-                                <div class="col-md-4">
-                                    <h5 style="text-transform:capitalize;">${item.name}</h5>
-                                    <p class="text-success mb-0">₹${price.toFixed(2)} (${item.amount})</p>
-                                    ${price !== originalPrice
-                                        ? `<p class="text-muted small mb-0"><del>₹${originalPrice.toFixed(2)}</del></p>`
-                                        : ""}
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${uniqueId}', -1)">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                        <span class="mx-3 fw-bold">${item.quantity}</span>
-                                        <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${uniqueId}', 1)">
-                                            <i class="bi bi-plus"></i>
+                let totalItems = 0;
+                let totaloriginalPrice = 0; // Total MRP
+                let itemsSubtotal = 0; // Total price after discounts, before delivery
+                let cartHTML = '';
+
+                const freeDeliveryThreshold = 300;
+                const deliveryCharge = 5;
+
+                cart.forEach(item => {
+                    const detailPage = (item.available_weights && Array.isArray(item.available_weights))
+                        ? 'product-details_weightable.html'
+                        : 'product-details.html';
+
+                    const uniqueId = item.cartItemId || item.id;
+                    const price = Number(item.price) || 0;
+                    const originalPrice = Number(item.originalPrice) || price;
+                    const itemMrpTotal = originalPrice * item.quantity;
+                    const itemTotal = price * item.quantity;
+
+                    totalItems += item.quantity;
+                    itemsSubtotal += itemTotal;
+                    totaloriginalPrice += itemMrpTotal;
+
+                    let priceHTML;
+                    if (itemTotal === itemMrpTotal) {
+                        priceHTML = `₹${itemTotal.toFixed(2)}`;
+                    } else {
+                        priceHTML = `<span class="text-success">₹${itemTotal.toFixed(2)}</span> <del class="text-muted">₹${itemMrpTotal.toFixed(2)}</del>`;
+                    }
+
+                    cartHTML += `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" loading="lazy" width="100" height="100" style="max-height: 100px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${detailPage}?id=${item.id}'">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 style="text-transform:capitalize;">${item.name}</h5>
+                                        <p class="text-success mb-0">₹${price.toFixed(2)} (${item.amount})</p>
+                                        ${price !== originalPrice
+                                            ? `<p class="text-muted small mb-0"><del>₹${originalPrice.toFixed(2)}</del></p>`
+                                            : ""}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${uniqueId}', -1)">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                            <span class="mx-3 fw-bold">${item.quantity}</span>
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${uniqueId}', 1)">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <h6>${priceHTML}</h6>
+                                    </div>
+                                    <div class="col-md-1 text-end">
+                                        <button class="btn btn-outline-danger btn-sm" onclick="removeItem('${uniqueId}')">
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-center">
-                                    <h6>${priceHTML}</h6>
-                                </div>
-                                <div class="col-md-1 text-end">
-                                    <button class="btn btn-outline-danger btn-sm" onclick="removeItem('${uniqueId}')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                });
+
+                let finalTotalPrice = itemsSubtotal;
+                if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
+                    finalTotalPrice += deliveryCharge;
+                }
+
+                let deliveryMessageHTML = '';
+                const amountNeeded = freeDeliveryThreshold - itemsSubtotal;
+                if (amountNeeded > 0) {
+                    deliveryMessageHTML = `
+                        <div class="alert alert-warning shadow-sm p-3 rounded">
+                        <details>
+                            <summary style="cursor:pointer; font-weight:600;">
+                            Add item(s) worth <span style="color:#d9534f;">₹${amountNeeded.toFixed(2)}</span> more for <b style="color:green;">FREE Delivery</b>
+                            </summary>
+                            <p style="margin-top:8px; font-size:14px; line-height:1.5; color:#333;">
+                            💡 Otherwise, <b>₹5 - ₹15</b> delivery charge may apply depending on your location.<br>
+                            For now, we are assuming <b style="color:#d9534f;">₹5</b> as delivery charge.  
+                            <i>(This may increase or decrease later. Final amount will be confirmed by shopkeeper after order placement.)</i>
+                            </p>
+                        </details>
+                        </div>
+                        `;
+                } else {
+                    deliveryMessageHTML = `
+                        <div class="alert alert-success">
+                            🎉 You have grabbed the free delivery offer!
+                        </div>`;
+                }
+
+                cartContainer.innerHTML = cartHTML + deliveryMessageHTML;
+
+                const totalSave = totaloriginalPrice - itemsSubtotal;
+                
+                document.getElementById('total-items').textContent = totalItems;
+                document.getElementById('total-price').textContent = finalTotalPrice.toFixed(2);
+
+                const listingPriceElement = document.getElementById('listing-price').parentElement;
+                const youSaveElement = document.getElementById('you-save').parentElement;
+
+                if (totalSave > 0) {
+                    document.getElementById('listing-price').textContent = totaloriginalPrice.toFixed(2);
+                    document.getElementById('you-save').textContent = totalSave.toFixed(2);
+                    listingPriceElement.style.display = 'block';
+                    youSaveElement.style.display = 'block';
+                } else {
+                    listingPriceElement.style.display = 'none';
+                    youSaveElement.style.display = 'none';
+                }
+
+                let deliveryRow = document.getElementById('delivery-charge-row');
+                if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
+                    deliveryRow.style.display = 'block';
+                    deliveryRow.innerHTML = `Delivery Charge: <span>₹${deliveryCharge.toFixed(2)}</span>`;
+                } else {
+                    deliveryRow.style.display = 'none';
+                }
+
+                cartSummary.classList.remove('d-none');
+            }
+
+            function proceedToCheckout() {
+                const cart = getCart();
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+
+                sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+                let itemsSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                let finalTotalPrice = itemsSubtotal;
+                if (itemsSubtotal < 300 && itemsSubtotal > 0) {
+                    finalTotalPrice += 5; // Add delivery charge
+                }
+                sessionStorage.setItem('checkoutTotalPrice', finalTotalPrice.toFixed(2));
+
+                window.location.href = 'checkout.html';
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                loadCart();
+                document.getElementById('checkout-btn').addEventListener('click', proceedToCheckout);
             });
 
-            let finalTotalPrice = itemsSubtotal;
-            if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
-                finalTotalPrice += deliveryCharge;
+            function addToCart(product) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.push(product);
+                localStorage.setItem("cart", JSON.stringify(cart));
             }
-
-            let deliveryMessageHTML = '';
-            const amountNeeded = freeDeliveryThreshold - itemsSubtotal;
-            if (amountNeeded > 0) {
-                deliveryMessageHTML = `
-                    <div class="alert alert-warning shadow-sm p-3 rounded">
-                    <details>
-                        <summary style="cursor:pointer; font-weight:600;">
-                        Add item(s) worth <span style="color:#d9534f;">₹${amountNeeded.toFixed(2)}</span> more for <b style="color:green;">FREE Delivery</b>
-                        </summary>
-                        <p style="margin-top:8px; font-size:14px; line-height:1.5; color:#333;">
-                        💡 Otherwise, <b>₹5 - ₹15</b> delivery charge may apply depending on your location.<br>
-                        For now, we are assuming <b style="color:#d9534f;">₹5</b> as delivery charge.  
-                        <i>(This may increase or decrease later. Final amount will be confirmed by shopkeeper after order placement.)</i>
-                        </p>
-                    </details>
-                    </div>
-                    `;
-            } else {
-                deliveryMessageHTML = `
-                    <div class="alert alert-success">
-                        🎉 You have grabbed the free delivery offer!
-                    </div>`;
-            }
-
-            cartContainer.innerHTML = cartHTML + deliveryMessageHTML;
-
-            const totalSave = totaloriginalPrice - itemsSubtotal;
-            
-            document.getElementById('total-items').textContent = totalItems;
-            document.getElementById('total-price').textContent = finalTotalPrice.toFixed(2);
-
-            const listingPriceElement = document.getElementById('listing-price').parentElement;
-            const youSaveElement = document.getElementById('you-save').parentElement;
-
-            if (totalSave > 0) {
-                document.getElementById('listing-price').textContent = totaloriginalPrice.toFixed(2);
-                document.getElementById('you-save').textContent = totalSave.toFixed(2);
-                listingPriceElement.style.display = 'block';
-                youSaveElement.style.display = 'block';
-            } else {
-                listingPriceElement.style.display = 'none';
-                youSaveElement.style.display = 'none';
-            }
-
-            let deliveryRow = document.getElementById('delivery-charge-row');
-            if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
-                deliveryRow.style.display = 'block';
-                deliveryRow.innerHTML = `Delivery Charge: <span>₹${deliveryCharge.toFixed(2)}</span>`;
-            } else {
-                deliveryRow.style.display = 'none';
-            }
-
-            cartSummary.classList.remove('d-none');
-        }
-
-        function proceedToCheckout() {
-            const cart = getCart();
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-
-            sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
-
-            let itemsSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            let finalTotalPrice = itemsSubtotal;
-            if (itemsSubtotal < 300 && itemsSubtotal > 0) {
-                finalTotalPrice += 5; // Add delivery charge
-            }
-            sessionStorage.setItem('checkoutTotalPrice', finalTotalPrice.toFixed(2));
-
-            window.location.href = 'checkout.html';
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCart();
-            document.getElementById('checkout-btn').addEventListener('click', proceedToCheckout);
-        });
-
-        function addToCart(product) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
