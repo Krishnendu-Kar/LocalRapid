@@ -233,6 +233,12 @@ a {
         color:#ed8544;
     }
 
+    .hamburger-text{
+        display:inline;
+    }
+    @media (max-width: 330px) {
+    .hamburger-text { display: none; }
+    }
     /* Sidebar */
     .sidebar {
       position: fixed;
