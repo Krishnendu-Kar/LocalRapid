@@ -425,3 +425,6 @@ del {
     color: inherit;
     display: block;
 }
+footer{
+    height: 60px;
+}

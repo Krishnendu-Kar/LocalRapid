@@ -51,7 +51,9 @@
                     </div>
             </div>
         </main>
-        
+        <footer>
+            
+        </footer>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -169,24 +171,33 @@
             }
 
             recommendations.forEach(recProduct => {
-                // --- CHANGE 1: The card is now an <a> tag with an href ---
+                // --- CHANGE START ---
+                // 1. Conditionally create the HTML for the original price
+                let originalPriceDisplay = ''; // Default to an empty string
+
+                // Check if originalPrice exists, is greater than 0, and is not the same as the sale price
+                if (recProduct.originalPrice && recProduct.originalPrice > 0 && recProduct.originalPrice !== recProduct.price) {
+                    originalPriceDisplay = `<span style="color:grey; text-decoration:line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
+                }
+                
+                // 2. Build the card's HTML, now using the conditional variable
                 const cardHTML = `
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
                         <h4>${recProduct.name}</h4>
-                        <div class="little_details" style="font-size: 13px;">${recProduct.amount}</div>
-                        <p>₹${recProduct.price} <p style="color:red;text-decoration:2px double line-through">${recProduct.originalPrice}</p></p>
+                        <div class="little_details" style="font-size: 13px;">${recProduct.amount || ''}</div>
+                        <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
                         <button data-product-id="${recProduct.id}">Add to Cart</button>
                     </a>
                 `;
+                // --- CHANGE END ---
+
                 recommendedContainer.innerHTML += cardHTML;
             });
 
-            // --- CHANGE 2: Add an event listener to the buttons to prevent navigation ---
+            // Event listener logic remains the same
             recommendedContainer.querySelectorAll('.product-card button').forEach(button => {
                 button.addEventListener('click', function(event) {
-                    // This is crucial: it stops the click from "bubbling up" to the parent <a> tag.
-                    // Without this, clicking the button would add to cart AND navigate to the product page.
                     event.preventDefault(); 
                     event.stopPropagation();
 
