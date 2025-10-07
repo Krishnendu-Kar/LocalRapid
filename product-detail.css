@@ -284,7 +284,12 @@ del {
     padding: 4px;
     font-weight: 650;
 }
+.div-delivery_time{
+    display:flex;
+}
 .delivery_time{
+    position:relative;
+    left:3px;
     font-size:12px;
     display:inline-block;
     margin:3px;
@@ -411,6 +416,7 @@ del {
     font-weight: 600;
 }
 .little_details{
+    text-transform:capitalize;
     color:#b28573;
     font-weight:500;
     font-size:0.8em;
