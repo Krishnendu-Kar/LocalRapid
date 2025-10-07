@@ -218,7 +218,7 @@ a {
     }
     @media (max-width: 345px){
         .panel {
-            padding: 0 0px;
+            padding: 0 5px;
             gap: 4px;
         }
     }
@@ -307,7 +307,7 @@ a {
     }
     
     li {
-      /* list-style: none; */
+      list-style: none;
       text-transform: capitalize;
     }
     li a {
