@@ -50,14 +50,14 @@ html, body {
     }
     
     .logo{
-    background-image:url("pickrapid.ico");
+    background-image:url("LocaalRapid.ico");
     background-size:cover;
     height: 50px;
     width: 65px;}
     .nav-logo{
     margin-left:5px;
     height: 50px;
-    width: 150px;
+    width: 200px;
     position:absolute;
     left: 44px;
     display:flex;
@@ -115,7 +115,7 @@ html, body {
       #06b6d4, #7c3aed, #f97316, #06b6d4);
     background-size: 600% 600%;
     animation: borderFlow 8s ease infinite;
-    -webkit-mask: xor,
+    mask: xor,
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;

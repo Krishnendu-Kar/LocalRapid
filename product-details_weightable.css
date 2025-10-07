@@ -50,14 +50,14 @@ html, body {
     }
     
     .logo{
-    background-image:url("pickrapid.ico");
+    background-image:url("LocaalRapid.ico");
     background-size:cover;
     height: 50px;
     width: 65px;}
     .nav-logo{
     margin-left:5px;
     height: 50px;
-    width: 150px;
+    width: 200px;
     position:absolute;
     left: 44px;
     display:flex;
@@ -69,7 +69,7 @@ html, body {
         .product { display: flex; flex-wrap: wrap; gap: 40px; }
         .product-gallery, .product-info { flex: 1; min-width: 300px; }
         .product-gallery img { max-width: 100%; border-radius: 8px; }
-
+        h1{text-transform:capitalize}
         /* Calculator Styles */
         .price-comparison { color: #555; font-style: italic; }
         .calculator { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin: 20px 0; max-width: 350px; }
@@ -104,7 +104,7 @@ html, body {
       #06b6d4, #7c3aed, #f97316, #06b6d4);
     background-size: 600% 600%;
     animation: borderFlow 8s ease infinite;
-    -webkit-mask: xor,
+    mask: xor,
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
