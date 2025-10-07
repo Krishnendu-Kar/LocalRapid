@@ -307,7 +307,7 @@ a {
     }
     
     li {
-      list-style: none;
+      /* list-style: none; */
       text-transform: capitalize;
     }
     li a {
