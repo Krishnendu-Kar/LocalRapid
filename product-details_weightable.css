@@ -69,7 +69,7 @@ html, body {
         .product { display: flex; flex-wrap: wrap; gap: 40px; }
         .product-gallery, .product-info { flex: 1; min-width: 300px; }
         .product-gallery img { max-width: 100%; border-radius: 8px; }
-        h1{text-transform:capitalize}
+       .product-price{text-transform:capitalize;}
         /* Calculator Styles */
         .price-comparison { color: #555; font-style: italic; }
         .calculator { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin: 20px 0; max-width: 350px; }
@@ -167,5 +167,26 @@ html, body {
         .product-card h4 { margin: 10px 0 5px 0; font-size: 1em; }
         .product-card .price-comparison { font-size: 0.8em; color: #777; margin: 0; }
         .product-card .product-price { font-weight: bold; margin: 10px 0; }
-        .product-card select { width: 100%; margin: 10px 0; padding: 5px; border-radius: 4px; }
-        .product-card button { width: 100%; padding: 8px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .product-card select { width: 100%;
+            margin: 10px 0;
+            padding: 5px;
+            font-weight:600;
+            border-radius: 4px; 
+            color:#0b0494;}
+       .product-card button {
+      margin-top: 8px;
+      padding: 6px 12px;
+      width: 100%;
+      border: none;
+      background: #ecf5ff;
+      font-weight:700;
+      color: #0056b3;
+      border-radius: 6px;
+      border:1px solid #005bbdf4;
+      cursor: pointer;
+    }
+
+    .product-card button:hover {
+      background: #1e50f7f4;;
+      color: white;
+    }  

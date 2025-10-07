@@ -185,7 +185,8 @@
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
                         <h4>${recProduct.name}</h4>
-                        <div class="product-amount">${recProduct.amount || ''}</div>
+                        <div class="product-amount">${recProduct.amount || ''} ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}</div>
+                       <div class="little_details">${recProduct.little_details}</div>
                         <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
                         <button data-product-id="${recProduct.id}">Add to Cart</button>
                     </a>
