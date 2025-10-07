@@ -218,7 +218,7 @@ a {
     }
     @media (max-width: 345px){
         .panel {
-            padding: 0 5px;
+            padding: 0 0px;
             gap: 4px;
         }
     }
@@ -237,6 +237,7 @@ a {
         display:inline;
     }
     @media (max-width: 330px) {
+
     .hamburger-text { display: none; }
     }
     /* Sidebar */
