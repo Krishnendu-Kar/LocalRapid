@@ -52,7 +52,7 @@
             </div>
         </main>
         <footer>
-            
+
         </footer>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -177,7 +177,7 @@
 
                 // Check if originalPrice exists, is greater than 0, and is not the same as the sale price
                 if (recProduct.originalPrice && recProduct.originalPrice > 0 && recProduct.originalPrice !== recProduct.price) {
-                    originalPriceDisplay = `<span style="color:grey; text-decoration:line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
+                    originalPriceDisplay = `<span style="color:red; text-decoration:2px line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
                 }
                 
                 // 2. Build the card's HTML, now using the conditional variable
@@ -185,7 +185,7 @@
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
                         <h4>${recProduct.name}</h4>
-                        <div class="little_details" style="font-size: 13px;">${recProduct.amount || ''}</div>
+                        <div class="product-amount">${recProduct.amount || ''}</div>
                         <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
                         <button data-product-id="${recProduct.id}">Add to Cart</button>
                     </a>
