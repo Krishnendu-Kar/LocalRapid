@@ -1,5 +1,5 @@
 
-
+sunrisemasaladetail=" Made from select ingredients. Sunrise Pure has been trusted for preparing traditional recipes in home, Providing consistency in taste and its uncompromising standard of quality. With 100 years of expertise. It is Only excellence that We wish to offer."
 const products = [
           
     //--------------SNACKS-Cheaps------ 
@@ -19,7 +19,7 @@ const products = [
         sub_category: "chips",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
     {
@@ -37,7 +37,7 @@ const products = [
     sub_category: "chips",
     image: "",
     little_details: "",
-    details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+    details: "",
     quantity: 1
     },
     
@@ -56,7 +56,7 @@ const products = [
         sub_category: "chips",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
     {
@@ -112,9 +112,9 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "noodle",
-        image: "",
+        image: "product images/yipee.webp",
         little_details: "2 Minutes ",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
     {
@@ -131,7 +131,7 @@ const products = [
         sub_category: "noodle",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
     {
@@ -149,7 +149,7 @@ const products = [
         sub_category: "noodle",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
     {
@@ -167,7 +167,25 @@ const products = [
         sub_category: "noodle",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
+        quantity: 1
+    },
+    {
+        id: 12006,
+        name: "Jamuna long chow",
+        price: '',
+        originalPrice: 0,
+        delivery_time: "20 min",
+        message: "",
+        amount: "",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "snacks",
+        sub_category: "noodle",
+        image: "",
+        little_details: "chinese style",
+        details: "",
         quantity: 1
     },
     
@@ -188,7 +206,7 @@ const products = [
         sub_category: "chira",
         image: "",
         little_details: "",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
     },
 
@@ -196,12 +214,12 @@ const products = [
 
     {
     id: 11010,
-        name: "Chocolate Cake",
+        name: "desire Chocolate Cake",
         price: 5,
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "16.80g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -209,7 +227,7 @@ const products = [
         sub_category: "cake",
         image: "",
         little_details: "Chocolate cake filled with chocolate cream - Desire",
-        details: "Wheel detergent powder gives powerful cleaning with fragrance.",
+        details: "",
         quantity: 1
 },
 
@@ -343,7 +361,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "detergent power",
-        image: "",
+        image: "product images/wheel.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -408,25 +426,25 @@ const products = [
         category: "soapSampooDiterjent",
         sub_category: "soap",
         image: "",
-        little_details: "",
+        little_details: "power of 100 lemons",
         details: "",
         quantity: 1
 },
 {
     id: 72004,
-        name: "godrej no.1 sandal turmeric",
+        name: "godrej no.1 sandal turmeric soap",
         price: 10,
         originalPrice: 10,
         delivery_time: "20 min",
         message: "",
-        amount: "0.23/g",
+        amount: "43g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
         image: "",
-        little_details: "",
+        little_details: "since 1922 made from 100% vegetable oils",
         details: "",
         quantity: 1
 },
@@ -444,13 +462,13 @@ const products = [
         category: "soapSampooDiterjent",
         sub_category: "soap",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "beauty bathing cream bar",
+        details: "Dove beauty bahing bar cares for your skin giving 24hr nourishment. Its formula is different, it does not dry your skin like ordinary soap | 1/4 moisturising cream | has plant-based cleansers^ | pH balanced formula",
         quantity: 1
 },
 {
     id: 72006,
-        name: "dettol original",
+        name: "dettol original soap",
         price: 10,
         originalPrice: 10,
         delivery_time: "20 min",
@@ -461,9 +479,9 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
-        little_details: "",
-        details: "",
+        image: "product images/dettol.png",
+        little_details: "protection 99.99% illness causing germs^",
+        details: "IMA recommended soap ",
         quantity: 1
 },
 {
@@ -479,14 +497,14 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
-        little_details: "",
-        details: "",
+        image: "product images/margo.png",
+        little_details: "vitamin e | moisturisers",
+        details: "Margo skin, Clear Skin | ^100% Neem oil Extracted from the original neem Is used in this toilet soap.",
         quantity: 1
 },
 {
     id: 72008,
-        name: "vivel aloe vera",
+        name: "vivel aloe vera + vitamin E",
         price: 10,
         originalPrice: 10,
         delivery_time: "20 min",
@@ -517,7 +535,7 @@ const products = [
         sub_category: "soap",
         image: "",
         little_details: "100% stronger skin protection",
-        details: "",
+        details: "Tested for dermatological saftey and found safe to human skin.",
         quantity: 1
 },
 {
@@ -534,7 +552,7 @@ const products = [
         category: "soapSampooDiterjent",
         sub_category: "soap",
         image: "",
-        little_details: "",
+        little_details: "soft fresh skin",
         details: "",
         quantity: 1
 },
@@ -576,7 +594,7 @@ const products = [
 },
 {
     id: 72013,
-        name: "lux unit glow +",
+        name: "lux Ultimate Glow +",
         price: 10,
         originalPrice: 10,
         delivery_time: "20 min",
@@ -587,7 +605,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/lux.png",
         little_details: "jasmine vitamine c+E",
         details: "",
         quantity: 1
@@ -605,9 +623,9 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/savlon.png",
         little_details: "glycerin soft skin",
-        details: "",
+        details: "Protects from 99.9% germs | Bathing bar",
         quantity: 1
 },
 {
@@ -692,7 +710,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "",
+        image: "product images/sunshilkBlack.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -746,7 +764,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "",
+        image: "product images/doveSampoo.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -796,15 +814,15 @@ const products = [
         originalPrice: 10,
         delivery_time: "20 min",
         message: "",
-        amount: "35ml+10ml free (32.03g)",
+        amount: "25ml+10ml free (32.03g)",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "oil",
         sub_category: "hair oil",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "100% pure coconut oil",
+        details: " ",
         quantity: 1
 },
 
@@ -822,8 +840,8 @@ const products = [
         category: "oil",
         sub_category: "hair oil",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "nihar naturals coconut hair oil with jasmine & methi seed extract",
+        details: "Ingredients: Mineral oil(81% v/v), Coconut oil(18%v/v), Fragrance,BHT,Jasmine Extract, Vitamin E acetate, Methi extract | Type 3 Hair oil.",
         quantity: 1
 },
 
@@ -851,8 +869,8 @@ const products = [
         category: "oil",
         sub_category: "body oil",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "For soft,Smooth,Glowing & Healthy Skin",
+        details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
 },
 {
@@ -869,8 +887,8 @@ const products = [
         category: "oil",
         sub_category: "body oil",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "For soft,Smooth,Glowing & Healthy Skin",
+        details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
 },
 
@@ -888,13 +906,13 @@ const products = [
         message: "",
         amount: "750g",
         thumbnail1: "",
-        thumbnail2: "",
+        thumbnail2: "product images/refinedOil1lback.jpg",
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "",
-        little_details: "",
-        details: "",
+        image: "product images/refinedOil1lfront.jpg",
+        little_details: "Made from imported soyabean oil | Free from argemone oil",
+        details: "Ingredients: Refined soyabean oil & permitted antioxidants (INS 319 & INS 330), Vitamin A,E & D ",
         quantity: 1
 },
 {
@@ -906,13 +924,13 @@ const products = [
         message: "",
         amount: "375g",
         thumbnail1: "",
-        thumbnail2: "",
+        thumbnail2: "product images/refinedOil500back.jpg",
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "",
-        little_details: "",
-        details: "",
+        image: "product images/refinedOil500front.jpg",
+        little_details: "Made from imported soyabean oil | Free from argemone oil",
+        details: "Ingredients: Refined soyabean oil & permitted antioxidants (INS 319 & INS 330), Vitamin A,E & D ",
         quantity: 1
 },
 {
@@ -1041,19 +1059,19 @@ const products = [
 },
 {
     id: 91005,
-        name: "happy happy biscuit",
+        name: "happy happy biscuit parle",
         price: 5,
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "27g + 4.5g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "biscuit",
         sub_category: "little packs",
         image: "",
-        little_details: "",
+        little_details: "choco-Chip cookies",
         details: "",
         quantity: 1
 },
@@ -1089,7 +1107,7 @@ const products = [
 
 {
     id: 92001,
-        name: "Golden marie-Raja",
+        name: "Raja Golden marie",
         price: 35,
         originalPrice: 35,
         delivery_time: "20 min",
@@ -1126,18 +1144,18 @@ const products = [
 {
     id: 92003,
         name: "doodh marie nobel",
-        price: 25,
-        originalPrice: 25,
+        price: 30,
+        originalPrice: 30,
         delivery_time: "20 min",
         message: "",
-        amount: "210g",
+        amount: "200g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
         image: "",
-        little_details: "",
+        little_details: "healthier crunchier",
         details: "",
         quantity: 1
 },
@@ -1155,8 +1173,8 @@ const products = [
         category: "biscuit",
         sub_category: "big packs",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "little sweet little salty",
+        details: "Allergen Declaration: Contains Wheat, Milk & Sulphite.",
         quantity: 1
 },
 {
@@ -1174,7 +1192,7 @@ const products = [
         sub_category: "big packs",
         image: "",
         little_details: "",
-        details: "",
+        details: " This biscuit contains wheat milk sulphite & Soya hypersensitive Ingredients.",
         quantity: 1
 },
 {
@@ -1191,13 +1209,13 @@ const products = [
         category: "biscuit",
         sub_category: "big packs",
         image: "",
-        little_details: "Taste your way around the world",
-        details: "",
+        little_details: "sugar free cracker honestly good biscuit",
+        details: "It eat sugar free, Zero trans fat, No added colours, Crispy Bite, Signature cream, Cracker taste, Melt in mouth experience with every bite.",
         quantity: 1
 },
 {
     id: 92007,
-        name: "the top bisk farm",
+        name: "the top bisk farm ",
         price: 30,
         originalPrice: 30,
         delivery_time: "20 min",
@@ -1209,13 +1227,64 @@ const products = [
         category: "biscuit",
         sub_category: "big packs",
         image: "",
-        little_details: "",
+        little_details: "the crisp crunch butter munch",
         details: "",
         quantity: 1
 },
-
-
-
+{
+    id: 92008,
+        name: "parle rusk",
+        price: 35,
+        originalPrice: 35,
+        delivery_time: "20 min",
+        message: "",
+        amount: "182g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "biscuit",
+        sub_category: "big packs",
+        image: "",
+        little_details: "real elaichi | premium rusk",
+        details: " Made from premium ingredients, Parle Rusk is crispy, Delicious and once you try it, Your tea-time Would be incomplete without it.",
+        quantity: 1
+},
+{
+    id: 92009,
+        name: "jadoo Anmol ",
+        price: 30,
+        originalPrice: 30,
+        delivery_time: "20 min",
+        message: "",
+        amount: "150g + 32g = 182g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "biscuit",
+        sub_category: "big packs",
+        image: "",
+        little_details: "spicy Masaledaar twist",
+        details: "2 Fresh packs inside",
+        quantity: 1
+},
+{
+    id: 92010,
+        name: "britannia 50 50 classic",
+        price: 40,
+        originalPrice: 40,
+        delivery_time: "20 min",
+        message: "",
+        amount: "200g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "biscuit",
+        sub_category: "big packs",
+        image: "",
+        little_details: "sweet and salty",
+        details: "Contains wheat and sulphite | Energy 63 kcal per 13g serve (approx. 4 biscuits) | 0% Trans fat",
+        quantity: 1
+},
 
 
 
@@ -1334,7 +1403,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "",
+        image: "product images/frooti.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -1368,7 +1437,7 @@ const products = [
         sub_category: "tea",
         image: "",
         little_details: "rich taste irresistible arroma",
-        details: "",
+        details: "15% Long Leaves | Gently Rolled",
         quantity: 1
 },
 {
@@ -1386,7 +1455,7 @@ const products = [
         sub_category: "tea",
         image: "",
         little_details: "popular strong CTC tea",
-        details: "",
+        details: "Specially packed for flavour & freshness",
         quantity: 1
 },
 // -------------Sauce------------------
@@ -1397,7 +1466,7 @@ const products = [
         originalPrice: 15,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "90g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1405,16 +1474,16 @@ const products = [
         sub_category: "sauce",
         image: "",
         little_details: "mostly loved by all",
-        details: "",
+        details: "Number of serves per pack - Min 5, Per Serve: 15g (1 Tbsp)",
         quantity: 1
 },
 {
-    id: 112001,
+    id: 112002,
         name: "soyabean sauce",
         price: 20,
         originalPrice: 20,
         delivery_time: "20 min",
-        message: "",
+        message: "Recommended",
         amount: "",
         thumbnail1: "",
         thumbnail2: "",
@@ -1423,13 +1492,13 @@ const products = [
         sub_category: "sauce",
         image: "",
         little_details: "value for money",
-        details: "",
+        details: "Ingredients: Soya beans,Water,Sea Salt,Mirin,Sweet Rice,Cultured Rice,Acidity Regular-260,Preservative-211",
         quantity: 1
 },
 // --------------Sattu-------------
 {
     id: 113001,
-        name: "chana sattu ganesh",
+        name: "chana sattu ganesh (ছোলার ছাতু)",
         price: 74,
         originalPrice: 89,
         delivery_time: "20 min",
@@ -1442,7 +1511,7 @@ const products = [
         sub_category: "sattu",
         image: "",
         little_details: "80% of daily protein intake",
-        details: "",
+        details: "Ganesh since 1936 | 100% Natural | Glutan Free | Preservatives & Chemical free | Mix 100gm Sattu in a glass of water or milk, Stir it well with sugar in water or milk, Your chilled sattu drink is ready in a minute. Ingredients: Roasted gram flour, No preservatives or additives used.",
         quantity: 1
 },
 //------------Honey----------------
@@ -1461,7 +1530,7 @@ const products = [
         sub_category: "honey",
         image: "",
         little_details: "world's NO.1 honey",
-        details: "",
+        details: "100% pure guaranteed by Dabur.",
         quantity: 1
 },
 //-----------------Simai------------
@@ -1483,6 +1552,24 @@ const products = [
         details: "",
         quantity: 1
 },
+{
+    id: 115002,
+        name: "simai vermicelli",
+        price: 20,
+        originalPrice: 20,
+        delivery_time: "20 min",
+        message: "",
+        amount: "200g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "dailyProduct",
+        sub_category: "simai",
+        image: "",
+        little_details: "payas, pulav, kheer",
+        details: "Rich in protein",
+        quantity: 1
+},
 // ---------------Soji------------
 {
     id: 116001,
@@ -1499,18 +1586,18 @@ const products = [
         sub_category: "soji",
         image: "",
         little_details: "use for dosa, puchka, upma, halwa",
-        details: "",
+        details: " No black particles | No dust particles | No preservatives additives used | Extra Danedar | Scientific process | Ingredients: Whole wheat | Specially made for Upma, Puchka, Rava idli, Rava dosa, and Halwa.",
         quantity: 1
 },
 // ------------Papad-----------
 {
     id: 117001,
-        name: "kohinoor papad",
+        name: "kohinoor bada papad",
         price: 32,
         originalPrice: 35,
         delivery_time: "20 min",
-        message: "",
-        amount: "200g ",
+        message: "out of stock",
+        amount: "",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1518,6 +1605,24 @@ const products = [
         sub_category: "papad",
         image: "",
         little_details: "bada papad",
+        details: "",
+        quantity: 1
+},
+{
+    id: 117002,
+        name: "Chota sized papad Anbhu appalam",
+        price: 30,
+        originalPrice: 35,
+        delivery_time: "20 min",
+        message: "",
+        amount: "75g ",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "dailyProduct",
+        sub_category: "papad",
+        image: "",
+        little_details: "chota papad",
         details: "",
         quantity: 1
 },
@@ -1556,7 +1661,7 @@ const products = [
         sub_category: "toothpaste",
         image: "",
         little_details: "10 clinically proven benefits",
-        details: "",
+        details: "Direction for use 2-3g twice daily or as directed by a Dentist | POTENT AYURVEDIC INGREDIENTS: Pudina Satva (Peppermint), Laung ka Tall (Syzyglum aromaticum), Shunti (Zingiber officinale), Tomar Beej (Zanthaxylum armatum), Karpura (Cinnamomum camphora), Gairic Powder",
         quantity: 1
 },
 
@@ -1574,8 +1679,8 @@ const products = [
         category: "dailyProduct",
         sub_category: "toothpaste",
         image: "",
-        little_details: "calcium boost with arginine",
-        details: "",
+        little_details: "calcium boost+ with arginine",
+        details: "Direction for use: Brush thoroughly, at least twice a day, or as directed by a dentist or physican • Children under 6 years of age should have adult supervision and use only a pea sized amount • Do not swallow.",
         quantity: 1
 },
 {
@@ -1593,7 +1698,7 @@ const products = [
         sub_category: "toothpaste",
         image: "",
         little_details: "anticavity toothpaste",
-        details: "",
+        details: "Ingredients: Calcium carbonate,Sorbitol,Water,Silica,Sodium lauryl sulphate, Flavor,Cl No:42090,Cellulose gum,Sodium Monofluorophosphate,Sodium Bicarbonate,Sodium silicate,Sodium Saccharin,Benzyl alcohol,Potassium nitrate,Eugenol,Limonene.",
         quantity: 1
 },
 {
@@ -1603,7 +1708,7 @@ const products = [
         originalPrice: 10,
         delivery_time: "20 min",
         message: "",
-        amount: "20g + 10g extra",
+        amount: "20g + 20g extra",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1611,7 +1716,7 @@ const products = [
         sub_category: "toothpaste",
         image: "",
         little_details: "non-Fluoridated toothpaste",
-        details: "",
+        details: "NATURALLY STRONG TEETH | HELPS FIGHT CAVITY | TIGHTENS GUMS | FRESH BREATH | Ingredients: Calcium carbonate,Sorbitol,Water,Silica,Sodium lauryl sulphate, Flavor containing Clove & mint oil,Cl No:77891,Babul(Acacia arabica)extract,Cellulose gum,Xanthan gum,Sodium silicate,Sodium Saccharin,Benzyl alcohol,Foaming,Non-Fluoridated Toothpaste",
         quantity: 1
 },
 {
@@ -1628,8 +1733,8 @@ const products = [
         category: "dailyProduct",
         sub_category: "toothpaste",
         image: "",
-        little_details: "18 hours fresh breath",
-        details: "",
+        little_details: "25% more value | 18 hours fresh breath",
+        details: " Usage Direction: For children under the age of six use a use a pea sized amount under adult supervision, Brush at least twice a day. Visit your dentist regularly. Do not swallow.",
         quantity: 1
 },
 
@@ -1649,6 +1754,24 @@ const products = [
         image: "",
         little_details: "healthy gums strong teeth",
         details: "",
+        quantity: 1
+},
+{
+    id: 119007,
+        name: "Colgate active salt toothpaste",
+        price: 20,
+        originalPrice: 20,
+        delivery_time: "20 min",
+        message: "New",
+        amount: "34g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "dailyProduct",
+        sub_category: "toothpaste",
+        image: "",
+        little_details: "Fights 99.9% germs",
+        details: "Sensitivity | Gum Problems | Cavity",
         quantity: 1
 },
 
@@ -1757,8 +1880,8 @@ const products = [
         category: "dailyProduct",
         sub_category: "scurb",
         image: "",
-        little_details: "3x more better regular green scurb pad",
-        details: "",
+        little_details: "5x more better regular scurb pad",
+        details: "Trusted by many peoples",
         quantity: 1
 },
 
@@ -1772,15 +1895,15 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "magic with iron & vitamin b9",
+        amount: "6g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
         image: "",
-        little_details: "",
-        details: "shdvsovshvdvs ihc s ic ih  i  i  d  is   s s  sid s ",
+        little_details: "magic with iron & vitamin b9",
+        details: "1 serve = 2g, Pack contains 3 serves | How to use? Cook any dish as you normally do & Sprinkle a sachet 2-3 minutes before taking it off the flame.",
         quantity: 1
 },
 {
@@ -1790,15 +1913,15 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "make cooking tasty",
+        amount: "7g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "make cooking tasty",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 
@@ -1809,15 +1932,15 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "made from selected ingredients",
+        amount: "5g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "Cumin powder standard grade",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 {
@@ -1827,7 +1950,7 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "make food super tasty",
+        amount: "7g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1835,17 +1958,17 @@ const products = [
         sub_category: "masala",
         image: "",
         little_details: "",
-        details: "",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 {
     id: 1112005,
         name: "kashmiri mirch powder sunrise",
-        price: 5,
-        originalPrice: 5,
+        price: 10,
+        originalPrice: 10,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "7g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1853,7 +1976,7 @@ const products = [
         sub_category: "masala",
         image: "",
         little_details: "",
-        details: "",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 {
@@ -1863,7 +1986,7 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "feels like netural",
+        amount: "10g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1871,7 +1994,7 @@ const products = [
         sub_category: "masala",
         image: "",
         little_details: "",
-        details: "",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 
@@ -1882,15 +2005,15 @@ const products = [
         originalPrice: 5,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "7g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "red chili",
+        details: sunrisemasaladetail,
         quantity: 1
 },
 {
@@ -1900,7 +2023,7 @@ const products = [
         originalPrice: 10,
         delivery_time: "20 min",
         message: "",
-        amount: "",
+        amount: "6g",
         thumbnail1: "",
         thumbnail2: "",
         thumbnail3: "",
@@ -1908,12 +2031,50 @@ const products = [
         sub_category: "masala",
         image: "",
         little_details: "black pepper",
-        details: "",
+        details: sunrisemasaladetail,
+        quantity: 1
+},
+//---------Coffee------
+{
+    id: 1113001,
+        name: "nescafe classic coffee",
+        price: 30,
+        originalPrice: 30,
+        delivery_time: "20 min",
+        message: "",
+        amount: "0.9g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "dailyProduct",
+        sub_category: "coffee",
+        image: "",
+        little_details: "for a short cup",
+        details: "Preparation: 1. Add 1 sachet NESCAFE 2. Add 90 ml of hot milk/water (Not boiling) 3.Add Sugar to taste | Ingredients: Coffee beans | 100% Pure coffee | Soluble coffe powder",
         quantity: 1
 },
 
 
 
+//---------salt------
+{
+    id: 1114001,
+        name: "Tata salt ",
+        price: 15,
+        originalPrice: 15,
+        delivery_time: "20 min",
+        message: "",
+        amount: "500g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "dailyProduct",
+        sub_category: "coffee",
+        image: "",
+        little_details: "iodine guarantee",
+        details: "Over 40 years of trust | Vacuum Evaporated Edible Common Salt | Helps mental Development | Iodine is required for normal growth, Thyroid and brain function. It is generally accepted That Iodine helps in mental development of children.",
+        quantity: 1
+},
 
 
 
@@ -1936,8 +2097,8 @@ const products = [
         category: "other",
         sub_category: "milk powder",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "Infant milk food | Infant milk substitute",
+        details: " The prepared feed should be used within Half an hour. Otherwise microbial deterioration of the product may set in. Make a fresh preparation for every feed. Discard leftover feed. | Amulspary comes from the house of Amul: The Taste of India ",
         quantity: 1
 },
 {
@@ -1954,8 +2115,8 @@ const products = [
         category: "other",
         sub_category: "milk powder",
         image: "",
-        little_details: "",
-        details: "",
+        little_details: "Infant milk food | Infant milk substitute",
+        details: " The prepared feed should be used within Half an hour. Otherwise microbial deterioration of the product may set in. Make a fresh preparation for every feed. Discard leftover feed. | Amulspary comes from the house of Amul: The Taste of India ",
         quantity: 1
 },
 
