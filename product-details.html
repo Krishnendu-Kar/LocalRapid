@@ -184,10 +184,10 @@
                 const cardHTML = `
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
-                        <div class="div-delivery_time">
-                    ${recProduct.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
-                    </div>
                         <h4>${recProduct.name}</h4>
+                        <div class="div-delivery_time">
+                        ${recProduct.delivery_time ? `<p class="delivery_time" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
+                        </div>
                         <div class="product-amount">${recProduct.amount || ''} ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}</div>
                        <div class="little_details">${recProduct.little_details}</div>
                         <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
