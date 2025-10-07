@@ -345,7 +345,7 @@ a {
     white-space: nowrap;
     color: red;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 800;
+    font-weight: 700;
     animation: scrollText 24s linear infinite; /* Increased time for smoother scroll */
 }
 
