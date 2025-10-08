@@ -157,8 +157,7 @@ html, body {
 }
 
 #main-image {
-    width: 300px;
-    height: 300px;
+    height: 350px;
     border-radius: 10px;
     object-fit: cover;
     transition-property: all;

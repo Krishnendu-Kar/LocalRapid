@@ -1473,7 +1473,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "tea",
-        image: "",
+        image: "product images/daily products/tata gold tea.jpg",
         little_details: "rich taste irresistible arroma",
         details: "15% Long Leaves | Gently Rolled",
         quantity: 1
@@ -1510,7 +1510,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "sauce",
-        image: "",
+        image: "product images/daily products/kissan ketchup.jpg",
         little_details: "mostly loved by all",
         details: "Number of serves per pack - Min 5, Per Serve: 15g (1 Tbsp)",
         quantity: 1
@@ -1622,7 +1622,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "soji",
-        image: "",
+        image: "product images/daily products/hindusthan sooji.jpg",
         little_details: "use for dosa, puchka, upma, halwa",
         details: " No black particles | No dust particles | No preservatives additives used | Extra Danedar | Scientific process | Ingredients: Whole wheat | Specially made for Upma, Puchka, Rava idli, Rava dosa, and Halwa.",
         quantity: 1
@@ -1917,7 +1917,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "scurb",
-        image: "",
+        image: "product images/daily products/unique scurb.jpg",
         little_details: "5x more better regular scurb pad",
         details: "Trusted by many peoples",
         quantity: 1
@@ -1939,7 +1939,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/maggi masala.jpg",
         little_details: "magic with iron & vitamin b9",
         details: "1 serve = 2g, Pack contains 3 serves | How to use? Cook any dish as you normally do & Sprinkle a sachet 2-3 minutes before taking it off the flame.",
         quantity: 1
@@ -1957,7 +1957,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/meat masala.jpg",
         little_details: "make cooking tasty",
         details: sunrisemasaladetail,
         quantity: 1
@@ -1976,7 +1976,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/cumin jeera powder.jpg",
         little_details: "Cumin powder standard grade",
         details: sunrisemasaladetail,
         quantity: 1
@@ -1994,7 +1994,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/chow mix.jpg",
         little_details: "",
         details: sunrisemasaladetail,
         quantity: 1
@@ -2012,7 +2012,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/kashmiri mirch.jpg",
         little_details: "",
         details: sunrisemasaladetail,
         quantity: 1
@@ -2030,7 +2030,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/dhania powder.jpg",
         little_details: "",
         details: sunrisemasaladetail,
         quantity: 1
@@ -2049,7 +2049,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/lal mirch.jpg",
         little_details: "red chili",
         details: sunrisemasaladetail,
         quantity: 1
@@ -2067,7 +2067,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "masala",
-        image: "",
+        image: "product images/daily products/kali mirch.jpg",
         little_details: "black pepper",
         details: sunrisemasaladetail,
         quantity: 1
