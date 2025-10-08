@@ -94,7 +94,7 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "noodle",
-        image: "product images/maggi.png",
+        image: "product images/Snack/maggi.png",
         little_details: "2 Minutes ",
         details: "Ready in 2 minutes",
         quantity: 1
@@ -112,7 +112,7 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "noodle",
-        image: "product images/yipee.webp",
+        image: "product images/Snack/yipee.webp",
         little_details: "2 Minutes ",
         details: "",
         quantity: 1
@@ -315,8 +315,8 @@ const products = [
 {
     id: 71003,
         name: "comfort lily fresh",
-        price: 10,
-        originalPrice: 10,
+        price: 4,
+        originalPrice: 4,
         delivery_time: "20 min",
         message: "",
         amount: "18ml",
@@ -325,7 +325,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "fragrance wash",
-        image: "",
+        image: "product images/detergent/comfortPink.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -333,8 +333,8 @@ const products = [
 {
     id: 71004,
         name: "comfort morning fresh",
-        price: 10,
-        originalPrice: 10,
+        price: 4,
+        originalPrice: 4,
         delivery_time: "20 min",
         message: "",
         amount: "18ml",
@@ -343,7 +343,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "fragrance wash",
-        image: "",
+        image: "product images/detergent/comfortBlue.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -361,7 +361,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "detergent power",
-        image: "product images/wheel.png",
+        image: "product images/detergent/wheel.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -443,7 +443,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/soap/godrejno1.png",
         little_details: "since 1922 made from 100% vegetable oils",
         details: "",
         quantity: 1
@@ -461,7 +461,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "product images/dove cream bar.png",
+        image: "product images/soap/dove cream bar.png",
         little_details: "beauty bathing cream bar",
         details: "Dove beauty bahing bar cares for your skin giving 24hr nourishment. Its formula is different, it does not dry your skin like ordinary soap | 1/4 moisturising cream | has plant-based cleansers^ | pH balanced formula",
         quantity: 1
@@ -479,7 +479,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "product images/dettol.png",
+        image: "product images/soap/dettol.png",
         little_details: "protection 99.99% illness causing germs^",
         details: "IMA recommended soap ",
         quantity: 1
@@ -497,7 +497,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "product images/margo.png",
+        image: "product images/soap/margo.png",
         little_details: "vitamin e | moisturisers",
         details: "Margo skin, Clear Skin | ^100% Neem oil Extracted from the original neem Is used in this toilet soap.",
         quantity: 1
@@ -587,9 +587,9 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/soap/cinthol black.jpg",
         little_details: "intense deo frangrance",
-        details: "",
+        details: "99.9% Germ protection",
         quantity: 1
 },
 {
@@ -605,7 +605,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "product images/lux.png",
+        image: "product images/soap/lux.png",
         little_details: "jasmine vitamine c+E",
         details: "",
         quantity: 1
@@ -623,7 +623,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "product images/savlon.png",
+        image: "product images/soap/savlon.png",
         little_details: "glycerin soft skin",
         details: "Protects from 99.9% germs | Bathing bar",
         quantity: 1
@@ -646,7 +646,24 @@ const products = [
         details: "",
         quantity: 1
 },
-
+{
+    id: 72016,
+        name: "Bati soap",
+        price: 24,
+        originalPrice: 24,
+        delivery_time: "20 min",
+        message: "",
+        amount: "44g",
+        thumbnail1: "",
+        thumbnail2: "product images/soap/battsoap.jpg",
+        thumbnail3: "",
+        category: "soapSampooDiterjent",
+        sub_category: "soap",
+        image: "product images/soap/baatsoap.jpg",
+        little_details: "12 hour deo fresh",
+        details: "",
+        quantity: 1
+},
 
 
 
@@ -710,7 +727,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "product images/sunshilkBlack.jpg",
+        image: "product images/sampoo/sunshilkBlack.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -728,7 +745,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "",
+        image: "product images/sampoo/clinicplusEgg.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -746,7 +763,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "",
+        image: "product images/sampoo/clinicPlusMilk.jpg",
         little_details: "",
         details: "",
         quantity: 1
@@ -764,12 +781,33 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "shampoo",
-        image: "product images/doveSampoo.png",
+        image: "product images/sampoo/doveSampoo.png",
         little_details: "",
         details: "",
         quantity: 1
 },
 
+
+
+//---------------conditioner----------------
+{
+    id: 74001,
+        name: "dove hair fall rescue conditioner",
+        price: 4,
+        originalPrice: 4,
+        delivery_time: "20 min",
+        message: "",
+        amount: "6ml",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "soapSampooDiterjent",
+        sub_category: "conditioner",
+        image: "product images/sampoo/doveConditioner.jpg",
+        little_details: "",
+        details: "",
+        quantity: 1
+},
 
 
 
@@ -820,7 +858,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "hair oil",
-        image: "product images/anmol gold coconut oil dabour.png",
+        image: "product images/oil/anmol gold coconut oil dabour.png",
         little_details: "100% pure coconut oil",
         details: " ",
         quantity: 1
@@ -839,7 +877,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "hair oil",
-        image: "product images/nihar coconut oil naturals.png",
+        image: "product images/oil/nihar coconut oil naturals.png",
         little_details: "nihar naturals coconut hair oil with jasmine & methi seed extract",
         details: "Ingredients: Mineral oil(81% v/v), Coconut oil(18%v/v), Fragrance,BHT,Jasmine Extract, Vitamin E acetate, Methi extract | Type 3 Hair oil.",
         quantity: 1
@@ -868,7 +906,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "body oil",
-        image: "product images/body oil jac olivol100ml.png",
+        image: "product images/oil/body oil jac olivol100ml.png",
         little_details: "For soft,Smooth,Glowing & Healthy Skin",
         details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
@@ -886,7 +924,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "body oil",
-        image: "product images/body oil jac olivol200ml.png",
+        image: "product images/oil/body oil jac olivol200ml.png",
         little_details: "For soft,Smooth,Glowing & Healthy Skin",
         details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
@@ -906,11 +944,11 @@ const products = [
         message: "",
         amount: "750g",
         thumbnail1: "",
-        thumbnail2: "product images/refinedOil1lback.jpg",
+        thumbnail2: "",
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "product images/refinedOil1lfront.jpg",
+        image: "product images/oil/refinedOil1lfront.jpg",
         little_details: "Made from imported soyabean oil | Free from argemone oil",
         details: "Ingredients: Refined soyabean oil & permitted antioxidants (INS 319 & INS 330), Vitamin A,E & D ",
         quantity: 1
@@ -924,11 +962,11 @@ const products = [
         message: "",
         amount: "375g",
         thumbnail1: "",
-        thumbnail2: "product images/refinedOil500back.jpg",
+        thumbnail2: "",
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "product images/refinedOil500front.jpg",
+        image: "product images/oil/refinedOil500front.jpg",
         little_details: "Made from imported soyabean oil | Free from argemone oil",
         details: "Ingredients: Refined soyabean oil & permitted antioxidants (INS 319 & INS 330), Vitamin A,E & D ",
         quantity: 1
@@ -946,7 +984,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "product images/mustardOil500front.png",
+        image: "product images/oil/mustardOil500front.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -964,7 +1002,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "product images/mustardOil1lfront.png",
+        image: "product images/oil/mustardOil1lfront.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -1403,7 +1441,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "product images/frooti.png",
+        image: "product images/cold drink/frooti.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -1490,7 +1528,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "sauce",
-        image: "",
+        image: "product images/daily products/soyabean sauce.png",
         little_details: "value for money",
         details: "Ingredients: Soya beans,Water,Sea Salt,Mirin,Sweet Rice,Cultured Rice,Acidity Regular-260,Preservative-211",
         quantity: 1
@@ -1659,7 +1697,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "toothpaste",
-        image: "",
+        image: "product images/daily products/dabur red toothpaste.png",
         little_details: "10 clinically proven benefits",
         details: "Direction for use 2-3g twice daily or as directed by a Dentist | POTENT AYURVEDIC INGREDIENTS: Pudina Satva (Peppermint), Laung ka Tall (Syzyglum aromaticum), Shunti (Zingiber officinale), Tomar Beej (Zanthaxylum armatum), Karpura (Cinnamomum camphora), Gairic Powder",
         quantity: 1
@@ -2070,7 +2108,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "coffee",
-        image: "",
+        image: "product images/daily products/tata salt.jpg",
         little_details: "iodine guarantee",
         details: "Over 40 years of trust | Vacuum Evaporated Edible Common Salt | Helps mental Development | Iodine is required for normal growth, Thyroid and brain function. It is generally accepted That Iodine helps in mental development of children.",
         quantity: 1
