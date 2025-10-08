@@ -67,7 +67,10 @@ html, body {
   from { transform: rotateZ(1980deg) scale(0.6); }
   to   { transform: rotateZ(0deg) scale(1.2); }
 }
-
+header{
+    position:fixed;
+    z-index: 99;
+}
 .navbar{
     height: 54px;
     width: 100%;
@@ -366,6 +369,7 @@ a {
     background-size:cover;
     height: 600px;
     width: 100vw;
+    margin-top: 54px;
     display:flex;
     position:relative;
     flex-direction: row;

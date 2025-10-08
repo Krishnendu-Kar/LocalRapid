@@ -40,14 +40,15 @@ function displayProducts(productArray, containerId, context = 'initial') {
             ? `₹${product.price}`
             : `₹${product.price} <del>₹${product.originalPrice}</del>`;
 
-        const discount = product.originalPrice - product.price;
-        const discountText = discount > 0 ? `₹${discount} off` : "Best Quality";
+        const discount = ((product.originalPrice - product.price)/ product.originalPrice)*100;
+        discountpercent= discount.toFixed(2);
+        const discountText = discountpercent > 0 ? `${discountpercent}% off` : "Best Quality";
         const discountHTML = `<span class="discount-percent">${discountText}</span>`;
         const productHTML = `
             <div class="product" onclick="window.location.href='product-details.html?id=${product.id}'">
                 <div class="image-wrapper">
                     <div class="image-discount">
-                        ${discount > 0 ? discountHTML : ''}
+                        ${discountpercent > 0 ? discountHTML : ''}
                         <img loading="lazy" src="${product.image}" alt="${product.name}">
                     </div>
                     <div>

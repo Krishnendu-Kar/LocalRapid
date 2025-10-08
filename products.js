@@ -147,7 +147,7 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "noodle",
-        image: "",
+        image: "product images/snack/royal chow.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -183,7 +183,7 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "noodle",
-        image: "",
+        image: "product images/snack/jamuna chow.JPG",
         little_details: "chinese style",
         details: "",
         quantity: 1
@@ -225,7 +225,7 @@ const products = [
         thumbnail3: "",
         category: "snacks",
         sub_category: "cake",
-        image: "",
+        image: "product images/snack/desire chocolate cake.JPG",
         little_details: "Chocolate cake filled with chocolate cream - Desire",
         details: "",
         quantity: 1
@@ -425,7 +425,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/soap/vim soap.JPG",
         little_details: "power of 100 lemons",
         details: "",
         quantity: 1
@@ -1108,7 +1108,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "little packs",
-        image: "",
+        image: "product images/biscuits/happy happy.JPG",
         little_details: "choco-Chip cookies",
         details: "",
         quantity: 1
@@ -1156,7 +1156,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/golden marie.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -1192,7 +1192,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/doodh marie.JPG",
         little_details: "healthier crunchier",
         details: "",
         quantity: 1
@@ -1210,7 +1210,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/anmol 2 in 1.JPG",
         little_details: "little sweet little salty",
         details: "Allergen Declaration: Contains Wheat, Milk & Sulphite.",
         quantity: 1
@@ -1228,7 +1228,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/raja cream cracker.JPG",
         little_details: "",
         details: " This biscuit contains wheat milk sulphite & Soya hypersensitive Ingredients.",
         quantity: 1
@@ -1264,7 +1264,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/the top.JPG",
         little_details: "the crisp crunch butter munch",
         details: "",
         quantity: 1
@@ -1282,7 +1282,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/parle rusk.JPG",
         little_details: "real elaichi | premium rusk",
         details: " Made from premium ingredients, Parle Rusk is crispy, Delicious and once you try it, Your tea-time Would be incomplete without it.",
         quantity: 1
@@ -1300,7 +1300,7 @@ const products = [
         thumbnail3: "",
         category: "biscuit",
         sub_category: "big packs",
-        image: "",
+        image: "product images/biscuits/jadoo.JPG",
         little_details: "spicy Masaledaar twist",
         details: "2 Fresh packs inside",
         quantity: 1
@@ -1347,7 +1347,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "",
+        image: "product images/cold drink/sprite 750.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -1366,7 +1366,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "",
+        image: "product images/cold drink/sprite 2L.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -1386,7 +1386,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "",
+        image: "product images/cold drink/thumps up 750.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -1404,7 +1404,7 @@ const products = [
         thumbnail3: "",
         category: "colddrink",
         sub_category: "cold drink",
-        image: "",
+        image: "product images/cold drink/thumps up 2l.JPG",
         little_details: "",
         details: "",
         quantity: 1
@@ -1571,10 +1571,10 @@ const products = [
         details: "100% pure guaranteed by Dabur.",
         quantity: 1
 },
-//-----------------Simai------------
+//-----------------semai------------
 {
     id: 115001,
-        name: "simai top",
+        name: "semai top",
         price: 20,
         originalPrice: 20,
         delivery_time: "20 min",
@@ -1584,7 +1584,7 @@ const products = [
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
-        sub_category: "simai",
+        sub_category: "semai",
         image: "",
         little_details: "payas & pulav both tasty",
         details: "",
@@ -1592,7 +1592,7 @@ const products = [
 },
 {
     id: 115002,
-        name: "simai vermicelli",
+        name: "semai vermicelli",
         price: 20,
         originalPrice: 20,
         delivery_time: "20 min",
@@ -1602,8 +1602,8 @@ const products = [
         thumbnail2: "",
         thumbnail3: "",
         category: "dailyProduct",
-        sub_category: "simai",
-        image: "",
+        sub_category: "semai",
+        image: "product images/daily products/vermicelli semai.JPG",
         little_details: "payas, pulav, kheer",
         details: "Rich in protein",
         quantity: 1
@@ -1668,8 +1668,8 @@ const products = [
 {
     id: 118001,
         name: "Aashirvaad atta",
-        price: 5,
-        originalPrice: 5,
+        price: 49,
+        originalPrice: 50,
         delivery_time: "20 min",
         message: "",
         amount: "1kg",
@@ -1770,7 +1770,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "toothpaste",
-        image: "",
+        image: "product images/daily products/closeup20.JPG",
         little_details: "25% more value | 18 hours fresh breath",
         details: " Usage Direction: For children under the age of six use a use a pea sized amount under adult supervision, Brush at least twice a day. Visit your dentist regularly. Do not swallow.",
         quantity: 1
@@ -1890,7 +1890,7 @@ const products = [
 //-------------Scurb---------------------
 {
     id: 1111001,
-        name: "shine no -1",
+        name: "shine no -1 scurb",
         price: 15,
         originalPrice: 15,
         delivery_time: "20 min",
@@ -2086,7 +2086,7 @@ const products = [
         thumbnail3: "",
         category: "dailyProduct",
         sub_category: "coffee",
-        image: "",
+        image: "product images/daily products/nescafe coffee.JPG",
         little_details: "for a short cup",
         details: "Preparation: 1. Add 1 sachet NESCAFE 2. Add 90 ml of hot milk/water (Not boiling) 3.Add Sugar to taste | Ingredients: Coffee beans | 100% Pure coffee | Soluble coffe powder",
         quantity: 1
@@ -2134,7 +2134,7 @@ const products = [
         thumbnail3: "",
         category: "other",
         sub_category: "milk powder",
-        image: "",
+        image: "product images/other/milk powder amul 100.JPG",
         little_details: "Infant milk food | Infant milk substitute",
         details: " The prepared feed should be used within Half an hour. Otherwise microbial deterioration of the product may set in. Make a fresh preparation for every feed. Discard leftover feed. | Amulspary comes from the house of Amul: The Taste of India ",
         quantity: 1
@@ -2152,7 +2152,7 @@ const products = [
         thumbnail3: "",
         category: "other",
         sub_category: "milk powder",
-        image: "",
+        image: "product images/other/milk powder amul 20.JPG",
         little_details: "Infant milk food | Infant milk substitute",
         details: " The prepared feed should be used within Half an hour. Otherwise microbial deterioration of the product may set in. Make a fresh preparation for every feed. Discard leftover feed. | Amulspary comes from the house of Amul: The Taste of India ",
         quantity: 1
