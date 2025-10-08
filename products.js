@@ -461,7 +461,7 @@ const products = [
         thumbnail3: "",
         category: "soapSampooDiterjent",
         sub_category: "soap",
-        image: "",
+        image: "product images/dove cream bar.png",
         little_details: "beauty bathing cream bar",
         details: "Dove beauty bahing bar cares for your skin giving 24hr nourishment. Its formula is different, it does not dry your skin like ordinary soap | 1/4 moisturising cream | has plant-based cleansers^ | pH balanced formula",
         quantity: 1
@@ -820,7 +820,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "hair oil",
-        image: "",
+        image: "product images/anmol gold coconut oil dabour.png",
         little_details: "100% pure coconut oil",
         details: " ",
         quantity: 1
@@ -839,7 +839,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "hair oil",
-        image: "",
+        image: "product images/nihar coconut oil naturals.png",
         little_details: "nihar naturals coconut hair oil with jasmine & methi seed extract",
         details: "Ingredients: Mineral oil(81% v/v), Coconut oil(18%v/v), Fragrance,BHT,Jasmine Extract, Vitamin E acetate, Methi extract | Type 3 Hair oil.",
         quantity: 1
@@ -868,7 +868,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "body oil",
-        image: "",
+        image: "product images/body oil jac olivol100ml.png",
         little_details: "For soft,Smooth,Glowing & Healthy Skin",
         details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
@@ -886,7 +886,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "body oil",
-        image: "",
+        image: "product images/body oil jac olivol200ml.png",
         little_details: "For soft,Smooth,Glowing & Healthy Skin",
         details: "With Italian Olive Oil | Ayurvedic proprietary medicine",
         quantity: 1
@@ -946,7 +946,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "",
+        image: "product images/mustardOil500front.png",
         little_details: "",
         details: "",
         quantity: 1
@@ -964,7 +964,7 @@ const products = [
         thumbnail3: "",
         category: "oil",
         sub_category: "food oil",
-        image: "",
+        image: "product images/mustardOil1lfront.png",
         little_details: "",
         details: "",
         quantity: 1
