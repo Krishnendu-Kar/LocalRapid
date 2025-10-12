@@ -111,7 +111,7 @@
                     <div class="product-card" data-product-id="${recProduct.id}">
                         <a href="?id=${recProduct.id}">
                             <img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy">
-                            <h4 class="product-price">${recProduct.name}</h4>
+                            <h4 class="product-price"><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
                         </a>
                         <p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p>
                         <select class="weight-selector-rec">
@@ -165,7 +165,7 @@
                 // --- All the main product display logic from before ---
                 const productInfoContainer = document.getElementById('product-info');
                 productInfoContainer.innerHTML = `
-                    <h1>${product.name}</h1>
+                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
              <!--   <p class="product-subcategory">${product.sub_category}</p> -->
                     <p class="price-comparison">Reference Rate: <b>₹${product.price_per_100gm} / 100gm</b></p>
                     <div class="calculator">

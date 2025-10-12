@@ -415,8 +415,8 @@ const products = [
 {
     id: 72003,
         name: "vim ",
-        price: 10,
-        originalPrice: 10,
+        price: 5,
+        originalPrice: 5,
         delivery_time: "20 min",
         message: "",
         amount: "60g + 10g free",

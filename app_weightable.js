@@ -27,7 +27,7 @@ function displayProducts(productArray, containerId) {
                     <img loading="lazy" src="${product.image}" alt="${product.name}">
                     ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time}</p>` : ''}
                 </div>
-                <h3>${product.name}</h3>
+                <h3><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
                 <p class="product-subcategory">${product.sub_category}</p>
                 </div>
                 

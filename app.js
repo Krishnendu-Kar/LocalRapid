@@ -55,7 +55,9 @@ function displayProducts(productArray, containerId, context = 'initial') {
                     ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''} ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
                     </div>                                                                                                
                 </div>
-                <h3>${product.name}</h3>
+               <h3>
+                <abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
+
                 <p class="product-subcategory">${product.sub_category}</P>
                 <p class="product-message">${product.amount} | ${product.little_details}</p>
                 <div class="product-lower">

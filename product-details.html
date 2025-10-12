@@ -73,7 +73,7 @@
                     : `₹${product.price} <del>₹${product.originalPrice}</del>`;
 
                 productInfoContainer.innerHTML = `
-                    <h1>${product.name}</h1>
+                <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
                     <p class="price">${priceHTML}</p>
                     ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''}
                     ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
@@ -184,7 +184,8 @@
                 const cardHTML = `
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
-                        <h4>${recProduct.name}</h4>
+                        
+                        <h4><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
                         <div class="div-delivery_time">
                         ${recProduct.delivery_time ? `<p class="delivery_time" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
                         </div>
