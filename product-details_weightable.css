@@ -163,7 +163,7 @@ html, body {
         }
         .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .product-card a { text-decoration: none; color: inherit; }
-        .product-card img { max-width: 100%; height: 150px; object-fit: cover; margin-bottom: 10px; }
+        .product-card img { max-width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px; }
         .product-card h4 { margin: 10px 0 5px 0; font-size: 1em; }
         .product-card .price-comparison { font-size: 0.8em; color: #777; margin: 0; }
         .product-card .product-price { font-weight: bold; margin: 10px 0; }

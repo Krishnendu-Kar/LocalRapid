@@ -395,7 +395,7 @@ del {
     .product-card img {
       width: 100%;
       height: 140px;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 10px;
       margin-bottom: 10px;
     }
