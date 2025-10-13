@@ -162,8 +162,8 @@
             const recommendations = products
                 .filter(p => p.category === currentProduct.category) 
                 .filter(p => p.id !== currentProduct.id)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 5);
+                .sort(() => 0.10 - Math.random())
+                .slice(0, 10);
 
             if (recommendations.length === 0) {
                 document.querySelector('.recommended-container').style.display = 'none';
