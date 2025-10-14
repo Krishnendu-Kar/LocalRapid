@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Replacement & Exchange Policy — LocaalRapid</title>
+   <link rel="shortcut icon" href="LocaalRapid.ico" type="image/x-icon">
+  <meta name="description" content="LocaalRapid Replacement & Exchange Policy — fast, fair and simple process for damaged, defective or wrong items." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent-1:#7c3aed; --accent-2:#06b6d4; --muted:#9aa4b2; --glass: rgba(255,255,255,0.04);
+      --container:1200px; --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.08), transparent), radial-gradient(900px 500px at 90% 90%, rgba(6,182,212,0.04), transparent), var(--bg); color:#e6eef6; -webkit-font-smoothing:antialiased;}
+    .wrap{max-width:var(--container);margin:40px auto;padding:28px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .title{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);box-shadow:0 6px 30px rgba(2,6,23,0.7);position:relative;overflow:hidden}
+    .badge{display:inline-block;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));padding:8px 14px;border-radius:999px;font-weight:600;color:white;font-size:13px}
+    h1{margin:18px 0 8px;font-size:28px;line-height:1.05}
+    p.lead{color:var(--muted);margin:0 0 18px}
+
+    /* Animated product mock */
+    .mock{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:18px;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02), 0 12px 40px rgba(2,6,23,0.7)}
+    .product {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #071024, #0a1830);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-whatsapp-logo {
+  width: 100px; /* logo size */
+  height: 100px;
+  background-image: url("whatsapp logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+/* optional hover effect */
+.contact-whatsapp-logo:hover {
+  transform: scale(1.1);
+}
+
+    .product::before{content:'';position:absolute;inset:0;background:conic-gradient(from 180deg at 50% 50%, transparent 20%);mix-blend-mode:overlay}
+    .box{width:70%;height:60%;border-radius:6px;background:linear-gradient(180deg,#062033,#08304d);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;transform:rotate(-6deg);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .stamp{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--muted)}
+    .float{position:absolute;right:-40px;bottom:-40px;width:140px;height:140px;border-radius:50%;background:linear-gradient(180deg,var(--accent-1),transparent);opacity:0.08;filter:blur(12px);animation:float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);min-height:110px}
+    .card h3{margin:0 0 8px}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* Policy content */
+    .content{margin-top:24px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:22px;border-radius:12px}
+    .section{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .text{padding-right:6px}
+    .panel{background:var(--glass);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+
+    h2{margin:12px 0;font-size:18px}
+    ul{margin:8px 0 18px;padding-left:20px;color:var(--muted)}
+    ol{margin:8px 0 18px;padding-left:20px;color:var(--muted)}
+
+    /* timeline */
+    .timeline{margin-top:14px}
+    .step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 4px 12px rgba(12,8,30,0.6)}
+    .step p{margin:0;color:var(--muted)}
+
+    /* FAQ accordion */
+    .faq{margin-top:18px}
+    .faq-item{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:10px;margin-bottom:10px;overflow:hidden}
+    .faq-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;cursor:pointer}
+    .faq-head h4{margin:0}
+    .faq-body{max-height:0;overflow:hidden;padding:0 16px;transition:max-height .38s cubic-bezier(.2,.9,.2,1)}
+    .faq-body.open{max-height:400px;padding-bottom:12px}
+    .cta{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;font-weight:700;border:none;cursor:pointer}
+
+    /* small */
+    .muted-2{color:#a8b3c0;font-size:13px}
+    a.link{color:var(--accent-2);text-decoration:none;font-weight:600}
+    footer{margin-top:28px;color:var(--muted);text-align:center;font-size:13px}
+
+    /* responsive */
+    @media (max-width:1000px){.hero{grid-template-columns:1fr} .section{grid-template-columns:1fr} .grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){.grid{grid-template-columns:1fr} .wrap{margin:18px;padding:16px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="title">
+        <span class="badge">Policy • LocaalRapid</span>
+        <h1>Replacement & Exchange Policy</h1>
+        <p class="lead">Fast — Fair — Friendly. If an item arrives damaged, defective, wrong, or incomplete, choose a replacement of the same item or an exchange for a product of equal value.</p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>What this covers</h3>
+            <p class="muted">Damaged items, wrong deliveries, and missing parts. Not for buyer-changed-mind returns.</p>
+          </div>
+          <div class="card">
+            <h3>How long you have</h3>
+            <p class="muted">Report within <strong>48 hours</strong> from delivery with photos or video. We’ll respond within 1-2 business days.</p>
+          </div>
+          <div class="card">
+            <h3>Processing time</h3>
+            <p class="muted">After verification, replacements/exchanges are dispatched within <strong>3–5 business days</strong> (may vary by seller/location).</p>
+          </div>
+        </div>
+
+      </div>
+
+    <aside class="mock panel" aria-hidden="true">
+  <div class="product" role="img" aria-label="animated product box" onclick="openWhatsApp()">
+    <div class="contact-whatsapp-logo" ></div>
+  </div>
+  <small class="muted-2" style="margin-top:12px">
+    Click on the WhatsApp logo → You will be redirected our coustomer support whatsapp chat → Fill in all fields → Snap a photo of the damaged or wrong product → Write what you want (Replacement or Exchange) → Send us → We shall contact you soon
+  </small>
+</aside>
+
+<script>
+function openWhatsApp() {
+  // Show alert before redirecting
+  alert("You will be redirected to WhatsApp. Please fill in your complaint details on WhatsApp.");
+
+  // WhatsApp number (with country code)
+  const number = "917797445647"; // India code 91 + phone
+
+  // Pre-filled message template
+  const message = encodeURIComponent(
+    "Your Complaint: \nProduct Name: \nOrder ID*: \nIssue Details: \nWhat you want (Replacement or Exchange): \n[✓] I have attached the photo of the damaged or wrong product."
+  );
+
+  // Open WhatsApp link in a new tab
+  window.open(`https://wa.me/${number}?text=${message}`, "_blank");
+}
+</script>
+
+
+
+    <div class="content">
+      <div class="section">
+        <div class="text">
+          <h2>Quick Steps to Request a Replacement or Exchange</h2>
+          <div class="timeline">
+            <div class="step"><div class="dot"></div><div><strong>Step 1 — Report:</strong> Contact us within <strong>48 hours</strong> of delivery with order number, brief description and at least one photo or short video showing the issue through <a style="color:rgb(34, 223, 34);text-decoration:none;" id="whatsappLink">WhatsApp</a>.</div></div>
+            <div class="step"><div class="dot"></div><div><strong>Step 2 — Verification:</strong> Our team reviews the evidence and may request additional pictures or a short inspection note from the delivery partner.</div></div>
+            <div class="step"><div class="dot"></div><div><strong>Step 3 — Confirm:</strong> Once verified, you’ll receive an email/SMS/message with options: <em>Replacement (same item)</em> or <em>Exchange (item of equal value)</em>. Choose your preferred option.</div></div>
+            <div class="step"><div class="dot"></div><div><strong>Step 4 — Pickup & Dispatch:</strong> If a pickup is required, schedule it in the WhatsApp chat. Replacement or exchanged item is dispatched after receiving or confirming the return.</div></div>
+            <div class="step"><div class="dot"></div><div><strong>Step 5 — Tracking:</strong> We’ll share tracking information. Delivery times depend on shop & courier availability.</div></div>
+          </div>
+          <script>
+  const number = "917797445647"; // with country code
+  const message = encodeURIComponent(
+    "Your Complaint: \nProduct Name: \nOrder ID*: \nIssue Details: \nWhat you want (Replacement or Exchange): \n[✓] I have attached the photo of the damaged or wrong product."
+  );
+
+  // Build the full WhatsApp URL
+  const whatsappURL = `https://wa.me/${number}?text=${message}`;
+
+  // Assign it to the <a> element
+  document.getElementById("whatsappLink").setAttribute("href", whatsappURL);
+
+  // Optional: show alert when clicked
+  document.getElementById("whatsappLink").addEventListener("click", function() {
+    alert("You will be redirected to WhatsApp. Please fill in your complaint details on WhatsApp.");
+  });
+</script>
+          <h2>Eligibility & Requirements</h2>
+          <ul>
+            <li>The issue must be reported within <strong>48 hours</strong> of delivery acceptance.</li>
+            <li>Provide clear photos or video showing damage, defect, or wrong item.</li>
+            <li>Items must be returned in original packaging (when possible) with accessories and manuals.</li>
+            <li>Products that show signs of misuse, alteration, or physical damage after delivery may be declined.</li>
+            <li>Certain categories (staples) might have special rules. See <strong>Exceptions</strong> below.</li>
+          </ul>
+
+          <h2>Exceptions & Special Cases</h2>
+          <p class="muted">Some items require additional steps or cannot be exchanged due to hygiene or safety rules. Examples:</p>
+          <ul>
+            <li>Staples — Only eligible if delivered spoiled or damaged and reported immediately.</li>
+           </ul>
+
+          <div class="faq">
+            <div class="faq-item">
+              <div class="faq-head" data-target="f1"><h4>Can I exchange for a higher value item?</h4><div class="muted-2">+</div></div>
+              <div class="faq-body" id="f1"><p class="muted">Yes — you can request a higher-value exchange. The price difference must be paid by the customer at checkout. Our support team will provide a secure payment link.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-head" data-target="f2"><h4>What if my replacement is out of stock?</h4><div class="muted-2">+</div></div>
+              <div class="faq-body" id="f2"><p class="muted">If the same item is not available, you can choose an exchange of equal value or request a full refund. We’ll prioritize a timely resolution.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-head" data-target="f3"><h4>Do I pay for return shipping?</h4><div class="muted-2">+</div></div>
+              <div class="faq-body" id="f3"><p class="muted">As the return is due to our error (damaged/defective/wrong item), return shipping is free.</p></div>
+            </div>
+          </div>
+
+        </div>
+
+        <aside>
+          <div class="panel">
+            <h3>Contact Support</h3>
+            <p class="muted">We’re here to help 7 days a week. Use the details below. If you have any questions about our <a class="link" href="Replacement and Exchange Policy.html">Replacement and Exchange Policy</a>, please contact us <a class="link" href="about_us.html">here</a>.</p>
+            <p class="muted-2"><strong>Support Email:</strong> <a class="link" href="mailto:karkabita740@gmail.com">karkabita740@gmail.com</a></p>
+            <p class="muted-2"><strong>Phone:</strong> <a class="link" href="tel:+917797445647">+91 77974 45647</a></p>
+            <div style="margin-top:12px;display:flex;gap:8px;">
+              <button class="cta" onclick="copyNumber()">Copy Support Number</button>
+              <button class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);" onclick="copyEmail()">Copy Support Email</button>
+            </div>
+            <p style="margin-top:12px;color:var(--muted);font-size:13px">Order ID and photos speed up the process.</p>
+          </div>
+
+          <div class="panel" style="margin-top:12px">
+            <h3>Policy Highlights</h3>
+            <ul style="color:var(--muted);padding-left:18px;margin:8px 0">
+              <li>Report within <strong>48 hours</strong></li>
+              <li>Verification within <strong>36 business hours</strong></li>
+              <li>Replacement/Exchange processed within <strong>3–5 business days</strong></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <p>Last updated: <strong>October 15, 2025</strong> • For detailed terms see our <a class="link" href="terms and condition.html">Terms & Conditions</a>.</p>
+      </footer>
+    </div>
+
+  </div>
+
+  <script>
+    // Accordion
+    document.querySelectorAll('.faq-head').forEach(h=>{
+      h.addEventListener('click',()=>{
+        const id = h.getAttribute('data-target');
+        const body = document.getElementById(id);
+        const open = body.classList.contains('open');
+        document.querySelectorAll('.faq-body').forEach(b=>b.classList.remove('open'));
+        if(!open) body.classList.add('open');
+      });
+    });
+
+    function copyNumber(){
+      navigator.clipboard && navigator.clipboard.writeText('+917797445647').then(()=>{
+        alert('Support number copied to clipboard.');
+      }).catch(()=>{alert('+917797445647');});
+    }
+    function copyEmail(){
+      navigator.clipboard && navigator.clipboard.writeText('karkabita740@gmail.com').then(()=>{
+        alert('Support email copied to clipboard.');
+      }).catch(()=>{alert('karkabita740@gmail.com');});
+    }
+  </script>
+</body>
+</html>

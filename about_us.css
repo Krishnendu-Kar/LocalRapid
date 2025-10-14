@@ -188,4 +188,10 @@
   }
 
   /* small responsive tweaks */
- 
+ a{
+  text-decoration:none;
+  color:#006eff;
+ }
+ .copy-right{
+  margin-top:10px;
+ }

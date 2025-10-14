@@ -197,7 +197,7 @@ html, body {
 
 /* Force at least 2 products per row on mobiles */
 .product:hover{
-    box-shadow: 0 3px 8px #ffcc54bc;
+    box-shadow: 0 4px 8px #1a0360bc;
 }
 .product {
     background-color: rgb(255, 253, 248);
@@ -247,6 +247,49 @@ html, body {
         background-color:hwb(0 100% 0%);
     border:1px solid #dedddd;
     }
+}
+.product-timer {
+    font-size: 0.8rem;
+    color: #333;
+    margin: 8px;
+    text-align: center;
+    font-weight: 500;
+    display:inline-block;
+animation: vibrateCycle 10s infinite;
+animation-delay:6s;
+}
+@keyframes vibrateCycle {
+  /* 🕒 0%–12%: slightly longer, faster vibration */
+  0%, 2%, 4%, 6%, 8%, 10%, 12% {
+    transform: translate(0);
+  }
+  1% { transform: translate(-3px, 2px); }
+  3% { transform: translate(3px, -2px); }
+  5% { transform: translate(-2px, -3px); }
+  7% { transform: translate(2px, 3px); }
+  9% { transform: translate(-3px, 1px); }
+  11% { transform: translate(3px, -1px); }
+
+  /* 💤 12%–100%: rest period */
+  12%, 100% {
+    transform: translate(0);
+  }
+}
+
+.product-timer strong {
+    color: #f80f0f; /* A reddish color */
+    letter-spacing: 1px;
+    background-color:#f9f0f7;
+    border:1px solid #f3c1e9;
+    border-radius:10px;
+    padding:2px;
+}
+
+/* Style for the disabled "Add to Cart" button */
+.product-lower .add-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    border-color: #ccc;
 }
 .message{
     font-size:11px;
@@ -319,8 +362,10 @@ del{
 } 
 .product-subcategory{
     text-transform:capitalize;
+    padding-left:10px;
     font-weight:550;
     color:#b28573;
+    display:inline-block;
 }
 .product-message{
     text-transform:capitalize;

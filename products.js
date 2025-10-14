@@ -236,9 +236,65 @@ const products = [
 
 
 
-
-
-
+//-----------Best-Deal--------
+{
+    id: 21001,
+    name: "sprite 750ml",
+    price: 35,
+    originalPrice: 40,
+    delivery_time: "20 min",
+    message: "new arrival",
+    // Set the expiration date and time for the offer
+    timer: "2025-10-16T08:39:59", 
+    amount: "750ml",
+    thumbnail1: "",
+    thumbnail2: "",
+    thumbnail3: "",
+    category: "bestdeal", // This product will have a timer
+    sub_category: "cold drink",
+    image: "product images/cold drink/sprite 750.JPG",
+    little_details: "super cold",
+    details: "",
+    quantity: 1
+},
+{
+    id: 21002,
+        name: "amulspray",
+        price: 45,
+        originalPrice: 48,
+        delivery_time: "20 min",
+        message: "",
+        timer: "2025-10-15T10:06:59", 
+        amount: "100g",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "bestdeal",
+        sub_category: "milk powder",
+        image: "product images/other/milk powder amul 100.JPG",
+        little_details: "Infant milk food | Infant milk substitute",
+        details: " The prepared feed should be used within Half an hour. Otherwise microbial deterioration of the product may set in. Make a fresh preparation for every feed. Discard leftover feed. | Amulspary comes from the house of Amul: The Taste of India ",
+        quantity: 1
+},
+{
+    id: 21003,
+        name: "soyabean sauce",
+        price: 18,
+        originalPrice: 20,
+        delivery_time: "20 min",
+        message: "Recommended",
+        timer: "2025-10-14T22:47:35", 
+        amount: "jjgx",
+        thumbnail1: "",
+        thumbnail2: "",
+        thumbnail3: "",
+        category: "bestdeal",
+        sub_category: "sauce",
+        image: "product images/daily products/soyabean sauce.png",
+        little_details: "value for money",
+        details: "Ingredients: Soya beans,Water,Sea Salt,Mirin,Sweet Rice,Cultured Rice,Acidity Regular-260, Preservative-211",
+        quantity: 1
+},
 
 
 
@@ -1340,7 +1396,7 @@ const products = [
         price: 40,
         originalPrice: 40,
         delivery_time: "20 min",
-        message: "",
+        message: "", 
         amount: "750ml",
         thumbnail1: "",
         thumbnail2: "",

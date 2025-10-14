@@ -1,4 +1,5 @@
 // ====== PRODUCT DISPLAY FUNCTION ======
+// ====== PRODUCT DISPLAY FUNCTION ======
 function displayProducts(productArray, containerId, context = 'initial') {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -7,11 +8,8 @@ function displayProducts(productArray, containerId, context = 'initial') {
     }
     container.innerHTML = '';
 
-    // *** THIS IS THE CORRECTED LOGIC ***
     if (productArray.length === 0) {
-        // Check the context to decide which message to show
         if (context === 'search') {
-            // If the context is 'search', show the "Not Found" message
             container.innerHTML = `
                 <div class="not-found-container">
                     <i class="fa-solid fa-box-open not-found-icon"></i>
@@ -20,7 +18,6 @@ function displayProducts(productArray, containerId, context = 'initial') {
                 </div>
             `;
         } else {
-            // Otherwise (for empty category pages), show the original "COMING SOON" message
             container.innerHTML = `
                 <div class="container">
                     <div class="come-soon">
@@ -31,19 +28,37 @@ function displayProducts(productArray, containerId, context = 'initial') {
                 </div>
             `;
         }
-        return; // Stop the function here
+        return;
     }
-    // *** END OF CORRECTION ***
+
+    // Array to keep track of timers we need to start
+    const timersToInitialize = [];
 
     productArray.forEach((product) => {
         const priceHTML = (product.price === product.originalPrice || !product.originalPrice)
             ? `₹${product.price}`
             : `₹${product.price} <del>₹${product.originalPrice}</del>`;
 
-        const discount = ((product.originalPrice - product.price)/ product.originalPrice)*100;
-        discountpercent= discount.toFixed(2);
+        const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
+        const discountpercent = discount.toFixed(2);
         const discountText = discountpercent > 0 ? `${discountpercent}% off` : "Best Quality";
         const discountHTML = `<span class="discount-percent">${discountText}</span>`;
+
+        // === MODIFICATION START: Timer HTML ===
+        // Create a placeholder for the timer if the product has a timer value, regardless of category
+        let timerHTML = '';
+        if (product.timer) { // <-- The condition is changed here!
+            // Give the timer element a unique ID based on the product ID
+            timerHTML = `<div class="product-timer" id="timer-${product.id}"></div>`;
+            // Add this product's info to our list of timers to start later
+            timersToInitialize.push({ 
+                timerId: `timer-${product.id}`, 
+                btnId: `add-btn-${product.id}`, 
+                endTime: product.timer 
+            });
+        }
+        // === MODIFICATION END ===
+
         const productHTML = `
             <div class="product" onclick="window.location.href='product-details.html?id=${product.id}'">
                 <div class="image-wrapper">
@@ -52,31 +67,85 @@ function displayProducts(productArray, containerId, context = 'initial') {
                         <img loading="lazy" src="${product.image}" alt="${product.name}">
                     </div>
                     <div>
-                    ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''} ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
-                    </div>                                                                                                
+                        ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''} 
+                        ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
+                    </div>                                                      
                 </div>
-               <h3>
-                <abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
-
-                <p class="product-subcategory">${product.sub_category}</P>
+                <h3><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
+                <p class="product-subcategory">${product.sub_category}${timerHTML}</p>
                 <p class="product-message">${product.amount} | ${product.little_details}</p>
                 <div class="product-lower">
+                    
                     <p class="product-price">${priceHTML}</p>
-                    <button class="add-btn">Add to Cart</button>
+                    <button class="add-btn" id="add-btn-${product.id}">Add to Cart</button>
                 </div>
             </div>
         `;
         container.innerHTML += productHTML;
     });
 
-    container.querySelectorAll(".add-btn").forEach((btn, index) => {
+    // === MODIFICATION START: Activate Timers ===
+    // After all products are on the page, start the countdowns
+    timersToInitialize.forEach(timerInfo => {
+        startCountdown(timerInfo.timerId, timerInfo.btnId, timerInfo.endTime);
+    });
+    // === MODIFICATION END ===
+
+    container.querySelectorAll(".add-btn").forEach((btn) => {
         btn.addEventListener("click", function(e) {
             e.stopPropagation();
-            const product = productArray[index];
-            addToCart(product);
+            // Find the product ID from the button's ID
+            const productId = parseInt(btn.id.split('-')[2]);
+            const product = productArray.find(p => p.id === productId);
+            if (product) {
+                addToCart(product);
+            }
         });
     });
 }
+
+
+// ====== COUNTDOWN TIMER FUNCTION ======
+function startCountdown(timerElementId, addBtnId, endTimeString) {
+    const timerElement = document.getElementById(timerElementId);
+    const addBtn = document.getElementById(addBtnId);
+    const endTime = new Date(endTimeString).getTime();
+
+    if (!timerElement || !addBtn) return;
+
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        // If the countdown is over
+        if (distance < 0) {
+            clearInterval(interval);
+            timerElement.innerHTML = "Offer Expired!";
+            timerElement.style.color = "red";
+            addBtn.disabled = true;
+            addBtn.innerText = "Closed";
+            return;
+        }
+
+        // Time calculations for days, hours, minutes, and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Add leading zeros if number is less than 10
+        const fDays = String(days).padStart(2, '0');
+        const fHours = String(hours).padStart(2, '0');
+        const fMinutes = String(minutes).padStart(2, '0');
+        const fSeconds = String(seconds).padStart(2, '0');
+
+        // Display the result
+        timerElement.innerHTML = `<strong><i class="fa-solid fa-bomb"></i> ${fDays}d ${fHours}:${fMinutes}:${fSeconds}</strong>`;
+
+
+    }, 1000);
+}
+
 
 // ====== CART MANAGEMENT ======
 function getCart() {
@@ -91,7 +160,7 @@ function updateCartCount() {
     const cart = getCart();
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
     const cartAmountElement = document.querySelector(".cart-amount");
-    if(cartAmountElement) {
+    if (cartAmountElement) {
         cartAmountElement.textContent = count;
     }
 }

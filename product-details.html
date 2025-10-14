@@ -9,16 +9,23 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <link rel="stylesheet" href="product-detail.css">
         <script src="products.js"></script>
-    </head>
+
+        <style>
+            
+            .add-cart.disabled, .product-card button.disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+                opacity: 0.7;
+            }
+        </style>
+        </head>
     <body>
         <header>
-            <div class="navbar">
+             <div class="navbar">
                 <div class="nav-logo border" onclick="window.location.href='index.html'">
                     <div class="logo-name">LocaalRapid</div>
                     <div class="logo" load="lazy"></div>
                 </div>
-                
-                
                 <div class="cart border" onclick="window.location.href='cart.html'">
                     <span class="cart-amount">0</span>
                     <div class="cart-icon">
@@ -32,11 +39,9 @@
                 <div class="product">
                     <div class="product-gallery">
                         <img id="main-image" src="" alt="Product Image">
-                        <div class="thumbnail-container">
-                            </div>
+                        <div class="thumbnail-container"></div>
                     </div>
-                    <div class="product-info" id="product-info">
-                        </div>
+                    <div class="product-info" id="product-info"></div>
                 </div>
             </div>
 
@@ -46,26 +51,19 @@
                 </a>
             </div>
             <div class="recommended-container">
-                <div class="recommended-title">Recommended for You</div>
-                <div class="product-scroll">
-                    </div>
+                <div class="recommended-title">You may also like</div>
+                <div class="product-scroll"></div>
             </div>
         </main>
-        <footer>
-
-        </footer>
+        <footer></footer>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-
-            // --- 1. GET PRODUCT FROM URL (No changes here) ---
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get("id"));
             const product = products.find(p => p.id === productId);
 
-            // --- 2. POPULATE PAGE WITH PRODUCT DATA (No changes here) ---
             if (product) {
-                // ... (all the code to display the main product's info and images stays the same) ...
-                document.title = `${product.name} - PickRapid`;
+                document.title = `${product.name} - LocaalRapid`;
 
                 const productInfoContainer = document.getElementById('product-info');
                 const priceHTML = (product.price === product.originalPrice || !product.originalPrice)
@@ -73,8 +71,9 @@
                     : `₹${product.price} <del>₹${product.originalPrice}</del>`;
 
                 productInfoContainer.innerHTML = `
-                <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
+                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
                     <p class="price">${priceHTML}</p>
+                    <div id="countdown-container"></div> 
                     ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''}
                     ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
                     <p class="product-subcategory">${product.sub_category || 'no sub category'}</p>
@@ -86,83 +85,96 @@
                     <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                 `;
 
-                productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
+                const addButton = productInfoContainer.querySelector('.add-cart');
+                addButton.addEventListener('click', () => {
                     addToCart(product);
                 });
 
+                // --- CHANGE: Updated call to the more versatile function ---
+                if (product.timer) {
+                    startCountdown(product.timer, addButton, 'countdown-container', 'countdown-timer');
+                }
+                
                 document.getElementById('main-image').src = product.image;
                 document.getElementById('main-image').alt = product.name;
-
                 const thumbnailContainer = document.querySelector('.thumbnail-container');
                 thumbnailContainer.innerHTML = `
                     <img class="thumbnail" src="${product.thumbnail1 || product.image}" alt="${product.name} thumbnail 1">
                     <img class="thumbnail" src="${product.thumbnail2 || product.image}" alt="${product.name} thumbnail 2">
                     <img class="thumbnail" src="${product.thumbnail3 || product.image}" alt="${product.name} thumbnail 3">
                 `;
-
                 document.querySelectorAll('.thumbnail').forEach(thumb => {
                     thumb.addEventListener('click', (e) => {
                         document.getElementById('main-image').src = e.target.src;
                     });
                 });
-
-                // --- 3. POPULATE RECOMMENDED PRODUCTS (This is where we change the call) ---
-                displayRecommendedProducts(product); // 👈 CHANGED: We now pass the whole product object
-                
+                displayRecommendedProducts(product);
             } else {
                 document.querySelector('.container').innerHTML = '<h1>Product not found!</h1><p><a href="index.html">Go back to shop</a></p>';
                 document.querySelector('.recommended-container').style.display = 'none';
             }
-
             updateCartCount();
         });
 
-
-        // ====== CART MANAGEMENT ======
-        function getCart() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-
+        // ====== CART MANAGEMENT (No changes) ======
+        function getCart() { return JSON.parse(localStorage.getItem("cart")) || []; }
+        function saveCart(cart) { localStorage.setItem("cart", JSON.stringify(cart)); }
         function updateCartCount() {
             const cart = getCart();
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const cartAmountElement = document.querySelector(".cart-amount");
-            if(cartAmountElement) {
-                cartAmountElement.textContent = count;
-            }
+            document.querySelector(".cart-amount").textContent = count;
         }
-
         function addToCart(product) {
             let cart = getCart();
             const index = cart.findIndex(item => item.id === product.id);
-
-            if (index !== -1) {
-                cart[index].quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-
+            if (index !== -1) { cart[index].quantity += 1; } 
+            else { cart.push({ ...product, quantity: 1 }); }
             saveCart(cart);
             updateCartCount();
             alert(`${product.name} added to cart!`);
         }
-
-        // Update cart count on every page load
         document.addEventListener("DOMContentLoaded", updateCartCount);
 
-        // --- RECOMMENDED PRODUCTS FUNCTION (This is where we change the logic) ---
-        function displayRecommendedProducts(currentProduct) {
+        // --- CHANGE START: Updated the countdown function to be more generic ---
+        function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
+            const countdownContainer = document.getElementById(timerContainerId);
+            if (!countdownContainer) return; 
+
+            const countDownDate = new Date(timerString).getTime();
+
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    countdownContainer.innerHTML = `
+                        <div class="${timerClass}">
+                           Deal Ends In: ${days}d ${hours}h ${minutes}m ${seconds}s
+                        </div>
+                    `;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownContainer.innerHTML = `<div class="${timerClass}">DEAL EXPIRED</div>`;
+                    buttonElement.disabled = true;
+                    buttonElement.textContent = 'Deal Expired';
+                    buttonElement.classList.add('disabled');
+                }
+            }, 1000);
+        }
+        // --- CHANGE END ---
+
+        // ====== RECOMMENDED PRODUCTS (Logic updated) ======
+function displayRecommendedProducts(currentProduct) {
             const recommendedContainer = document.querySelector('.product-scroll');
             recommendedContainer.innerHTML = '';
 
             const recommendations = products
-                .filter(p => p.category === currentProduct.category) 
-                .filter(p => p.id !== currentProduct.id)
-                .sort(() => 0.10 - Math.random())
+                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+                .sort(() => 0.5 - Math.random())
                 .slice(0, 10);
 
             if (recommendations.length === 0) {
@@ -171,41 +183,46 @@
             }
 
             recommendations.forEach(recProduct => {
-                // --- CHANGE START ---
-                // 1. Conditionally create the HTML for the original price
-                let originalPriceDisplay = ''; // Default to an empty string
-
-                // Check if originalPrice exists, is greater than 0, and is not the same as the sale price
+                let originalPriceDisplay = ''; 
                 if (recProduct.originalPrice && recProduct.originalPrice > 0 && recProduct.originalPrice !== recProduct.price) {
                     originalPriceDisplay = `<span style="color:red; text-decoration:2px line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
                 }
                 
-                // 2. Build the card's HTML, now using the conditional variable
+                // --- CHANGE IS HERE ---
                 const cardHTML = `
                     <a href="product-details.html?id=${recProduct.id}" class="product-card">
                         <img src="${recProduct.image}" alt="${recProduct.name}">
-                        
                         <h4><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
                         <div class="div-delivery_time">
-                        ${recProduct.delivery_time ? `<p class="delivery_time" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
+                           ${recProduct.delivery_time ? `<p class="delivery_time" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
                         </div>
-                        <div class="product-amount">${recProduct.amount || ''} ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}</div>
-                       <div class="little_details">${recProduct.little_details}</div>
+                        ${/* Conditionally add the timer div only if recProduct.timer exists */''}
+                        ${recProduct.timer ? `<div id="timer-${recProduct.id}"></div>` : ''}
+                         ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}
+                        <div class="product-amount">${recProduct.amount || ''}</div>
+                        <div class="little_details">${recProduct.little_details}</div>
                         <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
-                        <button data-product-id="${recProduct.id}">Add to Cart</button>
+                        <button data-product-id="${recProduct.id}" id="button-${recProduct.id}">Add to Cart</button>
                     </a>
                 `;
-                // --- CHANGE END ---
-
                 recommendedContainer.innerHTML += cardHTML;
             });
 
-            // Event listener logic remains the same
+            // This part remains the same, it will now only find timers that were actually created
+            recommendations.forEach(recProduct => {
+                if (recProduct.timer) {
+                    const recButton = document.getElementById(`button-${recProduct.id}`);
+                    const recTimerContainerId = `timer-${recProduct.id}`;
+                    if (recButton && recTimerContainerId) {
+                        startCountdown(recProduct.timer, recButton, recTimerContainerId, 'rec-countdown-timer');
+                    }
+                }
+            });
+
             recommendedContainer.querySelectorAll('.product-card button').forEach(button => {
                 button.addEventListener('click', function(event) {
                     event.preventDefault(); 
                     event.stopPropagation();
-
                     const productId = parseInt(this.dataset.productId);
                     const productToAdd = products.find(p => p.id === productId);
                     if (productToAdd) {
@@ -215,6 +232,5 @@
             });
         }
         </script>
-
     </body>
 </html>
