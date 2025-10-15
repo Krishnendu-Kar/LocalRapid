@@ -34,7 +34,15 @@
         <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
         <title>Cart- LocaalRapid Fast & Reliable E-commerce Shopping</title>
-        <style>a{
+        <style>
+        @media (min-width: 769px) and (max-width: 991px) {
+        .my-box {
+            width: 300px;
+             position: absolute;
+  right: 0;
+        }
+        }
+        a{
         color:#3683ff;
         text-decoration:none;
     }</style>
@@ -62,7 +70,164 @@
                     </h2>
                 </div>
             </div>
+            <div class="checkout-progress">
+                <div class="step active">
+                    <div class="circle">1</div>
+                    <p style="color:rgb(60, 109, 255);">Review</p>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="circle">2</div>
+                    <p>Checkout</p>
+                </div>
+            </div>
 
+                <div class="discount-banner">
+                <p>You will save <span class="currency">₹</span><span class="amount" id="you-save1">0</span> on this order</p>
+                </div>
+                <style>/* Progress bar */
+                .checkout-progress {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                margin: 20px auto;
+                position: relative;
+                }
+
+                .step {
+                text-align: center;
+                color: #aaa;
+                }
+
+                .step.active {
+                color: #000;
+                }
+
+                .circle {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                font-weight:600;
+                border: 2px solid #999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 5px;
+                font-weight: 600;
+                color: #999;
+                background: #fff;
+                }
+
+                .step.active .circle {
+                    border:4px solid;
+                border-color: rgb(20, 20, 241);
+                color: rgb(26, 26, 252);
+                }
+
+                .line {
+                flex-grow: 1;
+                height: 2px;
+                background: #ddd;
+                margin-top: -40px;
+                }
+
+                /* Discount banner */
+                .discount-banner {
+                    border-radius:9px;
+                text-align: center;
+                font-size: 1.2rem;
+                background: linear-gradient(-210deg, blue, red);
+                padding: 14px 0;
+                color: #333;
+                font-weight: 500;
+                position: relative;
+                overflow: hidden;
+                }
+                p{
+                    color:#ddd;
+                }
+                /* Wavy bottom */
+                .discount-banner::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 12px;
+                background: radial-gradient(circle at 10px -4px, transparent 12px, #1c2333 13px);
+                background-size: 24px 24px;
+                }
+
+                .currency, .discount-banner .amount{
+                font-weight: 700;
+                color: #ffd600;
+                font-size: 1.3rem;
+                }
+
+                  /* Text trigger */
+  
+  .info-text {
+    cursor: pointer;
+    margin-right: 15px;
+  }
+
+  /* Common overlay */
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(3px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  /* Popup content box */
+  .popup-box {
+    background: #fff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    text-align: left;
+    position: relative;
+    animation: fadeIn 0.25s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .popup-box h2 {
+    font-size: 22px;
+    margin-top: 0;
+  }
+
+  .popup-box p {
+    color: #5f6368;
+    margin: 8px 0;
+  }
+
+  .check {
+    color: #1a73e8;
+    margin-right: 8px;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #051b38;
+    cursor: pointer;
+  }
+                </style>
             <div id="cart-container">
                 </div>
 
@@ -73,10 +238,23 @@
                         <div class="col-md-8">
                             <h5>Total Items: <span id="total-items">0</span></h5>
                         </div>
-                        <div class="col-md-4 text-end">
+                        <div class="col-md-4 text-end my-box">
                             <h4>Listing price: ₹<span id="listing-price">0</span></h4>
-                            <h4 class="text-success">You save: ₹<span id="you-save">0</span></h4>
+                            <h4 class="text-success" >Discount: - ₹<span id="you-save2">0</span></h4>
                             <h4 id="delivery-charge-row" class="text-muted" style="display: none;"></h4>
+                            <h4><span id="platform-fee" style="cursor: pointer;"> Platform Fee <i style="color:#ffd900;;font-size:0.6em;" class="fa-solid fa-circle-info"></i>: <span style="color:orangered;">Free</span></span></h4>
+
+
+<!-- Popup 2 -->
+<div class="popup-overlay" id="popup2">
+  <div class="popup-box">
+    <button class="close-btn" id="close2">X</button>
+    <h2 style="color:#010445;">Platform Fee</h2>
+    <p>Fee levied by LocaalRapid to sustain the efficient operations and continuous improvement of the platform, for a hassle-free app experience.</p>
+    <p>Have a question? Contact us <a href="about_us.html">here</a>.</p>
+  </div>
+</div>
+
                             <h4>Total: ₹<span id="total-price">0</span></h4>
                             <button class="btn btn-success btn-lg w-100" id="checkout-btn">
                                 <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
@@ -193,8 +371,8 @@
                                         <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" loading="lazy" width="100" height="100" style="max-height: 100px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${detailPage}?id=${item.id}'">
                                     </div>
                                     <div class="col-md-4">
-                                        <h5 style="text-transform:capitalize;"><abbr style="text-decoration: none;cursor: pointer;" title="${item.name}">${item.name}</abbr></h5>
-                                        <p class="text-success mb-0">₹${price.toFixed(2)} (${item.amount})</p>
+                                        <h5 onclick="window.location.href='${detailPage}?id=${item.id}'" style="text-transform:capitalize;"><abbr style="text-decoration: none;cursor:context-menu;" title="${item.name}">${item.name}</abbr></h5>
+                                        <p class="text-success mb-0" style="color:red;">₹${price.toFixed(2)} (${item.amount})</p>
                                         ${price !== originalPrice
                                             ? `<p class="text-muted small mb-0"><del>₹${originalPrice.toFixed(2)}</del></p>`
                                             : ""}
@@ -224,48 +402,89 @@
                     `;
                 });
 
-                let finalTotalPrice = itemsSubtotal;
-                if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
-                    finalTotalPrice += deliveryCharge;
-                }
+               let finalTotalPrice = itemsSubtotal;
+if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
+    finalTotalPrice += deliveryCharge;
+}
 
-                let deliveryMessageHTML = '';
-                const amountNeeded = freeDeliveryThreshold - itemsSubtotal;
-                if (amountNeeded > 0) {
-                    deliveryMessageHTML = `
-                        <div class="alert alert-warning shadow-sm p-3 rounded">
-                        <details>
-                            <summary style="cursor:pointer; font-weight:600;">
-                            Add item(s) worth <span style="color:#d9534f;">₹${amountNeeded.toFixed(2)}</span> more for <b style="color:green;">FREE Delivery</b>
-                            </summary>
-                            <p style="margin-top:8px; font-size:14px; line-height:1.5; color:#333;">
-                            💡 Otherwise, <b>₹5 - ₹15</b> delivery charge may apply depending on your location.<br>
-                            For now, we are assuming <b style="color:#d9534f;">₹5</b> as delivery charge.  
-                            <i>(This may increase or decrease later. Final amount will be confirmed by shopkeeper after order placement.)</i>
-                            </p>
-                        </details>
-                        </div>
-                        `;
-                } else {
-                    deliveryMessageHTML = `
-                        <div class="alert alert-success">
-                            🎉 You have grabbed the free delivery offer!
-                        </div>`;
-                }
+let deliveryMessageHTML = '';
+const amountNeeded = freeDeliveryThreshold - itemsSubtotal;
 
-                cartContainer.innerHTML = cartHTML + deliveryMessageHTML;
+if (amountNeeded > 0) {
+    deliveryMessageHTML = `
+        <div class="alert alert-warning shadow-sm p-3 rounded" style="position:relative;">
+            <div id="free-delivery-info" style="cursor:pointer; font-weight:600;">
+                Add item(s) worth 
+                <span style="color:#d9534f;">₹${amountNeeded.toFixed(2)}</span> more for 
+                <b style="color:green;">FREE Delivery</b> 
+                <i style="color:blue;font-size:0.8em;" class="fa-solid fa-circle-info"></i>
+            </div>
+        </div>
 
-                const totalSave = totaloriginalPrice - itemsSubtotal;
-                
+        <!-- Popup for delivery info -->
+        <div class="popup-overlay" id="popup-delivery" 
+             style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3);
+                    backdrop-filter:blur(3px); justify-content:center; align-items:center;
+                    z-index:9999;">
+            <div class="popup-box"
+                 style="background:#fff; border-radius:16px; max-width:450px; width:90%; padding:20px 28px;
+                        box-shadow:0 4px 20px rgba(0,0,0,0.15); position:relative; animation:fadeIn 0.25s ease;">
+                <button id="close-delivery"
+                        style="position:absolute; top:10px; right:16px; background:none; border:none;
+                               color:black; cursor:pointer;">X</button>
+                <h5 style="margin-top:0; color:black">Delivery Charge Information</h5>
+                <p style="font-size:14px; line-height:1.6;">
+                    💡 Otherwise, <b>₹5 - ₹15</b> delivery charge may apply depending on your location.<br>
+                    For now, we are assuming <b style="color:#d9534f;">₹5</b> as delivery charge.<br>
+                    <i>(This may increase or decrease later. Final amount will be confirmed by the shopkeeper after order placement.)</i>
+                </p>
+            </div>
+        </div>
+
+        <style>
+          @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+          }
+        </style>
+    `;
+} else {
+    deliveryMessageHTML = `
+        <div class="alert alert-success shadow-sm p-3 rounded">
+            🎉 You have grabbed the free delivery offer!
+        </div>`;
+}
+
+// Append your cart + message
+cartContainer.innerHTML = cartHTML + deliveryMessageHTML;
+
+// Handle popup logic
+setTimeout(() => {
+    const infoTrigger = document.getElementById("free-delivery-info");
+    const popupDelivery = document.getElementById("popup-delivery");
+    const closeDelivery = document.getElementById("close-delivery");
+
+    if (infoTrigger && popupDelivery && closeDelivery) {
+        infoTrigger.onclick = () => popupDelivery.style.display = "flex";
+        closeDelivery.onclick = () => popupDelivery.style.display = "none";
+        popupDelivery.onclick = (e) => {
+            if (e.target === popupDelivery) popupDelivery.style.display = "none";
+        };
+    }
+}, 100);
+
+const totalSave = totaloriginalPrice - itemsSubtotal;
                 document.getElementById('total-items').textContent = totalItems;
                 document.getElementById('total-price').textContent = finalTotalPrice.toFixed(2);
 
                 const listingPriceElement = document.getElementById('listing-price').parentElement;
-                const youSaveElement = document.getElementById('you-save').parentElement;
+                const youSaveElement = document.getElementById('you-save1').parentElement;
+                const youSaveElement2 = document.getElementById('you-save2').parentElement;
 
                 if (totalSave > 0) {
                     document.getElementById('listing-price').textContent = totaloriginalPrice.toFixed(2);
-                    document.getElementById('you-save').textContent = totalSave.toFixed(2);
+                    document.getElementById('you-save1').textContent = totalSave.toFixed(2);
+                    document.getElementById('you-save2').textContent = totalSave.toFixed(2);
                     listingPriceElement.style.display = 'block';
                     youSaveElement.style.display = 'block';
                 } else {
@@ -274,34 +493,96 @@
                 }
 
                 let deliveryRow = document.getElementById('delivery-charge-row');
+
                 if (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) {
                     deliveryRow.style.display = 'block';
-                    deliveryRow.innerHTML = `Delivery Charge: <span>₹${deliveryCharge.toFixed(2)}</span>`;
+                    deliveryRow.innerHTML = `
+                        <span id="delivery-fee" class="info-text">
+                            Delivery Charge <i style="color:#ff8000;font-size:0.5em;" class="fa-solid fa-circle-info"></i> :₹<span>${deliveryCharge.toFixed(2)}</span>
+                        </span>
+
+                        <!-- Popup HTML -->
+                        <div id="deliveryPopup" class="popup-overlay">
+                            <div class="popup-box">
+                                <button class="close-btn" id="closeDeliveryPopup">X</button>
+                                <h2 style="color:#010445;">Why We Charge for Delivery</h2>
+                                <p style="font-size:14px; line-height:1.6;">
+                                    At <strong>LocaalRapid</strong>, a small delivery charge helps us maintain 
+                                    <strong>fast and secure <i style="color:brown;font-size:16px" class="fa-solid fa-truck-fast"></i> express deliveries</strong>, often completed 
+                                    <strong>within just a few minutes</strong>. This fee supports our commitment to 
+                                    <strong>timely service</strong>, <strong>trusted delivery agents</strong>, and 
+                                    <strong>safe handling</strong> of every package. Delivery times may occasionally vary 
+                                    depending on location and demand, but we always strive to bring your order 
+                                    <strong>quickly and safely right to your doorstep</strong>.
+                                    <br>Have a question? Contact us <a href="about_us.html">here</a>.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+
+                    // Popup functionality
+                    const popup = document.getElementById('deliveryPopup');
+                    const closeBtn = document.getElementById('closeDeliveryPopup');
+                    const deliveryFee = document.getElementById('delivery-fee');
+
+                    deliveryFee.addEventListener('click', () => {
+                        popup.style.display = 'flex';
+                    });
+
+                    closeBtn.addEventListener('click', () => {
+                        popup.style.display = 'none';
+                    });
+
+                    popup.addEventListener('click', (e) => {
+                        if (e.target === popup) popup.style.display = 'none';
+                    });
+
                 } else {
                     deliveryRow.style.display = 'none';
                 }
+
 
                 cartSummary.classList.remove('d-none');
             }
 
             function proceedToCheckout() {
-                const cart = getCart();
-                if (cart.length === 0) {
-                    alert('Your cart is empty!');
-                    return;
-                }
-
-                sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
-
-                let itemsSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                let finalTotalPrice = itemsSubtotal;
-                if (itemsSubtotal < 300 && itemsSubtotal > 0) {
-                    finalTotalPrice += 5; // Add delivery charge
-                }
-                sessionStorage.setItem('checkoutTotalPrice', finalTotalPrice.toFixed(2));
-
-                window.location.href = 'checkout.html';
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
             }
+
+            // --- KEY CHANGES START HERE ---
+
+            // 1. Recalculate all price components to ensure they are current
+            let itemsSubtotal = 0;
+            let totalOriginalPrice = 0;
+            cart.forEach(item => {
+                const price = Number(item.price) || 0;
+                const originalPrice = Number(item.originalPrice) || price;
+                itemsSubtotal += price * item.quantity;
+                totalOriginalPrice += originalPrice * item.quantity;
+            });
+
+            const totalSave = totalOriginalPrice - itemsSubtotal;
+            
+            const freeDeliveryThreshold = 300;
+            const deliveryCharge = (itemsSubtotal < freeDeliveryThreshold && itemsSubtotal > 0) ? 5 : 0;
+            
+            const finalTotalPrice = itemsSubtotal + deliveryCharge;
+
+            // 2. Save ALL price components to sessionStorage
+            sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
+            sessionStorage.setItem('checkoutSubtotal', itemsSubtotal.toFixed(2));
+            sessionStorage.setItem('checkoutListingPrice', totalOriginalPrice.toFixed(2));
+            sessionStorage.setItem('checkoutDiscount', totalSave.toFixed(2));
+            sessionStorage.setItem('checkoutDeliveryCharge', deliveryCharge.toFixed(2));
+            sessionStorage.setItem('checkoutTotalPrice', finalTotalPrice.toFixed(2)); // Still useful for initial display
+
+            // --- KEY CHANGES END HERE ---
+
+            window.location.href = 'checkout.html';
+        }
 
             document.addEventListener('DOMContentLoaded', function() {
                 loadCart();
@@ -313,6 +594,26 @@
                 cart.push(product);
                 localStorage.setItem("cart", JSON.stringify(cart));
             }
+
+
+// Elements for Popup 2
+const popup2 = document.getElementById("popup2");
+const show2 = document.getElementById("platform-fee");
+const close2 = document.getElementById("close2");
+
+// Check if elements exist before trying to use them (good practice!)
+if (popup2 && show2 && close2) {
+    // Open popup 2
+    show2.onclick = () => popup2.style.display = "flex";
+
+    // Close popup 2
+    close2.onclick = () => popup2.style.display = "none";
+
+    // Close popup 2 when clicking outside the box
+    window.onclick = (e) => {
+        if (e.target === popup2) popup2.style.display = "none";
+    };
+}
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>

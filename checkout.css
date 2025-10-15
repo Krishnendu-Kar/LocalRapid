@@ -33,7 +33,11 @@ body {
     padding: 20px;
 }
 
-.row {
+.row {display: flex;
+    flex-direction:row;
+     flex-wrap: wrap;
+      margin-right: -15px;
+       margin-left: -15px; 
     --bs-gutter-x: 2rem;
 }
 
@@ -67,10 +71,65 @@ body {
     transform: translateY(-2px);
 }
 
+/* Progress bar */
+.checkout-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px auto;
+    position: relative;
+}
 
+.step {
+    text-align: center;
+    color: #aaa;
+}
+
+.step.active {
+    color: #000;
+}
+
+.circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-weight:600;
+    border: 2px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 5px;
+    font-weight: 600;
+    color: #999;
+    background: #fff;
+}
+
+.step.active .circle {
+    border:4px solid;
+    border-color: rgb(20, 20, 241);
+    color: rgb(26, 26, 252);
+}
+
+.line {
+    
+    flex-grow: 0.5;
+    height: 3px;
+    background: rgb(2, 2, 228);
+    margin-top: -50px;
+}
+@media (max-width: 650px) {
+    .step {
+        width:40px;
+}
+    .line {
+    flex-grow: 2;
+    }
+}
 /* 4. Card Styling
 -------------------------------------------------- */
 .card {
+    width:85vw;
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--card-shadow);
@@ -168,10 +227,16 @@ textarea.form-control {
 
 /* 7. Order Summary Card
 -------------------------------------------------- */
+.col-lg-4{
+    width:100vw;
+}
 .sticky-top {
     top: 20px;
 }
-
+#checkout-cart-items{
+    font-weight:500;
+    text-transform:capitalize;
+}
 #checkout-cart-items .d-flex {
     padding: 8px 0;
     border-bottom: 1px solid #f0f0f0;
@@ -265,7 +330,94 @@ textarea.form-control {
         position: static;
     }
 }
+/* --- Styles for Multi-Address Feature --- */
 
+/* Radio button styling for address selection */
+.address-option {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+.address-option:hover {
+    background-color: #f8f9fa;
+    border-color: var(--primary-dark);
+}
+.address-option input[type="radio"]:checked + label {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+.address-option label {
+    width: 100%;
+    cursor: pointer;
+}
+.address-option-details {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: block;
+    margin-left: 2rem; /* Indent details */
+}
+
+/* Modal styles */
+.address-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1070;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.address-modal-content {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+.address-modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.address-modal-header h4 { margin-bottom: 0; }
+.address-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+.saved-address-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+.saved-address-item:last-child { border-bottom: none; }
+.saved-address-details p { margin-bottom: 0.25rem; }
+.saved-address-actions .btn { margin-left: 0.5rem; }
 /* --- Fallbacks and Bootstrap classes (if not using Bootstrap CSS) --- */
 /* These ensure basic layout works even without the full Bootstrap file */
 .text-center { text-align: center; }
@@ -305,9 +457,13 @@ textarea.form-control {
 .bg-light { background-color: #f8f9fa; }
 .rounded { border-radius: 0.375rem; }
 .border { border: 1px solid #dee2e6; }
-.row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+.row { display: flex;
+    flex-direction:row;
+     flex-wrap: wrap;
+      margin-right: -15px;
+       margin-left: -15px; }
 .col-lg-8 { flex: 0 0 auto; width: 66.66666667%; padding-right: 15px; padding-left: 15px; }
-.col-lg-4 { flex: 0 0 auto; width: 33.33333333%; padding-right: 15px; padding-left: 15px; }
+.col-lg-4 { flex: 0 0 auto; width: 80vw; padding-right: 15px; padding-left: 15px; }
 .col-md-6 { flex: 0 0 auto; width: 50%; padding-right: 15px; padding-left: 15px; }
 .col-md-4 { flex: 0 0 auto; width: 33.33333333%; padding-right: 15px; padding-left: 15px; }
 .container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; }
@@ -326,7 +482,7 @@ textarea.form-control {
 }
 
 @media (max-width: 991px) {
-    .col-lg-8, .col-lg-4 { width: 100%; }
+    .col-lg-8 { width: 100%; }
 }
 @media (max-width: 767px) {
     .col-md-6, .col-md-4 { width: 100%; }
