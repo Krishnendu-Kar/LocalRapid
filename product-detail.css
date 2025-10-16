@@ -244,7 +244,11 @@ del {
     color: red;
     margin-left: 10px;
 }
-
+.discount-percent{
+    color:#03be0f;
+    font-weight:650;
+    font-size:20px;
+}
 .countdown-container{
     display:inline-block;
     animation: shake-and-wait 6s linear infinite; 
@@ -323,6 +327,18 @@ del {
     display:flex;
 }
 .delivery_time{
+        position:relative;
+    left:1em;
+    font-size:15px;
+    background-color:#f4f4f0;
+    color:rgb(31, 1, 97);
+    display:inline-block;
+    margin:3px;
+    border-radius:8px;
+    padding:5px;
+    font-weight:bold;
+}
+.delivery_time-rec{
     position:relative;
     left:3px;
     font-size:12px;

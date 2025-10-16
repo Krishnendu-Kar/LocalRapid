@@ -65,17 +65,22 @@
             if (product) {
                 document.title = `${product.name} - LocaalRapid`;
 
+                const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
+                const discountpercent = discount.toFixed(2);
+                const discountText = discountpercent > 0 ? `${discountpercent}%` : "Best Quality";
+                const discountHTML = `<span class="discount-percent"><i class="fa-solid fa-arrow-down"></i> ${discountText}</span>`;
+
                 const productInfoContainer = document.getElementById('product-info');
                 const priceHTML = (product.price === product.originalPrice || !product.originalPrice)
                     ? `₹${product.price}`
-                    : `₹${product.price} <del>₹${product.originalPrice}</del>`;
+                    : `${discountpercent > 0 ? discountHTML : ''}<del>₹${product.originalPrice}</del> ₹${product.price}  `;
 
                 productInfoContainer.innerHTML = `
-                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
-                    <p class="price">${priceHTML}</p>
+                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name} </abbr>${product.message ? `<p class="message" style="font-size:0.3em;position:relative;top:-25px;"> ${product.message} </p>` : ''}</h1>
+                    <p class="price"> ${priceHTML}  </p>
                     <div id="countdown-container"></div> 
-                    ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''}
-                    ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
+                    ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="UPI" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
+                    
                     <p class="product-subcategory">${product.sub_category || 'no sub category'}</p>
                     <p class="product-message">${product.little_details || ''}</p>
                     <div class="product-details">
@@ -182,29 +187,34 @@ function displayRecommendedProducts(currentProduct) {
                 return;
             }
 
-            recommendations.forEach(recProduct => {
-                let originalPriceDisplay = ''; 
-                if (recProduct.originalPrice && recProduct.originalPrice > 0 && recProduct.originalPrice !== recProduct.price) {
-                    originalPriceDisplay = `<span style="color:red; text-decoration:2px line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
-                }
-                
-                // --- CHANGE IS HERE ---
-                const cardHTML = `
-                    <a href="product-details.html?id=${recProduct.id}" class="product-card">
-                        <img src="${recProduct.image}" alt="${recProduct.name}">
-                        <h4><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
-                        <div class="div-delivery_time">
-                           ${recProduct.delivery_time ? `<p class="delivery_time" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
-                        </div>
-                        ${/* Conditionally add the timer div only if recProduct.timer exists */''}
-                        ${recProduct.timer ? `<div id="timer-${recProduct.id}"></div>` : ''}
-                         ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}
-                        <div class="product-amount">${recProduct.amount || ''}</div>
-                        <div class="little_details">${recProduct.little_details}</div>
-                        <p>₹${recProduct.price} ${originalPriceDisplay}</p> 
-                        <button data-product-id="${recProduct.id}" id="button-${recProduct.id}">Add to Cart</button>
-                    </a>
-                `;
+           recommendations.forEach(recProduct => {
+    let originalPriceDisplay = '';
+    let discountDisplay = '';
+
+    // Only show original price and discount if originalPrice > 0 and different from current price
+    if (recProduct.originalPrice && recProduct.originalPrice > 0 && recProduct.originalPrice !== recProduct.price) {
+        originalPriceDisplay = `<span style="color:red; text-decoration:line-through; margin-left: 8px;">₹${recProduct.originalPrice}</span>`;
+        
+        const discount = ((recProduct.originalPrice - recProduct.price) / recProduct.originalPrice) * 100;
+        discountDisplay = `<span style="color:green; margin-left: 5px;"><i class="fa-solid fa-arrow-down"></i>${discount.toFixed(2)}%</span>`;
+    }
+
+    const cardHTML = `
+        <a href="product-details.html?id=${recProduct.id}" class="product-card">
+            <img src="${recProduct.image}" alt="${recProduct.name}">
+            <h4><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
+            <div class="div-delivery_time">
+               ${recProduct.delivery_time ? `<p class="delivery_time-rec" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${recProduct.delivery_time} </p>` : ''} 
+            </div>
+            ${recProduct.timer ? `<div id="timer-${recProduct.id}"></div>` : ''}
+            ${recProduct.message ? `<p class="message"> ${recProduct.message} </p>` : ''}
+            <div class="product-amount">${recProduct.amount || ''}</div>
+            <div class="little_details">${recProduct.little_details}</div>
+            <p>${discountDisplay}${originalPriceDisplay} ₹${recProduct.price}  </p> 
+            <button data-product-id="${recProduct.id}" id="button-${recProduct.id}">Add to Cart</button>
+        </a>
+    `;
+
                 recommendedContainer.innerHTML += cardHTML;
             });
 
