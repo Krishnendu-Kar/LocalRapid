@@ -76,7 +76,8 @@
                     : `${discountpercent > 0 ? discountHTML : ''}<del>₹${product.originalPrice}</del> ₹${product.price}  `;
 
                 productInfoContainer.innerHTML = `
-                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name} </abbr>${product.message ? `<p class="message" style="font-size:0.3em;position:relative;top:-25px;"> ${product.message} </p>` : ''}</h1>
+                    <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name} </abbr></h1>
+                    <p>${product.message ? `<p class="message" style="font-size:0.7em;position:relative;bottom:-10px;"> ${product.message} </p>` : ''}</p>
                     <p class="price"> ${priceHTML}  </p>
                     <div id="countdown-container"></div> 
                     ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="UPI" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
