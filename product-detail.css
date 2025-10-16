@@ -65,7 +65,12 @@ html, body {
     justify-content:center;}
 
 
-    .container { display: flex; flex-wrap: wrap;  gap: 30px; }
+    .container { display:
+         flex; flex-wrap: wrap;
+           /* gap: 30px; */
+           justify-content:center;
+        
+        }
    
     
 
@@ -249,6 +254,19 @@ del {
     font-weight:650;
     font-size:20px;
 }
+.tax{
+    font-size:0.6em;
+    position:relative;
+    top:-25px;
+}
+.product-location{
+    font-size:1em;
+    text-transform:capitalize;
+    position:relative;
+    font-weight:600;
+    color:rgb(3, 149, 8);
+    top:-25px;
+}
 .countdown-container{
     display:inline-block;
     animation: shake-and-wait 6s linear infinite; 
@@ -330,13 +348,36 @@ del {
         position:relative;
     left:1em;
     font-size:15px;
-    background-color:#f4f4f0;
-    color:rgb(31, 1, 97);
+    background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);
+    border-right:1px solid rgb(255, 135, 135);
+    border-left:1px solid rgb(255, 135, 135);
+    color:#ff6600;
     display:inline-block;
     margin:3px;
     border-radius:8px;
     padding:5px;
     font-weight:bold;
+    animation:color-side 0.9s ease-in 0.14s infinite alternate-reverse;
+}
+@keyframes color-side {
+    0% {background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);
+    }
+    12%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 12% , #fff4f4 100%);
+    }
+    25%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 25% , #fff4f4 100%);
+    }
+    37%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 37% , #fff4f4 100%);
+    }
+    50%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 50% , #fff4f4 100%);
+    }
+    62%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 62% , #fff4f4 100%);
+    }
+    75%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 75% , #fff4f4 100%);
+    }
+    85%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 85% , #fff4f4 100%);
+    }
+    100%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 100%);
+    }
 }
 .delivery_time-rec{
     position:relative;
