@@ -56,6 +56,18 @@ body {
     font-size: 1.75rem;
     font-weight: 700;
 }
+.cod-img {
+    width: 80px;
+    height: 80px;
+}
+
+/* For small screens */
+@media (max-width: 768px) {
+    .cod-img {
+        width: 60px;
+        height: 60px;
+    }
+}
 
 .nav-link {
     font-weight: 500;
