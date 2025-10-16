@@ -284,7 +284,7 @@ del {
         opacity: 0.7;
     }
 .message{
-    font-size:0.7em;
+    font-size:0.6em;
     display:inline;
     font-weight:lighter;
     text-transform:capitalize;
@@ -295,7 +295,7 @@ del {
 }
 @keyframes blink-message {
     from{
-        color:#03be0f;
+        color:#00930a;
         background-color:#edf9e9;
     border:1px solid #a1dc65;
     }
