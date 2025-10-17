@@ -85,7 +85,7 @@
 
         <script>
         // This is the ONLY place the URL should be. This is correct.
-        const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyv6M-KtVNR4Ed5DHioXNnZPBzodm7BldxebP7i9hhvitHZp9d3w1KfWKWjnIdMdTt-/exec';
+        const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
 
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -305,7 +305,7 @@
                         qaPair.className = 'qa-pair';
                         qaPair.innerHTML = `
                             <div class="qa-question"><strong>Q:</strong> ${item.question}</div>
-                            <div class="qa-answer"><strong>A:</strong> ${item.answer}</div>
+                            <div class="qa-answer"><strong>Ans:</strong> ${item.answer}</div>
                         `;
                         container.appendChild(qaPair);
                     });
@@ -344,7 +344,7 @@
                         method: 'POST',
                         mode: 'cors',
                         headers: {
-                            'Content-Type': 'application/json'
+                          'Content-Type': 'text/plain'
                         },
                         body: JSON.stringify({
                             productId: productId,

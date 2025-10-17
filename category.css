@@ -194,7 +194,10 @@ html, body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* auto-fit for larger screens */
   
 }
-
+a.product {
+    text-decoration: none;
+    color: inherit;
+}
 /* Force at least 2 products per row on mobiles */
 .product:hover{
     box-shadow: 0 4px 8px #1a0360bc;
