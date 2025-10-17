@@ -442,7 +442,6 @@ del {
 
 .recommended-container {
     width:100vw;
-    height:250px;
       margin: 20px 0px 60px 0px;
     }
 
@@ -541,6 +540,154 @@ del {
     color: inherit;
     display: block;
 }
+/* --- FIX: Recommended Product Card Overlap & Alignment --- */
+
+/* Ensures padding and border are included in the width, preventing overflow */
+.product-card {
+    box-sizing: border-box; 
+    display: flex; /* Use flexbox for internal alignment */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Pushes button to the bottom */
+    min-height: 310px; /* Give all cards a consistent minimum height */
+}
+
+/* Controls the product title to prevent it from breaking the layout */
+.product-card h4 {
+    height: 40px; /* Sets a fixed height for the title area */
+    line-height: 1.2; /* Improves readability for two-line titles */
+    overflow: hidden; /* Hides any text that overflows the container */
+    margin-bottom: 5px;
+}
+
+/* Ensures the image container has a consistent size */
+.product-card img {
+    height: 120px; /* Reduced from 140px to fit better */
+    object-fit: contain;
+}
+
+/* Ensures the 'Add to Cart' button stays at the bottom */
+.product-card button {
+    margin-top: auto; /* Pushes the button to the bottom of the card */
+}
+/* --- NEW STYLES FOR Q&A SECTION --- */
+
+.qa-section {
+    padding: 20px 15px 80px 15px; /* Add bottom padding to avoid overlap with sticky button */
+    margin: 40px 0;
+    border-top: 1px solid #eee;
+}
+
+.qa-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#qa-display-container {
+    margin-bottom: 40px;
+}
+
+.qa-pair {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ff5959;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.qa-question {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.qa-answer {
+    font-size: 1em;
+    color: #555;
+    padding-left: 20px; /* Indent the answer */
+}
+
+.qa-loading, .qa-none, .qa-error {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding: 20px;
+}
+.qa-error {
+    color: #d9534f;
+}
+
+.qa-form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.qa-form-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+#qa-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    resize: vertical;
+    box-sizing: border-box; /* Important for padding and width */
+}
+
+#qa-form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#qa-form button:hover {
+    background-color: #334155;
+}
+
+#qa-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#qa-message {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.qa-message-success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.qa-message-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
 footer{
     height: 180px;
 }

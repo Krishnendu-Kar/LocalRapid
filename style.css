@@ -535,6 +535,11 @@ a {
       );    
 } 
 
+/* Add this to your main style.css file */
+a.product {
+    text-decoration: none;
+    color: inherit;
+}
 /* Product name */
 .product h3 {
     font-size: 20px;
