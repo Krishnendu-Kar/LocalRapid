@@ -1174,6 +1174,7 @@ const products = [
         name: "orange biscuit",
         price: 5,
         originalPrice: 5,
+        leftAmount:7,
         delivery_time: "20 min",
         message: "",
         amount: "",

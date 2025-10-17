@@ -123,7 +123,27 @@
                 <p>${product.message ? `<p class="message" style="font-size:0.7em;position:relative;bottom:-10px;"> ${product.message} </p>` : ''}</p>
                 <p class="price"> ${priceHTML}</p>
                 <p class="tax">(Inclusive of all taxes)</p>
-                <p class="product-location">Product Location: Home / ${product.location} / ${product.name}</p>
+                <p class="product-location">Product Location: Home / ${product.location || 'find yourself'} / ${product.name}</p>
+                ${product.leftAmount ?
+                `
+                <p class="left" id="stock-message">
+                    People are buying this too rapidly! Hurry up! Only ${product.leftAmount} in stock, grab yours now or you'll miss it <i class="fa-solid fa-circle-info left-i"></i>
+                </p>
+
+                <div class="info-modal-overlay hidden" id="info-modal-overlay">
+                    <div class="info-modal">
+                    <span class="close-button" id="close-button">&times;</span>
+                    <h3>Real-Time Stock Notice</h3>
+                    <p>
+                        This is a popular item! Due to high demand, our inventory changes by the minute. The stock level shown is a close estimate but may not reflect the absolute latest sales.
+                    </p>
+                    <p>
+                        To secure your item, we recommend completing your purchase soon.
+                    </p>
+                    </div>
+                </div>
+                `
+                : ''}
                 <div id="countdown-container"></div>
                 ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
 
@@ -177,6 +197,53 @@
         }
         document.addEventListener("DOMContentLoaded", updateCartCount);
 
+        //------Left-Pop-up-Message---
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get the elements from the document
+    const stockMessageTrigger = document.getElementById('stock-message');
+    const modalOverlay = document.getElementById('info-modal-overlay');
+    const closeButton = document.getElementById('close-button');
+
+    // Function to show the modal
+    function showModal() {
+        modalOverlay.classList.remove('hidden');
+    }
+
+    // Function to hide the modal
+    function hideModal() {
+        modalOverlay.classList.add('hidden');
+    }
+
+    // --- Event Listeners ---
+
+    // 1. Show the modal when the stock message is clicked
+    if (stockMessageTrigger) {
+        stockMessageTrigger.addEventListener('click', showModal);
+    }
+
+    // 2. Hide the modal when the close button ('X') is clicked
+    if (closeButton) {
+        closeButton.addEventListener('click', hideModal);
+    }
+
+    // 3. Hide the modal when the user clicks on the dark overlay (outside the box)
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(event) {
+            // We only hide the modal if the click is on the overlay itself,
+            // not on its children (the white box).
+            if (event.target === modalOverlay) {
+                hideModal();
+            }
+        });
+    }
+
+    // 4. (Optional) Hide the modal when the user presses the 'Escape' key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+            hideModal();
+        }
+    });
+});
         // ====== COUNTDOWN TIMER ======
         function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
             const countdownContainer = document.getElementById(timerContainerId);
