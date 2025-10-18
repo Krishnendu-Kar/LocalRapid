@@ -558,7 +558,7 @@
                     const orderSummaryText = cart.map(item => 
                         `${item.name} [${item.amount}] | (Qty: ${item.quantity}) ₹${(item.price * item.quantity).toFixed(2)}`
                     ).join('; ');
-                    const orderId = 'LP' + Date.now();
+                    const orderId = 'LR' + Date.now();
 
                     const formData = new FormData(form);
                     formData.append('orderId', orderId);
