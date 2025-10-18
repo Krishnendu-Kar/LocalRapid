@@ -70,12 +70,131 @@ html, body {
         .product-gallery, .product-info { flex: 1; min-width: 300px; }
         .product-gallery img { max-width: 100%; border-radius: 8px; }
        .product-name{text-transform:capitalize;}
+       .product-info-little {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between them */
+}
+
+.product-subcategory {
+  text-transform: capitalize;
+  color: #b28573;
+  font-weight: 600;
+  margin: 0;
+}
+
+.message {
+  font-size: 0.6em;
+  font-weight: lighter;
+  text-transform: capitalize;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0px 5px;
+  animation: blink-message 2s ease-in 0.14s infinite alternate;
+  margin-left: 5px;
+}
+
+@keyframes blink-message {
+  from {
+    color: #00930a;
+    background-color: #edf9e9;
+    border: 1px solid #a1dc65;
+  }
+  to {
+    color: white;
+    background-color: hwb(0 100% 0%);
+    border: 1px solid #ffffff;
+  }
+}
+
+       del{
+        color:rgb(255, 0, 0);
+        text-decoration:  line-through;
+       }
+       .product-location{
+    font-size:0.8em;
+    text-transform:capitalize;
+    position:relative;
+    font-weight:300;
+    color:rgb(3, 149, 8);
+}
         /* Calculator Styles */
         .price-comparison { color: #555; font-style: italic; }
         .calculator { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin: 20px 0; max-width: 350px; }
         .calculator .input-group { display: flex; align-items: center; margin-bottom: 10px; }
         .calculator label { font-weight: bold; margin-right: 10px; width: 60px; }
         .calculator input { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        .tax{
+            margin-left:65px;
+    font-size:0.6em;
+    position:relative;
+    top:-10px;
+}
+.left-i{
+    color:rgb(0, 55, 255);
+    font-size:0.7em;
+    position:relative;
+    top:-4px;
+}
+.left {
+    font-size:0.8em;
+    font-weight: bold;
+    position:relative;
+    top:-15px;
+    animation: redPulse 2s infinite alternate;
+}
+
+@keyframes redPulse {
+  0% {
+    color: #ff0000;
+  }
+  50% {
+    color: tomato;
+  }
+  100% {
+    color: #d40000;
+  }
+}
+
+.delivery_time {
+    display: flex;  /* This makes the box wrap its content */
+    margin: 10px 0;         /* Adds some space above and below */
+    padding: 8px 12px;      /* Gives the content inside breathing room */
+    justify-content:center;
+    /* --- Your original styling --- */
+    font-size: 10px;
+    background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);
+    border: 1px solid rgb(255, 135, 135);
+    color: #ff6600;
+    border-radius: 8px;
+    font-weight: bold;
+    animation: color-side 0.9s ease-in 0.14s infinite alternate-reverse;
+}
+
+.delivery_time img {
+    vertical-align: middle; 
+    margin-right: 8px;      
+}
+@keyframes color-side {
+    0% {background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);
+    }
+    12%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 12% , #fff4f4 100%);
+    }
+    25%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 25% , #fff4f4 100%);
+    }
+    37%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 37% , #fff4f4 100%);
+    }
+    50%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 50% , #fff4f4 100%);
+    }
+    62%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 62% , #fff4f4 100%);
+    }
+    75%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 75% , #fff4f4 100%);
+    }
+    85%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 85% , #fff4f4 100%);
+    }
+    100%{background: linear-gradient(90deg, #fff4f4 0%, #ffc0ad 100%);
+    }
+}
          .add-cart{
     height: 44px;
     max-width: 96vw;

@@ -82,7 +82,7 @@
             <div class="reviews-section">
                 <h2 class="reviews-title">
                     Verified Customer Reviews
-                    <img src="secure.png" alt="Delivery" width="25px" height="25px">
+                    <img src="secure.png" alt="Secure" width="28px" height="28px" loading="lazy">
                 </h2>
 
                 <div class="reviews-placeholder">
@@ -177,6 +177,9 @@
                 <p>© 2025 LocaalRapid. All rights reserved.</p>
                 </div>
         </footer>
+        <script src="product-details-popup.js" defer></script>
+        <script src="offer countdown.js" defer></script>
+        <script src="product-cart-count.js" defer></script>
         <script>
         // This is the ONLY place the URL should be. This is correct.
         const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
@@ -192,8 +195,8 @@
                 fetchAndDisplayQA(productId);
                 setupQAForm(productId);
                 displayRecommendedProducts(product, 'related-products-scroll');
-                displayRandomProducts(productId, 'random-products-scroll-1', 10);
-                displayRandomProducts(productId, 'random-products-scroll-2', 10);
+                displayRandomProducts(productId, 'random-products-scroll-1', 15);
+                displayRandomProducts(productId, 'random-products-scroll-2', 15);
             } else {
                 document.querySelector('.container').innerHTML = '<h1>Product not found!</h1><p><a href="index.html">Go back to shop</a></p>';
                 document.querySelector('.recommended-container').style.display = 'none';
@@ -290,97 +293,6 @@
 
             // ****** NEW: Call the function to set up modal listeners ******
             setupModalListeners();
-        }
-
-        // ====== CART MANAGEMENT ======
-        function getCart() { return JSON.parse(localStorage.getItem("cart")) || []; }
-        function saveCart(cart) { localStorage.setItem("cart", JSON.stringify(cart)); }
-        function updateCartCount() {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelector(".cart-amount").textContent = count;
-        }
-        function addToCart(product) {
-            let cart = getCart();
-            const index = cart.findIndex(item => item.id === product.id);
-            if (index !== -1) { cart[index].quantity += 1; }
-            else { cart.push({ ...product, quantity: 1 }); }
-            saveCart(cart);
-            updateCartCount();
-            alert(`${product.name} added to cart!`);
-        }
-        document.addEventListener("DOMContentLoaded", updateCartCount);
-
-// ADD THIS NEW FUNCTION TO YOUR SCRIPT
-function setupModalListeners() {
-    // --- Setup for Stock Modal ---
-    const stockMessageTrigger = document.getElementById('stock-message');
-    const stockModalOverlay = document.getElementById('info-modal-overlay');
-    const closeStockButton = document.getElementById('close-stock-button');
-
-    // Add listeners only if the stock elements exist
-    if (stockMessageTrigger && stockModalOverlay && closeStockButton) {
-        stockMessageTrigger.addEventListener('click', () => stockModalOverlay.classList.remove('hidden'));
-        closeStockButton.addEventListener('click', () => stockModalOverlay.classList.add('hidden'));
-        stockModalOverlay.addEventListener('click', (event) => {
-            if (event.target === stockModalOverlay) {
-                stockModalOverlay.classList.add('hidden');
-            }
-        });
-    }
-
-    // --- Setup for Expiry Date Modal ---
-    const expiryDateTrigger = document.getElementById('expiry-date-message');
-    const expiryModalOverlay = document.getElementById('expiry-modal-overlay');
-    const closeExpiryButton = document.getElementById('close-expiry-button');
-
-    // Add listeners only if the expiry date elements exist
-    if (expiryDateTrigger && expiryModalOverlay && closeExpiryButton) {
-        expiryDateTrigger.addEventListener('click', () => expiryModalOverlay.classList.remove('hidden'));
-        closeExpiryButton.addEventListener('click', () => expiryModalOverlay.classList.add('hidden'));
-        expiryModalOverlay.addEventListener('click', (event) => {
-            if (event.target === expiryModalOverlay) {
-                expiryModalOverlay.classList.add('hidden');
-            }
-        });
-    }
-
-    // --- General Event Listener for 'Escape' key to close any open modal ---
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            if (stockModalOverlay && !stockModalOverlay.classList.contains('hidden')) {
-                stockModalOverlay.classList.add('hidden');
-            }
-            if (expiryModalOverlay && !expiryModalOverlay.classList.contains('hidden')) {
-                expiryModalOverlay.classList.add('hidden');
-            }
-        }
-    });
-}
-        // ====== COUNTDOWN TIMER ======
-        function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
-            const countdownContainer = document.getElementById(timerContainerId);
-            if (!countdownContainer) return;
-            const countDownDate = new Date(timerString).getTime();
-            const countdownInterval = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
-                if (distance > 0) {
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    countdownContainer.innerHTML = `<div class="${timerClass}">Deal Ends In: ${days}d ${hours}h ${minutes}m ${seconds}s</div>`;
-                } else {
-                    clearInterval(countdownInterval);
-                    countdownContainer.innerHTML = `<div class="${timerClass}">DEAL EXPIRED</div>`;
-                    if(buttonElement) {
-                        buttonElement.disabled = true;
-                        buttonElement.textContent = 'Deal Expired';
-                        buttonElement.classList.add('disabled');
-                    }
-                }
-            }, 1000);
         }
 
         // --- REFACTORED CARD CREATION LOGIC ---

@@ -916,7 +916,11 @@ del {
     border: 1px solid #f5c6cb;
 }
 /* --- UPDATED STYLES FOR INTERACTIVE STARS --- */
-
+.reviews-title{
+    display:flex;
+    justify-content:center;
+    
+}
 .reviews-placeholder {
     background-color: #f9f9f9;
     border: 1px dashed #ddd;
