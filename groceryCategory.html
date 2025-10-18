@@ -127,7 +127,7 @@
                 const categoryName = pageFilename.replace('Category.html', '');
 
                 // Filter the global 'products' array to get only items of this category
-                const categoryProducts = products.filter(product => product.category === categoryName);
+                const categoryProducts = weightableProducts.filter(product => product.category === categoryName);
                 
                 // Use the shared function from app.js to display the products
                 displayProducts(categoryProducts, 'productList');

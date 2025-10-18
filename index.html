@@ -265,7 +265,7 @@
             function displayInitialProducts() {
                 // 1. IMPROVEMENT: Create a safe copy of the products array before sorting
                 // This prevents the original 'products' array from being permanently shuffled.
-                const productCopy = [...products];
+                const productCopy = [...packetProducts];
 
                 // 2. Get 40 random products from the copy
                 const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 40);
@@ -291,7 +291,7 @@
                 }
 
                 // If there is a query, filter and show the results
-                const filteredProducts = products.filter(product =>
+                const filteredProducts = packetProducts.filter(product =>
                     product.name.toLowerCase().includes(query)
                 );
                 

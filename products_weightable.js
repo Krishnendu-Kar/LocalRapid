@@ -1,6 +1,5 @@
-
-
-const products = [
+// products_weightable.js
+const weightableProducts = [
     {
         id: 41001,
         name: "batasa",

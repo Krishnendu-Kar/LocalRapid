@@ -126,7 +126,7 @@
                 const categoryName = pageFilename.replace('Category.html', '');
 
                 // Filter the global 'products' array to get only items of this category
-                const categoryProducts = products.filter(product => product.category === categoryName);
+                const categoryProducts = packetProducts.filter(product => product.category === categoryName);
                 
                 // Use the shared function from app.js to display the products
                 displayProducts(categoryProducts, 'productList');
@@ -147,7 +147,7 @@
                 const categoryName = pageFilename.replace('Category.html', '');
 
                 // Filter products based on the current category and the search term
-                const filteredProducts = products
+                const filteredProducts = packetProducts
                     .filter(p => p.category === categoryName)
                     .filter(p => p.name.toLowerCase().includes(input));
 

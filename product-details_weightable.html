@@ -7,8 +7,8 @@
         <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <link rel="stylesheet" href="product-details_weightable.css">
-        <script src="products_weightable.js"></script> 
-       
+        <script src="products_weightable.js" defer></script> 
+       <script src="products.js" defer></script> 
     </head>
     <body>
         <header>
@@ -46,6 +46,18 @@
                 <div class="recommended-container">
                     <h2>You Might Also Like</h2>
                     <div class="product-scroll" id="recommended-products">
+                        </div>
+                </div>
+
+                <div class="recommended-container">
+                    <h2>More to Explore</h2>
+                    <div class="product-scroll" id="random-products-scroll-1">
+                        </div>
+                </div>
+
+                <div class="recommended-container">
+                    <h2>Discover Other Items</h2>
+                    <div class="product-scroll" id="random-products-scroll-2">
                         </div>
                 </div>
             </div>
@@ -165,173 +177,147 @@
  <!-- <script src="product-details-popup.js" defer></script> -->
         <script>
 
-          document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = parseInt(urlParams.get("id"));
-    const product = products.find(p => p.id === productId);
+    // Single, consolidated event listener for when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get("id"));
 
-    if (product) {
-        // --- All your existing product rendering logic goes here ---
-        // (e.g., setting document.title, rendering product details, etc.)
-        document.title = `${product.name} - LocaalRapid`;
-        // ... (renderProductDetails logic)
-        
-        // --- ADD THESE TWO LINES TO ACTIVATE THE Q&A FEATURE ---
-        fetchAndDisplayQA(productId);
-        setupQAForm(productId);
-        
-        // --- Call your other functions ---
-        displayRecommendedProducts(product);
-        // ... any other setup calls
+        // Use 'weightableProducts' for the main product on this page
+        const product = weightableProducts.find(p => p.id === productId);
 
-    } else {
-        document.querySelector('.container').innerHTML = '<h1>Product not found!</h1>';
-        document.querySelector('.recommended-container').style.display = 'none';
-    }
-    
-    updateCartCount();
-});
-        // =================================
-        // NEW: Recommended Products Function
-        // =================================
-        function displayRecommendedProducts(currentProduct) {
-            const container = document.getElementById('recommended-products');
-            if (!container) return;
+        if (product) {
+            // --- 1. Render Main Product Details ---
+            document.title = `${product.name} - Details`;
+            document.getElementById('main-image').src = product.image;
+            document.getElementById('main-image').alt = product.name;
 
-            // 1. Find recommendations (same category, not the current product)
-            const recommendations = products
-                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
-                .sort(() => 0.10 - Math.random()) // Shuffle for variety
-                .slice(0, 10); // Take the first 5
+            const productInfoContainer = document.getElementById('product-info');
+            productInfoContainer.innerHTML = `
+                <h1 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
+                <div class="product-info-little">
+                    <p class="product-subcategory">${product.sub_category}</p>
+                    ${product.message ? `<p class="message">${product.message}</p>` : ''}
+                </div>
+                <p class="price-comparison">Reference Rate: <b>₹${product.price_per_100gm} <del> ₹${product.mrp_per_100gm}</del> / 100gm</b></p>
+                <p class="product-location">Product Location: Home / Staples / ${product.name}</p>
+                <div class="calculator">
+                    <div class="input-group"><label for="weight-input">Weight:</label><input type="number" id="weight-input" placeholder="e.g., 250"><span>gm</span></div>
+                    <div class="input-group"><label for="cost-input">Cost:</label><span>₹</span><input type="number" id="cost-input" placeholder="e.g., 55"></div>
+                    <p class="tax">(Inclusive of all taxes)</p>
+                </div>
+                ${product.leftAmount ? `<p class="left" id="stock-message"><img src="lightning.png" alt="Delivery" width="14px" height="14px"> Limited availability — just ${product.leftAmount} remaining. Don’t miss out!</p>` : ''}
+                ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
+                <div class="product-details"><h2>Product Details</h2><p>${product.details || 'No details available.'}</p></div>
+                <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add Custom Amount</button>
+            `;
 
-            if (recommendations.length === 0) {
-                document.querySelector('.recommended-container').style.display = 'none';
-                return;
-            }
+            // Add interactivity to the calculator and main 'Add to Cart' button
+            const weightInput = document.getElementById('weight-input');
+            const costInput = document.getElementById('cost-input');
+            const pricePerGram = product.price_per_100gm / 100;
 
-            container.innerHTML = ''; // Clear previous content
+            weightInput.addEventListener('input', () => {
+                const weight = parseFloat(weightInput.value) || 0;
+                costInput.value = weight > 0 ? (weight * pricePerGram).toFixed(2) : '';
+            });
+
+            costInput.addEventListener('input', () => {
+                const cost = parseFloat(costInput.value) || 0;
+                weightInput.value = cost > 0 ? (cost / pricePerGram).toFixed(2) : '';
+            });
             
-            // 2. Create and inject the HTML for each recommendation card
-            recommendations.forEach(recProduct => {
-                const weightOptionsHTML = recProduct.available_weights.map(w =>
-                    `<option value="${w.price}">${w.weight}</option>`
-                ).join('');
-
-                const cardHTML = `
-                    <div class="product-card" data-product-id="${recProduct.id}">
-                        <a href="?id=${recProduct.id}">
-                            <img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy">
-                            <h4 class="product-name"><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4>
-                        </a>
-                        <p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p>
-                        <select class="weight-selector-rec">
-                            ${weightOptionsHTML}
-                        </select>
-                        <p class="product-price" id="price-rec-${recProduct.id}">₹${recProduct.available_weights[0].price}</p>
-                        <button class="add-btn-rec">Add to Cart</button>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
+            productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
+                const finalWeight = parseFloat(weightInput.value);
+                const finalCost = parseFloat(costInput.value);
+                if (!finalWeight || !finalCost || finalWeight <= 0) {
+                    alert("Please enter a valid weight or cost.");
+                    return;
+                }
+                addToCart({ ...product, price: finalCost, amount: `${finalWeight} gm` });
             });
 
-            // 3. Add Event Listeners for the new recommended cards
-            // For price updates
-            container.querySelectorAll('.weight-selector-rec').forEach(selector => {
-                selector.addEventListener('change', function(e) {
-                    const card = e.target.closest('.product-card');
-                    const priceEl = card.querySelector('.product-price');
-                    priceEl.textContent = `₹${e.target.value}`;
-                });
-            });
+            // --- 2. Populate All Recommendation Sections ---
+            // Section 1: Same category, from 'weightableProducts'
+            displayRecommendedProducts(product);
+            
+            // Section 2: Random products, from 'weightableProducts'
+            displayRandomProducts(productId, 'random-products-scroll-1', 15);
+            
+            // Section 3: Random packet products, from 'packetProducts' (using our new function)
+            displayPacketProducts('random-products-scroll-2', 15);
 
-            // For adding to cart
-            container.querySelectorAll('.add-btn-rec').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const card = e.target.closest('.product-card');
-                    const productId = parseInt(card.dataset.productId);
-                    const productToAdd = products.find(p => p.id === productId);
+            // --- 3. Initialize Q&A Section ---
+            fetchAndDisplayQA(productId);
+            setupQAForm(productId);
 
-                    const selector = card.querySelector('.weight-selector-rec');
-                    const selectedWeightText = selector.options[selector.selectedIndex].text;
-                    const selectedPrice = parseFloat(selector.value);
-
-                    const item = { ...productToAdd, price: selectedPrice, amount: selectedWeightText };
-                    addToCart(item);
-                });
-            });
+        } else {
+            document.querySelector('.container').innerHTML = '<h1>Product not found!</h1>';
         }
 
+        updateCartCount();
+    });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = parseInt(urlParams.get("id"));
-            const product = products.find(p => p.id === productId);
+    // --- ALL HELPER FUNCTIONS BELOW ---
 
-            if (product) {
-                document.title = `${product.name} - Details`;
-                document.getElementById('main-image').src = product.image;
-                document.getElementById('main-image').alt = product.name;
-
-                // --- All the main product display logic from before ---
-                const productInfoContainer = document.getElementById('product-info');
-                productInfoContainer.innerHTML = `
-                    <h1 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h1>
-                   <div class="product-info-little">
-                        <p class="product-subcategory">${product.sub_category}</p>
-                        ${product.message ? `<p class="message">${product.message}</p>` : ''}
-                    </div>
-                    <p class="price-comparison">Reference Rate: <b>₹${product.price_per_100gm} <del> ₹${product.mrp_per_100gm}</del> / 100gm</b></p>
-                    <p class="product-location">Product Location: Home / Staples / ${product.name}</p>
-                    <div class="calculator">
-                        <div class="input-group"><label for="weight-input">Weight:</label><input type="number" id="weight-input" placeholder="e.g., 250"><span>gm</span></div>
-                        <div class="input-group"><label for="cost-input">Cost:</label><span>₹</span><input type="number" id="cost-input" placeholder="e.g., 55"></div>
-                        <p class="tax">(Inclusive of all taxes)</p>
-                    </div>
-                    ${product.leftAmount ?
-                ` <p class="left" id="stock-message">
-                  <img src="lightning.png" alt="Delivery" width="14px" height="14px"> Limited availability — just ${product.leftAmount} remaining. Don’t miss out!
-                </p> `
-                : ''}
-
-                ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
-                   <div class="product-details"><h2>Product Details</h2><p>${product.details || 'No details available.'}</p></div>
-                    <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add Custom Amount</button>
-                `;
-
-                const weightInput = document.getElementById('weight-input');
-                const costInput = document.getElementById('cost-input');
-                const pricePerGram = product.price_per_100gm / 100;
-
-                weightInput.addEventListener('input', () => {
-                    const weight = parseFloat(weightInput.value) || 0;
-                    costInput.value = weight > 0 ? (weight * pricePerGram).toFixed(2) : '';
-                });
-
-                costInput.addEventListener('input', () => {
-                    const cost = parseFloat(costInput.value) || 0;
-                    weightInput.value = cost > 0 ? (cost / pricePerGram).toFixed(2) : '';
-                });
-                
-                productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
-                    const finalWeight = parseFloat(weightInput.value);
-                    const finalCost = parseFloat(costInput.value);
-                    if (!finalWeight || !finalCost || finalWeight <= 0) {
-                        alert("Please enter a valid weight or cost.");
-                        return;
-                    }
-                    addToCart({ ...product, price: finalCost, amount: `${finalWeight} gm` });
-                });
-
-                // --- Call the new function to populate recommended products ---
-                displayRecommendedProducts(product);
-
-                
-            } else {
-                document.querySelector('.container').innerHTML = '<h1>Product not found!</h1>';
-            }
-
-            updateCartCount();
+    // Function for Section 1: Same Category (Measurable Products)
+    function displayRecommendedProducts(currentProduct) {
+        const container = document.getElementById('recommended-products');
+        if (!container) return;
+        const recommendations = weightableProducts
+            .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+            .sort(() => 0.10 - Math.random()).slice(0, 10);
+        if (recommendations.length === 0) {
+            container.closest('.recommended-container').style.display = 'none';
+            return;
+        }
+        container.innerHTML = '';
+        recommendations.forEach(recProduct => {
+            const weightOptionsHTML = recProduct.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
+            const cardHTML = `<div class="product-card" data-product-id="${recProduct.id}"><a href="?id=${recProduct.id}"><img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4></a><p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${recProduct.id}">₹${recProduct.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
+            container.innerHTML += cardHTML;
         });
+        container.querySelectorAll('.weight-selector-rec').forEach(selector => { /* ... event listener ... */ });
+        container.querySelectorAll('.add-btn-rec').forEach(button => { /* ... event listener ... */ });
+    }
+
+    // Function for Section 2: Random (Measurable Products)
+    function displayRandomProducts(currentProductId, containerId, count) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const randomProducts = weightableProducts.filter(p => p.id !== currentProductId).sort(() => 0.5 - Math.random()).slice(0, count);
+        container.innerHTML = '';
+        randomProducts.forEach(product => {
+            const weightOptionsHTML = product.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
+            const cardHTML = `<div class="product-card" data-product-id="${product.id}"><a href="?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4></a><p class="price-comparison">(₹${product.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${product.id}">₹${product.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
+            container.innerHTML += cardHTML;
+        });
+        container.querySelectorAll('.weight-selector-rec').forEach(selector => { /* ... event listener ... */ });
+        container.querySelectorAll('.add-btn-rec').forEach(button => { /* ... event listener ... */ });
+    }
+
+    // NEW Function for Section 3: Random (Packet Products)
+    function displayPacketProducts(containerId, count) {
+        const container = document.getElementById(containerId);
+        if (!container || typeof packetProducts === 'undefined' || packetProducts.length === 0) {
+            const containerWrapper = container.closest('.recommended-container');
+            if(containerWrapper) containerWrapper.style.display = 'none';
+            return;
+        }
+        const randomPacketProducts = [...packetProducts].sort(() => 0.5 - Math.random()).slice(0, count);
+        container.innerHTML = '';
+        randomPacketProducts.forEach(product => {
+            const cardHTML = `<div class="product-card" data-product-id="${product.id}" data-product-type="packet"><a href="product-details.html?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4></a><p class="product-amount">${product.amount}</p><div class="packet-price-container"><p class="product-price">₹${product.price}</p><del class="original-price">₹${product.originalPrice}</del></div><button class="add-btn-rec">Add to Cart</button></div>`;
+            container.innerHTML += cardHTML;
+        });
+        container.querySelectorAll('.add-btn-rec').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const card = e.target.closest('.product-card');
+                const productId = parseInt(card.dataset.productId);
+                const productToAdd = packetProducts.find(p => p.id === productId);
+                if (productToAdd) { addToCart(productToAdd); }
+            });
+        });
+    }
         // This is the ONLY place the URL should be. This is correct.
 const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
 

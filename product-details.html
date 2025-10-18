@@ -187,7 +187,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get("id"));
-            const product = products.find(p => p.id === productId);
+            const product = packetProducts.find(p => p.id === productId);
 
             if (product) {
                 document.title = `${product.name} - LocaalRapid`;
@@ -353,7 +353,7 @@
                     event.preventDefault();
                     event.stopPropagation();
                     const productId = parseInt(this.dataset.productId);
-                    const productToAdd = products.find(p => p.id === productId);
+                    const productToAdd = packetProducts.find(p => p.id === productId);
                     if (productToAdd) {
                         addToCart(productToAdd);
                     }
@@ -362,7 +362,7 @@
         }
 
         function displayRecommendedProducts(currentProduct, containerId) {
-            const recommendations = products
+            const recommendations = packetProducts
                 .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 15);
@@ -370,7 +370,7 @@
         }
 
         function displayRandomProducts(currentProductId, containerId, count) {
-            const recommendations = products
+            const recommendations = packetProducts
                 .filter(p => p.id !== currentProductId)
                 .sort(() => 0.5 - Math.random())
                 .slice(0, count);

@@ -1,6 +1,7 @@
 
 sunrisemasaladetail=" Made from select ingredients. Sunrise Pure has been trusted for preparing traditional recipes in home, Providing consistency in taste and its uncompromising standard of quality. With 100 years of expertise. It is Only excellence that We wish to offer."
-const products = [
+ // products.js (The new file)
+const packetProducts= [
           
     //--------------SNACKS-Cheaps------ 
 
