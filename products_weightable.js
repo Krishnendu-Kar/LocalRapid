@@ -52,7 +52,7 @@ const products = [
         sub_category: "sugar & jaggery",
         message: "new",
         leftAmount: "500 gm",
-        image: "",
+        image: "sugar.webp",
         details: "Refined crystal sugar for all your sweetening needs in tea, coffee, and desserts.",
         available_weights: [
             { weight: "500 gm", price: 26 },

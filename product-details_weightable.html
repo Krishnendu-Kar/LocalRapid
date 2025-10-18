@@ -49,6 +49,20 @@
                         </div>
                 </div>
             </div>
+            <div class="qa-section">
+                    <h2 class="qa-title">Questions & Answers</h2>
+                    <div id="qa-display-container">
+                        <p class="qa-loading">Loading questions...</p>
+                    </div>
+                    <div class="qa-form-container">
+                        <h3>Have a question? Ask here!</h3>
+                        <form id="qa-form">
+                            <textarea id="question-input" name="question" placeholder="Type your question about this product..." required></textarea>
+                            <div id="qa-message"></div>
+                            <button type="submit" id="qa-submit-btn">Submit Question</button>
+                        </form>
+                    </div>
+                </div>
             <div class="reviews-section">
                 <h2 class="reviews-title">
                     Verified Customer Reviews
@@ -150,7 +164,33 @@
  <script src="product-cart-count.js" defer></script>
  <!-- <script src="product-details-popup.js" defer></script> -->
         <script>
-      
+
+          document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get("id"));
+    const product = products.find(p => p.id === productId);
+
+    if (product) {
+        // --- All your existing product rendering logic goes here ---
+        // (e.g., setting document.title, rendering product details, etc.)
+        document.title = `${product.name} - LocaalRapid`;
+        // ... (renderProductDetails logic)
+        
+        // --- ADD THESE TWO LINES TO ACTIVATE THE Q&A FEATURE ---
+        fetchAndDisplayQA(productId);
+        setupQAForm(productId);
+        
+        // --- Call your other functions ---
+        displayRecommendedProducts(product);
+        // ... any other setup calls
+
+    } else {
+        document.querySelector('.container').innerHTML = '<h1>Product not found!</h1>';
+        document.querySelector('.recommended-container').style.display = 'none';
+    }
+    
+    updateCartCount();
+});
         // =================================
         // NEW: Recommended Products Function
         // =================================
@@ -292,7 +332,101 @@
 
             updateCartCount();
         });
-        
+        // This is the ONLY place the URL should be. This is correct.
+const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
+
+/**
+ * Fetches existing Q&A for a given product ID and displays them.
+ * @param {number} productId The ID of the product.
+ */
+async function fetchAndDisplayQA(productId) {
+    const container = document.getElementById('qa-display-container');
+    // Check if the script URL is configured
+    if (!G_SCRIPT_URL || G_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+        container.innerHTML = '<p class="qa-error">Q&A feature is not configured.</p>';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${G_SCRIPT_URL}?productId=${productId}`);
+        const result = await response.json();
+
+        if (result.status === 'success' && result.data.length > 0) {
+            container.innerHTML = ''; // Clear loading message
+            result.data.forEach(item => {
+                const qaPair = document.createElement('div');
+                qaPair.className = 'qa-pair';
+                qaPair.innerHTML = `
+                    <div class="qa-question"><strong>Q:</strong> ${item.question}</div>
+                    <div class="qa-answer"><strong>Ans:</strong> ${item.answer}</div>
+                `;
+                container.appendChild(qaPair);
+            });
+        } else {
+            container.innerHTML = '<p class="qa-none">Be the first to ask a question about this product!</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching Q&A:', error);
+        container.innerHTML = '<p class="qa-error">Could not load questions and answers at this time.</p>';
+    }
+}
+
+/**
+ * Sets up the event listener for the Q&A submission form.
+ * @param {number} productId The ID of the product.
+ */
+function setupQAForm(productId) {
+    const form = document.getElementById('qa-form');
+    const submitBtn = document.getElementById('qa-submit-btn');
+    const messageDiv = document.getElementById('qa-message');
+    const questionInput = document.getElementById('question-input');
+
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        messageDiv.textContent = '';
+
+        if (!G_SCRIPT_URL || G_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+            messageDiv.textContent = 'Q&A feature is not configured.';
+            messageDiv.className = 'qa-message-error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Question';
+            return;
+        }
+
+        try {
+            const response = await fetch(G_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                  'Content-Type': 'text/plain' // As required by Google Apps Script
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    question: questionInput.value
+                })
+            });
+
+            const result = await response.json();
+
+            if(result.status === 'success') {
+                messageDiv.textContent = 'Thank you! Your question has been submitted for review.';
+                messageDiv.className = 'qa-message-success';
+                questionInput.value = ''; // Clear the textarea
+            } else {
+                throw new Error(result.message || 'Unknown error');
+            }
+
+        } catch (error) {
+            messageDiv.textContent = `Submission failed: ${error.message}`;
+            messageDiv.className = 'qa-message-error';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Question';
+        }
+    });
+}
         </script>
 
     </body>

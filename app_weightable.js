@@ -4,7 +4,7 @@
 function displayProducts(productArray, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
-        console.error("Product container not found!");
+        console.error("Product container not found! Make sure your HTML has a div with id='" + containerId + "'");
         return;
     }
     container.innerHTML = '';
@@ -41,7 +41,7 @@ function displayProducts(productArray, containerId) {
                 <p class="price-comparison">(₹${product.price_per_100gm} / 100gm)</p>
                 
                 <div class="product-lower">
-                    <p class="product-price" id="price-${product.id}">₹${product.price}</p>
+                    <p class="product-price" id="price-${product.id}">₹${product.available_weights[0].price}</p>
                     <button class="add-btn">Add to Cart</button>
                 </div>
             </div>
@@ -56,7 +56,7 @@ function displayProducts(productArray, containerId) {
         selector.addEventListener("change", function(e) {
             const productCard = e.target.closest('.product');
             const productId = productCard.dataset.productId;
-            const priceElement = productCard.querySelector(`#price-${productId}`);
+            const priceElement = productCard.querySelector(`.product-price`); // Simplified selector
             
             const selectedPrice = e.target.value;
             priceElement.innerHTML = `₹${selectedPrice}`;
@@ -114,7 +114,7 @@ function addToCart(product) {
 
     if (existingItemIndex > -1) {
         // If the same product with the same weight exists, increase quantity
-        cart[existingItemIndex].quantity += 1;
+        cart[existingItem-index].quantity += 1;
     } else {
         // Otherwise, add it as a new item
         cart.push({ ...product, quantity: 1, cartItemId: cartItemId });
@@ -127,7 +127,10 @@ function addToCart(product) {
 
 // Initial Load
 document.addEventListener("DOMContentLoaded", () => {
-    // Assuming 'products' is loaded from products_weightable.js
-    // displayProducts(products, 'product-container-id'); 
+    // **FIXED**: This function is now called when the page loads.
+    // Make sure your product list is named 'products_weightable' and your container has the id 'product-container'
+    if (typeof products_weightable !== 'undefined') {
+        displayProducts(products_weightable, 'product-container'); 
+    }
     updateCartCount();
 });
