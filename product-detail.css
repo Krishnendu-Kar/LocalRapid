@@ -259,7 +259,119 @@ del {
     position:relative;
     top:-25px;
 }
+.exp-date {
+    font-size:0.8em;
+    font-weight: bold;
+    position:relative;
+    top:-15px;
+    animation: bluePulse 2.5s infinite alternate;
+}
+
+@keyframes bluePulse {
+  0% {
+    color: #002fff;
+  }
+  50% {
+    color: rgb(37, 143, 255);
+  }
+  100% {
+    color: #0006b8;
+  }
+}
+/* Style for BOTH interactive text elements */
+.interactive-text {
+    cursor: pointer;
+    color: #333;
+    display: block; /* Or 'inline-block' if you prefer */
+    margin-bottom: 5px; /* Adds some space between the lines */
+    transition: color 0.2s ease;
+}
+
+.interactive-text:hover {
+    color: #0056b3;
+}
+
+/* --- THE REST OF THE CSS IS THE SAME --- */
+
+/* The dark background overlay for the modal */
+.info-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+/* The modal pop-up box */
+.info-modal {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.info-modal h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* ... (rest of the modal styles are identical to before) ... */
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.exp-i{
+    color:rgb(146, 6, 239);
+    font-size:0.7em;
+    position:relative;
+    top:-4px;
+}
 .left-i{
+    color:rgb(0, 55, 255);
+    font-size:0.7em;
+    position:relative;
+    top:-4px;
+}
+.re-ex-i{
     color:rgb(0, 55, 255);
     font-size:0.7em;
     position:relative;
@@ -565,7 +677,7 @@ del {
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 10px;
-      margin-left: 10px;
+      padding-left: 10px;
     }
 
     .product-scroll {
@@ -803,9 +915,230 @@ del {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
 }
+/* --- UPDATED STYLES FOR INTERACTIVE STARS --- */
 
+.reviews-placeholder {
+    background-color: #f9f9f9;
+    border: 1px dashed #ddd;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+/* 1. Make the container interactive and reverse the visual order of stars */
+.placeholder-stars {
+    display: flex;
+    flex-direction: row-reverse; /* This is the key trick */
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* 2. Style for individual stars (default state) */
+.placeholder-stars i {
+    font-size: 26px;
+    color: #ccc;
+    transition: color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+/* 3. The hover magic */
+/* This selects the star being hovered AND all stars that come after it in the HTML */
+/* (which are visually BEFORE it due to row-reverse) */
+.placeholder-stars:hover i:hover,
+.placeholder-stars:hover i:hover ~ i {
+    color: #ffc107; /* A nice gold/yellow color */
+    font-weight: 900;  /* This changes the Font Awesome icon from regular to solid */
+}
+
+/* 4. (Optional) Add a little 'pop' effect to the specific star you are on */
+.placeholder-stars i:hover {
+    transform: scale(1.15);
+}
+
+/* --- (The rest of your .reviews-placeholder styles) --- */
+
+.placeholder-heading {
+    font-size: 1.4em;
+    color: #333;
+    margin-top: 15px; /* Adjusted margin-top */
+    margin-bottom: 10px;
+}
+
+.placeholder-text {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 10px auto;
+}
+
+.placeholder-subtext {
+    font-size: 0.9em;
+    color: #777;
+    font-style: italic;
+    margin-top: 15px;
+}
+/* --- NEW STYLES FOR WHY SHOP WITH US SECTION --- */
+
+.why-us-section {
+    background-color: #f9fafb;
+    padding: 50px 15px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #070339;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item.interactive {
+    cursor: pointer;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.feature-icon {
+    font-size: 28px;
+    color: #ff5959; /* Your brand's primary red */
+    padding-top: 5px;
+}
+
+.feature-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+    color: #1e293b;
+}
+
+.feature-content p {
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+}
+/* --- NEW STYLES for Assured Quality & Policy Link --- */
+
+.quality-assurance-banner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #eaffef; /* A very light, clean blue */
+    border-radius: 12px;
+    padding: 15px 20px;
+    max-width: 400px;
+    margin: 0 auto 40px auto; /* Centered with space below */
+    border: 1px solid #d6eaff;
+}
+
+.quality-icon img {
+    width: 45px;
+    height: 45px;
+}
+
+.quality-content h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.3em;
+    color: #018005; /* Dark green for quality */
+}
+
+.quality-content p {
+    margin: 0;
+    color: #37af49;
+    font-size: 1.1em;
+}
+
+.policy-link {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+.policy-link:hover {
+    color: #003d82;
+}
+/* Purchase Protection Banner */
+.purchase-protection-banner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #e6f9f0, #dcf4ff);
+    border: 1px solid #bde6d3;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 800px;
+    margin: 50px auto 0 auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.protection-icon img {
+    width: 60px;
+    height: 60px;
+}
+
+.protection-content h3 {
+    margin: 0 0 8px 0;
+    color: #0b8f4b; /* A trustworthy green */
+}
+
+.protection-content p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.6;
+}
+
+/* Modal List Styling */
+.info-modal ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.info-modal ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+}
 footer{
-    height: 180px;
+    height: 16vh;
+}
+/* --- FINAL FOOTER STYLES --- */
+
+footer {
+    background-color: #1e293b; /* Matches your dark 'Add to Cart' button for consistency */
+    color: #e0e0e0; /* A soft white for easy reading */
+    text-align: center;
+    padding: 25px 15px;
+    margin-top: 50px; /* Adds space above the footer */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 /* --- MOBILE FIXES FOR CUT-OFF ISSUES --- */
 html, body {

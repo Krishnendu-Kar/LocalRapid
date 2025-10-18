@@ -79,10 +79,104 @@
                     </form>
                 </div>
             </div>
+            <div class="reviews-section">
+                <h2 class="reviews-title">
+                    Verified Customer Reviews
+                    <img src="secure.png" alt="Delivery" width="25px" height="25px">
+                </h2>
+
+                <div class="reviews-placeholder">
+                    <div class="placeholder-stars">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <h3 class="placeholder-heading">Genuine Feedback from Real Buyers</h3>
+                    <p class="placeholder-text">
+                        We value authenticity. To ensure all reviews are from actual customers, we send a private message or email invitation to leave a review after a product has been purchased and delivered.
+                    </p>
+                    <p class="placeholder-subtext">
+                        Once we receive feedback for this item, you'll see it right here!
+                    </p>
+                </div>
+            </div>
+
+            <section class="why-us-section">
+                <h2 class="section-title">The LocaalRapid Advantage</h2>
+
+                <div class="quality-assurance-banner">
+                    <div class="quality-icon">
+                        <img src="original.png" alt="Assured Quality Icon">
+                    </div>
+                    <div class="quality-content">
+                        <h3>Assured Quality</h3>
+                        <p>Fresh Products Guaranteed</p>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-bolt-lightning"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Rapid Express Delivery</h3>
+                            <p>Why wait? Get your order delivered in minutes saving you precious time.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Secure, Verified Payments</h3>
+                            <p>We offer flexible options, including Cash on Delivery and a direct manual verification (for now) system for secure payments.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Hassle-Free Replacement & Exchange</h3>
+                            <p>Easy replacement and exchange available. See our <a href="Replacement and Exchange Policy.html" class="policy-link">Policy Page</a> for details.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Unbeatable Value</h3>
+                            <p>Access the best prices on quality products, all from your home or your location.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="purchase-protection-banner">
+                    <div class="protection-icon">
+                        <img src="handshake.png" alt="Purchase Protection Icon">
+                    </div>
+                    <div class="protection-content">
+                        <h3>LocaalRapid Purchase Protection</h3>
+                        <p>Shop confidently knowing that if something goes wrong with an order, we've got your back for all eligible purchases.</p>
+                    </div>
+                </div>
+            </section>
         </main>
 
-        <footer></footer>
-
+        <footer>
+            <div class="footer-content">
+                <p>© 2025 LocaalRapid. All rights reserved.</p>
+                </div>
+        </footer>
         <script>
         // This is the ONLY place the URL should be. This is correct.
         const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
@@ -107,6 +201,7 @@
             updateCartCount();
         });
 
+        // PASTE THIS UPDATED FUNCTION INTO YOUR SCRIPT
         function renderProductDetails(product) {
             const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
             const discountpercent = discount.toFixed(2);
@@ -124,6 +219,21 @@
                 <p class="price"> ${priceHTML}</p>
                 <p class="tax">(Inclusive of all taxes)</p>
                 <p class="product-location">Product Location: Home / ${product.location || 'find yourself'} / ${product.name}</p>
+
+                ${product.expiryDate ? `
+                <p class="exp-date interactive-text" id="expiry-date-message">
+                Expiry Date: ${product.expiryDate} <i class="fa-solid fa-circle-info exp-i"></i>
+                </p>
+                ` : ''}
+                <div class="info-modal-overlay hidden" id="expiry-modal-overlay">
+                    <div class="info-modal">
+                    <span class="close-button" id="close-expiry-button">&times;</span>
+                    <h3>A Note on Product Freshness</h3>
+                    <p>We are committed to providing you with the freshest products available. The date shown is a reliable guide based on our current batch.</p>
+                    <p>Because we frequently receive new shipments, the exact 'Best Before' date on the item you receive may vary slightly. Rest assured, we guarantee every product is well within its freshness period.</p>
+                    </div>
+                </div>
+
                 ${product.leftAmount ?
                 `
                 <p class="left" id="stock-message">
@@ -132,7 +242,7 @@
 
                 <div class="info-modal-overlay hidden" id="info-modal-overlay">
                     <div class="info-modal">
-                    <span class="close-button" id="close-button">&times;</span>
+                    <span class="close-button" id="close-stock-button">&times;</span>
                     <h3>Real-Time Stock Notice</h3>
                     <p>
                         This is a popular item! Due to high demand, our inventory changes by the minute. The stock level shown is a close estimate but may not reflect the absolute latest sales.
@@ -144,9 +254,9 @@
                 </div>
                 `
                 : ''}
+
                 <div id="countdown-container"></div>
                 ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
-
                 <p class="product-subcategory">${product.sub_category || 'no sub category'}</p>
                 <p class="product-message">${product.little_details || ''}</p>
                 <div class="product-details">
@@ -156,6 +266,7 @@
                 <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
             `;
 
+            // --- Setup after rendering ---
             const addButton = productInfoContainer.querySelector('.add-cart');
             addButton.addEventListener('click', () => addToCart(product));
 
@@ -176,6 +287,9 @@
                     document.getElementById('main-image').src = e.target.src;
                 });
             });
+
+            // ****** NEW: Call the function to set up modal listeners ******
+            setupModalListeners();
         }
 
         // ====== CART MANAGEMENT ======
@@ -197,53 +311,52 @@
         }
         document.addEventListener("DOMContentLoaded", updateCartCount);
 
-        //------Left-Pop-up-Message---
-        document.addEventListener('DOMContentLoaded', function() {
-    // Get the elements from the document
+// ADD THIS NEW FUNCTION TO YOUR SCRIPT
+function setupModalListeners() {
+    // --- Setup for Stock Modal ---
     const stockMessageTrigger = document.getElementById('stock-message');
-    const modalOverlay = document.getElementById('info-modal-overlay');
-    const closeButton = document.getElementById('close-button');
+    const stockModalOverlay = document.getElementById('info-modal-overlay');
+    const closeStockButton = document.getElementById('close-stock-button');
 
-    // Function to show the modal
-    function showModal() {
-        modalOverlay.classList.remove('hidden');
-    }
-
-    // Function to hide the modal
-    function hideModal() {
-        modalOverlay.classList.add('hidden');
-    }
-
-    // --- Event Listeners ---
-
-    // 1. Show the modal when the stock message is clicked
-    if (stockMessageTrigger) {
-        stockMessageTrigger.addEventListener('click', showModal);
-    }
-
-    // 2. Hide the modal when the close button ('X') is clicked
-    if (closeButton) {
-        closeButton.addEventListener('click', hideModal);
-    }
-
-    // 3. Hide the modal when the user clicks on the dark overlay (outside the box)
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', function(event) {
-            // We only hide the modal if the click is on the overlay itself,
-            // not on its children (the white box).
-            if (event.target === modalOverlay) {
-                hideModal();
+    // Add listeners only if the stock elements exist
+    if (stockMessageTrigger && stockModalOverlay && closeStockButton) {
+        stockMessageTrigger.addEventListener('click', () => stockModalOverlay.classList.remove('hidden'));
+        closeStockButton.addEventListener('click', () => stockModalOverlay.classList.add('hidden'));
+        stockModalOverlay.addEventListener('click', (event) => {
+            if (event.target === stockModalOverlay) {
+                stockModalOverlay.classList.add('hidden');
             }
         });
     }
 
-    // 4. (Optional) Hide the modal when the user presses the 'Escape' key
+    // --- Setup for Expiry Date Modal ---
+    const expiryDateTrigger = document.getElementById('expiry-date-message');
+    const expiryModalOverlay = document.getElementById('expiry-modal-overlay');
+    const closeExpiryButton = document.getElementById('close-expiry-button');
+
+    // Add listeners only if the expiry date elements exist
+    if (expiryDateTrigger && expiryModalOverlay && closeExpiryButton) {
+        expiryDateTrigger.addEventListener('click', () => expiryModalOverlay.classList.remove('hidden'));
+        closeExpiryButton.addEventListener('click', () => expiryModalOverlay.classList.add('hidden'));
+        expiryModalOverlay.addEventListener('click', (event) => {
+            if (event.target === expiryModalOverlay) {
+                expiryModalOverlay.classList.add('hidden');
+            }
+        });
+    }
+
+    // --- General Event Listener for 'Escape' key to close any open modal ---
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
-            hideModal();
+        if (event.key === 'Escape') {
+            if (stockModalOverlay && !stockModalOverlay.classList.contains('hidden')) {
+                stockModalOverlay.classList.add('hidden');
+            }
+            if (expiryModalOverlay && !expiryModalOverlay.classList.contains('hidden')) {
+                expiryModalOverlay.classList.add('hidden');
+            }
         }
     });
-});
+}
         // ====== COUNTDOWN TIMER ======
         function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
             const countdownContainer = document.getElementById(timerContainerId);

@@ -244,6 +244,8 @@ const products = [
     originalPrice: 40,
     delivery_time: "20 min",
     message: "new arrival",
+    expiryDate: 'December 2026',
+    leftAmount: 6,
     // Set the expiration date and time for the offer
     timer: "2025-10-16T08:39:59", 
     amount: "750ml",
