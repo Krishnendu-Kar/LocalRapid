@@ -162,7 +162,7 @@ html, body {
     padding: 8px 12px;      /* Gives the content inside breathing room */
     justify-content:center;
     /* --- Your original styling --- */
-    font-size: 10px;
+    font-size: 0.8em;
     background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);
     border: 1px solid rgb(255, 135, 135);
     color: #ff6600;
