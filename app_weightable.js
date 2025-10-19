@@ -4,52 +4,49 @@
 function displayProducts(productArray, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
-        console.error("Product container not found! Make sure your HTML has a div with id='" + containerId + "'");
+        console.error("Product container not found!");
         return;
     }
-    container.innerHTML = '';
 
     if (productArray.length === 0) {
         container.innerHTML = `<div class="not-found-container"><h2>No Products Found</h2></div>`;
         return;
     }
 
-    productArray.forEach((product) => {
-        // Create the weight options HTML
+    // Use map to create an array of HTML strings
+    const allProductsHTML = productArray.map(product => {
         const weightOptionsHTML = product.available_weights.map(w =>
             `<option value="${w.price}">${w.weight}</option>`
         ).join('');
 
-        const productHTML = `
+        // Return the HTML string for a single product
+        return `
             <div class="product" data-product-id="${product.id}">
-            <div onclick="window.location.href='product-details_weightable.html?id=${product.id}'">
-                <div class="image-wrapper">
-                    <img loading="lazy" src="${product.image}" alt="${product.name}">
-                    ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time}</p>` : ''}
+                <div onclick="window.location.href='product-details_weightable.html?id=${product.id}'">
+                    <div class="image-wrapper">
+                        <img loading="lazy" src="${product.image}" alt="${product.name}">
+                        ${product.delivery_time ? `<p class="delivery_time"><i class="fa-solid fa-clock"></i> ${product.delivery_time}</p>` : ''}
+                    </div>
+                    <h3><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
+                    <p class="product-subcategory">${product.sub_category}</p>
                 </div>
-                <h3><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h3>
-                <p class="product-subcategory">${product.sub_category}</p>
-                </div>
-                
                 <div class="weight-selector-container">
                     <label for="weight-select-${product.id}">Weight:</label>
                     <select class="weight-selector" id="weight-select-${product.id}">
                         ${weightOptionsHTML}
                     </select>
                 </div>
-
                 <p class="price-comparison">(₹${product.price_per_100gm} / 100gm)</p>
-                
                 <div class="product-lower">
                     <p class="product-price" id="price-${product.id}">₹${product.available_weights[0].price}</p>
                     <button class="add-btn">Add to Cart</button>
                 </div>
             </div>
         `;
-        container.innerHTML += productHTML;
-    });
+    }).join(''); // Join all the strings into one    // --- Add Event Listeners AFTER creating all HTML ---
 
-    // --- Add Event Listeners AFTER creating all HTML ---
+    // Set the innerHTML only ONCE
+    container.innerHTML = allProductsHTML;
 
     // For Weight Selectors to update price
     container.querySelectorAll(".weight-selector").forEach(selector => {
@@ -107,14 +104,14 @@ function updateCartCount() {
 
 function addToCart(product) {
     let cart = getCart();
-    // Create a unique ID based on product ID and its selected weight (amount)
     const cartItemId = `${product.id}-${product.amount}`;
     
     const existingItemIndex = cart.findIndex(item => item.cartItemId === cartItemId);
 
     if (existingItemIndex > -1) {
         // If the same product with the same weight exists, increase quantity
-        cart[existingItem-index].quantity += 1;
+        // FIX: Use the correct variable name 'existingItemIndex'
+        cart[existingItemIndex].quantity += 1; 
     } else {
         // Otherwise, add it as a new item
         cart.push({ ...product, quantity: 1, cartItemId: cartItemId });

@@ -203,7 +203,7 @@ a.product {
     box-shadow: 0 4px 8px #1a0360bc;
 }
 .product {
-    background-color: rgb(255, 253, 248);
+    background-color: rgb(253, 252, 250);
     width: 170px;
     display: flex;
     flex-direction: column;

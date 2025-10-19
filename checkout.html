@@ -159,8 +159,14 @@
                             <div class="form-check p-3 border rounded">
                                 <input class="form-check-input" type="radio" name="payment" id="upi" value="UPI Payment" required>
                                 <label class="form-check-label w-100" for="upi">
-                                    <strong><img src="upi.png" alt="UPI" width="30px" height="30px">UPI Payment</strong>
+                                    <strong><img src="upi.png" alt="UPI" width="30px" height="30px"> UPI Payment</strong>
                                     <small class="text-muted d-block">After placing your order we shall contact you soon for your payment</small>
+                                    
+                                    <div id="upi-details" class="mt-2" style="display: none;">
+                                        <label for="upiId" class="form-label fw-bold">Your UPI ID *</label>
+                                        <input type="text" id="upiId" name="upiId" class="form-control" placeholder="e.g., yourname@bank">
+                                        <div id="upi-error-msg" class="invalid-feedback"></div>
+                                    </div>
                                 </label>
                             </div>
                         </div>
@@ -321,13 +327,11 @@
             // --- UI RENDERING & INTERACTION FUNCTIONS ---
             function loadCheckoutCart() {
                 const cart = JSON.parse(sessionStorage.getItem('checkoutCart')) || [];
-                const cartContainer = document.getElementById('checkout-cart-items');
                 
-                // ✅ FIX: Redirect if cart is empty
                 if (cart.length === 0) {
                     alert("Your checkout cart is empty. Redirecting to the homepage.");
                     window.location.href = 'index.html';
-                    return; // Stop further execution
+                    return; 
                 }
 
                 const subtotal = parseFloat(sessionStorage.getItem('checkoutSubtotal') || 0);
@@ -340,7 +344,7 @@
                 cart.forEach(item => {
                     cartHTML += `<div class="d-flex justify-content-between mb-2"><span>${item.name} [${item.amount}] (x${item.quantity})</span><span class="fw-bold">₹${(item.price * item.quantity).toFixed(2)}</span></div>`;
                 });
-                cartContainer.innerHTML = cartHTML;
+                document.getElementById('checkout-cart-items').innerHTML = cartHTML;
 
                 if (discount > 0) {
                     document.getElementById('summary-listing-price').textContent = listingPrice.toFixed(2);
@@ -367,7 +371,7 @@
                 document.getElementById('city').value = address ? address.city : '';
                 document.getElementById('state').value = address ? address.state : 'West Bengal';
                 document.getElementById('pinCode').value = address ? address.pinCode : '';
-                document.getElementById('saveAddressCheck').checked = !address; // Uncheck if populating an existing address
+                document.getElementById('saveAddressCheck').checked = !address; 
             }
 
             function renderAddressSelector() {
@@ -378,13 +382,13 @@
                 if (addresses.length === 0) {
                     container.style.display = 'none';
                     manageBtn.style.display = 'none';
-                    populateForm(null); // Clear the form
+                    populateForm(null); 
                     return;
                 }
 
                 container.style.display = 'block';
                 manageBtn.style.display = 'block';
-                container.innerHTML = ''; // Clear previous options
+                container.innerHTML = ''; 
 
                 addresses.forEach((addr, index) => {
                     container.innerHTML += `
@@ -416,7 +420,7 @@
                         }
                     });
                 });
-                populateForm(addresses[0]); // Initially populate form with the first address
+                populateForm(addresses[0]); 
             }
 
             function renderManageAddressesModal() {
@@ -450,7 +454,7 @@
                         populateForm(addrToEdit);
                         document.getElementById('addr_' + id).checked = true;
                         document.getElementById('manageAddressModal').style.display = 'none';
-                        document.getElementById('saveAddressCheck').checked = true; // Pre-check "save" to enable updating
+                        document.getElementById('saveAddressCheck').checked = true; 
                     });
                 });
 
@@ -467,8 +471,24 @@
                 loadCheckoutCart();
                 renderAddressSelector();
 
-                document.getElementById('cod').addEventListener('change', startCodTimer);
-                document.getElementById('upi').addEventListener('change', stopCodTimer);
+                const codRadio = document.getElementById('cod');
+                const upiRadio = document.getElementById('upi');
+                const upiDetailsDiv = document.getElementById('upi-details');
+                const upiIdInput = document.getElementById('upiId');
+
+                // NEW: Logic to show/hide UPI field
+                codRadio.addEventListener('change', () => {
+                    startCodTimer();
+                    upiDetailsDiv.style.display = 'none';
+                    upiIdInput.required = false; // Make it not required
+                });
+
+                upiRadio.addEventListener('change', () => {
+                    stopCodTimer();
+                    upiDetailsDiv.style.display = 'block';
+                    upiIdInput.required = true; // Make it required
+                });
+
 
                 const modal = document.getElementById('manageAddressModal');
                 const manageBtn = document.getElementById('manageAddressesBtn');
@@ -497,7 +517,6 @@
                 document.getElementById("checkoutForm").addEventListener("submit", function(e) {
                     e.preventDefault();
                     
-                    // ✅ FEATURE: Show loader immediately for better UX
                     document.getElementById('loadingOverlay').style.display = 'flex';
                     document.body.style.cursor = 'wait';
 
@@ -507,9 +526,19 @@
                         document.body.style.cursor = 'default';
                     };
                     
-                    // ✅ FEATURE: More robust JS validation
+                    const upiIdInput = document.getElementById("upiId");
+                    const upiErrorMsg = document.getElementById("upi-error-msg");
                     const mobileNumber = document.getElementById("mobileNumber").value;
                     const pinCode = document.getElementById("pinCode").value;
+                    const paymentMethod = document.querySelector("input[name='payment']:checked")?.value;
+                    
+                    upiIdInput.classList.remove('is-invalid');
+
+                    if (!paymentMethod) {
+                        alert("Please select a payment method.");
+                        hideLoader();
+                        return;
+                    }
                     if (!/^[0-9]{10}$/.test(mobileNumber)) {
                         alert("Please enter a valid 10-digit mobile number.");
                         hideLoader();
@@ -520,10 +549,16 @@
                         hideLoader();
                         return;
                     }
-                    if (!document.querySelector("input[name='payment']:checked")) {
-                        alert("Please select a payment method.");
-                        hideLoader();
-                        return;
+
+                    if (paymentMethod === "UPI Payment") {
+                        const upiId = upiIdInput.value.trim();
+                        const upiRegex = /^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}$/;
+                        if (!upiRegex.test(upiId)) {
+                            upiErrorMsg.textContent = "Please enter a valid UPI ID (e.g., yourname@bank).";
+                            upiIdInput.classList.add('is-invalid');
+                            hideLoader();
+                            return;
+                        }
                     }
 
                     if (document.getElementById('saveAddressCheck').checked) {
@@ -545,10 +580,8 @@
                     const subTotal = parseFloat(sessionStorage.getItem('checkoutSubtotal') || "0");
                     const deliveryCharge = parseFloat(sessionStorage.getItem('checkoutDeliveryCharge') || "0");
                     const discount = parseFloat(sessionStorage.getItem('checkoutDiscount') || "0");
-                    // ✅ BUG FIX: Retrieve listingPrice here to use it in the success message
                     const listingPrice = parseFloat(sessionStorage.getItem('checkoutListingPrice') || "0");
                     let codCharge = 0;
-                    const paymentMethod = document.querySelector("input[name='payment']:checked").value;
                     const timerEndTime = sessionStorage.getItem('codTimerEndTime');
 
                     if (paymentMethod === "Cash on Delivery" && (!timerEndTime || Date.now() > timerEndTime)) {
@@ -569,17 +602,25 @@
                     formData.append('codCharge', codCharge.toFixed(2));
                     formData.append('total', totalPrice.toFixed(2));
                     
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyhVYuvC_cyTvQ4QZpPNjxfgrdlzLbWHv8O56_6GB19nxCwDIVc9fKC2ODQS7UuxQ1_8g/exec';
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbzKpln4IIxn2zAhXh5WqY83VDIHBXRq_0m8s-7orgBkkjoX5HSKTQkqyFyKfTIYgBA8JQ/exec';
 
+                    // This is the FETCH call
                     fetch(scriptURL, { method: 'POST', body: formData })
                         .then(response => response.json())
-                        .then(data => {
+                        .then(data => { // The 'data' object is what the script returns
                             if (data.result === 'success') {
                                 console.log('Success! Data sent to Google Sheet:', data);
+                                
+                                // **KEY CHANGE HERE**
+                                // Read the OTP from the data object returned by the script
+                                const deliveryOTP = data.otp;
+
                                 alert("Order data saved! You will now be redirected to WhatsApp to confirm your order.");
 
                                 let message = ` *New Order Confirmation*\n\n`;
-                                message += `*Order ID:* ${orderId}\n\n`;
+                                message += `*Order ID:* ${orderId}\n`;
+                                // Use the OTP that the script sent back
+                                message += `*Delivery OTP:* *${deliveryOTP}*\n\n`;
                                 message += ` *Customer:* ${formData.get('fullName')} (${formData.get('mobileNumber')})\n`;
                                 message += ` *Address:* ${formData.get('fullAddress')}, ${formData.get('city')}, ${formData.get('state')} - ${formData.get('pinCode')}\n\n`;
                                 message += ` *Order Summary:*\n`;
@@ -597,6 +638,9 @@
                                     message += `*Delivery Charge:* ₹${deliveryCharge.toFixed(2)}\n`;
                                 }
                                 message += `*Payment Method:* ${paymentMethod}\n`;
+                                if (paymentMethod === "UPI Payment") {
+                                    message += `*UPI ID:* ${formData.get('upiId')}\n`;
+                                }
                                 if (codCharge > 0) {
                                     message += `*COD Charge:* ₹${codCharge.toFixed(2)}\n`;
                                 } else if (paymentMethod === "Cash on Delivery") {
@@ -620,8 +664,9 @@
                             hideLoader();
                             alert('There was an error saving your order. Please check your connection and try again.');
                         });
-                });
-            });
+                         });
+                    }); 
+                   
         </script>
     </body>
 </html>

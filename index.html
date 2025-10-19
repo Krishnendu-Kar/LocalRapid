@@ -136,12 +136,43 @@
             <div class="message-box1 border">
                 <div class="message-box2">
                     <div class="message-text">
-                       Order Now & Save Big! Lightning-fast delivery at incredible prices – because you deserve the best!
+                       Order Now & Save Big! Lightning-fast delivery at incredible prices – because you are special for us
                     </div>
                 </div>
             </div>
         </header>
         <main>
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide">
+                        <picture>
+                            <source media="(min-width: 670px)" srcset="soap_slider_pc.png">
+                            <img src="soap slider.png" alt="Description for banner 1">
+                        </picture>
+                    </div>
+                    <div class="slide">
+                        <picture>
+                            <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_2.jpg">
+                            <img src="snacks.png" alt="Description for banner 2">
+                        </picture>
+                    </div>
+                    <div class="slide">
+                        <picture>
+                            <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_3.jpg">
+                            <img src="cold drink.png" alt="Description for banner 3">
+                        </picture>
+                    </div>
+                    <div class="slide">
+                        <picture>
+                            <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_4.jpg">
+                            <img src="staples.png" alt="Description for banner 4">
+                        </picture>
+                    </div>
+                </div>
+                <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="slider-dots"></div>
+            </div>
             <div class="hero-section">
                 <div class="box1 box">
                     <div class="box1a sub-box box-border " onclick="window.location.href='comboCategory.html'">combo packs</div>
@@ -156,7 +187,7 @@
                     <div class="box3b sub-box box-border" onclick="window.location.href='biscuitCategory.html'">biscuits</div>
                 </div>
                 <div class="box4 box ">
-                    <div class="box4a sub-box box-border" onclick="window.location.href='medicineCategory.html'">medicine</div>
+                    <div class="box4a sub-box box-border" onclick="window.location.href='dailyProductCategory.html'">Daily needs</div>
                     <div class="box4b sub-box box-border" onclick="window.location.href='oilCategory.html'">oil</div>
                 </div>
             </div>
@@ -297,7 +328,71 @@
                 
                 displayProducts(filteredProducts, 'productList', 'search');
             }
+            // --- Slider Functionality ---
+document.addEventListener('DOMContentLoaded', function () {
+    const sliderWrapper = document.querySelector('.slider-wrapper');
+    // Check if the slider exists on the page before running the script
+    if (!sliderWrapper) return;
 
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    const dotsContainer = document.querySelector('.slider-dots');
+    
+    let currentIndex = 0;
+    let slideInterval;
+    const totalSlides = slides.length;
+
+    // Create navigation dots
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => {
+            goToSlide(i);
+            resetInterval();
+        });
+        dotsContainer.appendChild(dot);
+    }
+    const dots = document.querySelectorAll('.dot');
+
+    // Function to update the slider
+    function goToSlide(index) {
+        sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+        currentIndex = index;
+    }
+
+    // Event listeners for next/prev buttons
+    nextBtn.addEventListener('click', () => {
+        const nextIndex = (currentIndex + 1) % totalSlides;
+        goToSlide(nextIndex);
+        resetInterval();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        goToSlide(prevIndex);
+        resetInterval();
+    });
+
+    // Auto-play functionality
+    function startInterval() {
+        slideInterval = setInterval(() => {
+            const nextIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(nextIndex);
+        }, 5000); // Change slide every 5 seconds
+    }
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        startInterval();
+    }
+
+    // Initialize slider
+    goToSlide(0);
+    startInterval();
+});
         </script>
     </body>
 </html>

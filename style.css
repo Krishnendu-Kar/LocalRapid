@@ -366,11 +366,91 @@ a {
         transform: translateX(-100%); 
     }
 }
+
+/* --- Slider Styles --- */
+.slider-container {
+    width: 100%;
+    background-color:rgb(23, 2, 73);
+    max-width: 1600px; /* Optional: Constrain the max width */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 134px;
+    border-bottom:1px solid rgb(23, 2, 73);
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    display: block; /* Removes bottom space under the image */
+}
+@media (max-width: 525px) {
+  .slide img {
+    height: 210px;
+       }
+}
+@media (min-width: 525px) {
+  .slide img {
+    height:45vh;
+       }
+}
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 10;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn.prev { left: 15px; }
+.slider-btn.next { right: 15px; }
+.slider-btn:hover { background-color: rgba(0, 0, 0, 0.7); }
+
+.slider-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 10;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active { background-color: white; }
 .hero-section{
     background-size:cover;
     height: 600px;
     width: 100vw;
-    margin-top: 54px;
     display:flex;
     position:relative;
     flex-direction: row;
@@ -407,14 +487,14 @@ a {
 .sub-box {
     background-size:cover;
     background-color: rgb(238, 233, 233);
-    color:#4e016e;
+    color:#fff9fd;
     font-family:Arial, Helvetica, sans-serif;
     font-weight:bolder;
     border: 3px solid rgba(249, 248, 246, 0.858);
     border-radius: 8px;
-    /* display:flex;
+    display:flex;
     justify-content:center;
-    align-items:end; */
+    align-items:end;
     margin: 4px;
     text-transform:capitalize;
 }
@@ -439,13 +519,13 @@ a {
     background-image:url("product images/");
 }
 .box2a{
-    background-image:url("product images/");
+    background-image:url("staples.png");
 }
 .box2b{
-    background-image:url("product images/fruti.png");
+    background-image:url("cold drink.png");
 }
 .box3a{
-    background-image:url("product images/maggi.png");
+    background-image:url("snacks.png");
 }
 .box3b{
     background-image:url("product images/");

@@ -242,7 +242,7 @@
                             <h4>Listing price: ₹<span id="listing-price">0</span></h4>
                             <h4 class="text-success" >Discount: - ₹<span id="you-save2">0</span></h4>
                             <h4 id="delivery-charge-row" class="text-muted" style="display: none;"></h4>
-                            <h4><span id="platform-fee" style="cursor: pointer;"> Platform Fee <i style="color:#ffd900;;font-size:0.6em;" class="fa-solid fa-circle-info"></i>: <span style="color:orangered;">Free</span></span></h4>
+                            <h4><span id="platform-fee" style="cursor: pointer;"> Platform Fee<i style="color:#ffd900;font-size:0.5em;position:relative;top:-7px;" class="fa-solid fa-circle-info"></i> : <span style="color:orangered;">Free</span></span></h4>
 
 
 <!-- Popup 2 -->
@@ -417,7 +417,7 @@ if (amountNeeded > 0) {
                 Add item(s) worth 
                 <span style="color:#d9534f;">₹${amountNeeded.toFixed(2)}</span> more for 
                 <b style="color:green;">FREE Delivery</b> 
-                <i style="color:blue;font-size:0.8em;" class="fa-solid fa-circle-info"></i>
+                <i style="color:blue;font-size:0.7em;position:relative;top:-7px;" class="fa-solid fa-circle-info"></i>
             </div>
         </div>
 
@@ -489,7 +489,7 @@ const totalSave = totaloriginalPrice - itemsSubtotal;
                     youSaveElement.style.display = 'block';
                 } else {
                     listingPriceElement.style.display = 'none';
-                    youSaveElement.style.display = 'none';
+                    youSaveElement2.style.display = 'none';
                 }
 
                 let deliveryRow = document.getElementById('delivery-charge-row');
@@ -498,7 +498,7 @@ const totalSave = totaloriginalPrice - itemsSubtotal;
                     deliveryRow.style.display = 'block';
                     deliveryRow.innerHTML = `
                         <span id="delivery-fee" class="info-text">
-                            Delivery Charge <i style="color:#ff8000;font-size:0.5em;" class="fa-solid fa-circle-info"></i> :₹<span>${deliveryCharge.toFixed(2)}</span>
+                            Delivery Charge<i style="color:#ff8000;font-size:0.5em;position:relative;top:-7px;" class="fa-solid fa-circle-info"></i> :₹<span>${deliveryCharge.toFixed(2)}</span>
                         </span>
 
                         <!-- Popup HTML -->
@@ -589,11 +589,29 @@ const totalSave = totaloriginalPrice - itemsSubtotal;
                 document.getElementById('checkout-btn').addEventListener('click', proceedToCheckout);
             });
 
-            function addToCart(product) {
-                let cart = JSON.parse(localStorage.getItem("cart")) || [];
-                cart.push(product);
-                localStorage.setItem("cart", JSON.stringify(cart));
-            }
+            // Replace the old, simple addToCart function with this one.
+function addToCart(productToAdd) {
+    let cart = getCart(); // Use existing helper function
+
+    // For standard products (no cartItemId), check if one already exists to update its quantity.
+    const existingItem = !productToAdd.cartItemId
+        ? cart.find(item => !item.cartItemId && item.id === productToAdd.id)
+        : null; // Custom items are never "existing" since their ID is always unique.
+
+    if (existingItem) {
+        // If a standard item exists, increase its quantity.
+        existingItem.quantity++;
+    } else {
+        // If it's a new standard item OR any custom-weight item, add it to the cart.
+        if (!productToAdd.quantity) {
+            productToAdd.quantity = 1; // Default quantity to 1 if not set
+        }
+        cart.push(productToAdd);
+    }
+
+    saveCart(cart); // Use existing helper function
+    loadCart();     // Refresh the cart display immediately
+}
 
 
 // Elements for Popup 2

@@ -125,7 +125,7 @@ html, body {
         .calculator label { font-weight: bold; margin-right: 10px; width: 60px; }
         .calculator input { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
         .tax{
-            margin-left:65px;
+            margin-left:82px;
     font-size:0.6em;
     position:relative;
     top:-10px;
@@ -204,6 +204,40 @@ html, body {
     font-weight:500;
     font-size:0.8em;
 }
+.predefined-weights-container {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+    .weights-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+    }
+    .weight-option-btn {
+        flex-grow: 1;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        background-color: #f7f7f7;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s ease-in-out;
+    }
+    .weight-option-btn:hover {
+        background-color: #e9e9e9;
+        border-color: #007bff;
+        color: #0056b3;
+    }
+    .weight-option-btn .price-span {
+        font-weight: 700;
+        color: #28a745;
+        margin-left: 8px;
+    }
          .add-cart{
     height: 44px;
     max-width: 96vw;

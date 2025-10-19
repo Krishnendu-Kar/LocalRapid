@@ -173,20 +173,50 @@
                 <p>© 2025 LocaalRapid. All rights reserved.</p>
                 </div>
         </footer>
- <script src="product-cart-count.js" defer></script>
- <!-- <script src="product-details-popup.js" defer></script> -->
-        <script>
 
+        <script>
+// NEW: A robust addToCart function to handle both standard and custom items.
+    function addItemToCart(item) {
+    try {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        // For predefined packs, check if one already exists to increase its quantity
+        // Custom packs will always be new because they have a timestamp in their ID
+        const existingItem = cart.find(cartItem => cartItem.cartItemId === item.cartItemId);
+        
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push(item);
+        }
+        
+        localStorage.setItem("cart", JSON.stringify(cart));
+        
+        if (typeof updateCartCount === 'function') {
+            updateCartCount();
+        }
+        alert(`"${item.name}" (${item.amount}) has been added to your cart.`);
+    } catch (error) {
+        console.error("Could not add item to cart:", error);
+    }
+}
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cart")) || []; }
+        function saveCart(cart) { localStorage.setItem("cart", JSON.stringify(cart)); }
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector(".cart-amount").textContent = count;
+        }
     // Single, consolidated event listener for when the page loads
     document.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get("id"));
 
-        // Use 'weightableProducts' for the main product on this page
         const product = weightableProducts.find(p => p.id === productId);
 
         if (product) {
-            // --- 1. Render Main Product Details ---
+            // --- 1. Render Main Product Details (No changes here) ---
             document.title = `${product.name} - Details`;
             document.getElementById('main-image').src = product.image;
             document.getElementById('main-image').alt = product.name;
@@ -199,19 +229,19 @@
                     ${product.message ? `<p class="message">${product.message}</p>` : ''}
                 </div>
                 <p class="price-comparison">Reference Rate: <b>₹${product.price_per_100gm} <del> ₹${product.mrp_per_100gm}</del> / 100gm</b></p>
-                <p class="product-location">Product Location: Home / Staples / ${product.name}</p>
+                <p class="product-location">Home / Staples / ${product.name}</p>
                 <div class="calculator">
                     <div class="input-group"><label for="weight-input">Weight:</label><input type="number" id="weight-input" placeholder="e.g., 250"><span>gm</span></div>
                     <div class="input-group"><label for="cost-input">Cost:</label><span>₹</span><input type="number" id="cost-input" placeholder="e.g., 55"></div>
                     <p class="tax">(Inclusive of all taxes)</p>
                 </div>
+                <div class="predefined-weights-container"></div>
                 ${product.leftAmount ? `<p class="left" id="stock-message"><img src="lightning.png" alt="Delivery" width="14px" height="14px"> Limited availability — just ${product.leftAmount} remaining. Don’t miss out!</p>` : ''}
                 ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
                 <div class="product-details"><h2>Product Details</h2><p>${product.details || 'No details available.'}</p></div>
                 <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add Custom Amount</button>
             `;
 
-            // Add interactivity to the calculator and main 'Add to Cart' button
             const weightInput = document.getElementById('weight-input');
             const costInput = document.getElementById('cost-input');
             const pricePerGram = product.price_per_100gm / 100;
@@ -225,28 +255,81 @@
                 const cost = parseFloat(costInput.value) || 0;
                 weightInput.value = cost > 0 ? (cost / pricePerGram).toFixed(2) : '';
             });
-            
-            productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
-                const finalWeight = parseFloat(weightInput.value);
-                const finalCost = parseFloat(costInput.value);
-                if (!finalWeight || !finalCost || finalWeight <= 0) {
-                    alert("Please enter a valid weight or cost.");
-                    return;
-                }
-                addToCart({ ...product, price: finalCost, amount: `${finalWeight} gm` });
-            });
+            // --- JAVASCRIPT LOGIC TO CREATE PREDEFINED WEIGHT BUTTONS ---
+const weightsContainer = productInfoContainer.querySelector('.predefined-weights-container');
 
-            // --- 2. Populate All Recommendation Sections ---
-            // Section 1: Same category, from 'weightableProducts'
+// First, check if the product has the 'available_weights' array
+if (product.available_weights && product.available_weights.length > 0) {
+    
+    // Add a title and a container for the buttons
+    weightsContainer.innerHTML = `
+        <h3>Or, Select a Pack</h3>
+        <div class="weights-options"></div>
+    `;
+    const optionsDiv = weightsContainer.querySelector('.weights-options');
+
+    // Loop through each available weight and create a button for it
+    product.available_weights.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'weight-option-btn';
+        button.innerHTML = `${option.weight} <span class="price-span">₹${option.price}</span>`;
+
+        // Add 'add to cart' functionality to the button
+        button.addEventListener('click', () => {
+            // Create a unique ID to prevent cart conflicts
+            const uniqueCartId = `${product.id}-${option.weight.replace(/\s/g, '')}`;
+            
+            const newItem = {
+                ...product,
+                price: option.price,
+                amount: option.weight,
+                cartItemId: uniqueCartId,
+                quantity: 1
+            };
+            
+            // This function is defined in the next step
+            addItemToCart(newItem); 
+        });
+
+        optionsDiv.appendChild(button);
+    });
+}
+            // --- MODIFIED CODE BLOCK ---
+            // Find your existing '.add-cart' listener...
+// REPLACE THIS ENTIRE BLOCK
+productInfoContainer.querySelector('.add-cart').addEventListener('click', () => {
+    // --- FIX STARTS HERE ---
+    // Get the current values from the input fields when the button is clicked
+    const weightInput = document.getElementById('weight-input');
+    const costInput = document.getElementById('cost-input');
+    const finalWeight = parseFloat(weightInput.value);
+    const finalCost = parseFloat(costInput.value);
+    const mrpPerGram = product.mrp_per_100gm / 100; // Ensure mrpPerGram is defined here
+
+    // Add validation
+    if (!finalWeight || !finalCost || finalWeight <= 0 || finalCost <= 0) {
+        alert("Please enter a valid weight or cost before adding.");
+        return;
+    }
+    // --- FIX ENDS HERE ---
+
+    const uniqueCartId = `${product.id}-custom-${Date.now()}`;
+    const newItem = {
+        ...product,
+        price: finalCost,
+        originalPrice: (finalWeight * mrpPerGram).toFixed(2),
+        amount: `${finalWeight.toFixed(2)} gm`,
+        cartItemId: uniqueCartId,
+        quantity: 1
+    };
+    
+    addItemToCart(newItem);
+});
+
+            // --- 2. Populate All Recommendation Sections (No changes here) ---
             displayRecommendedProducts(product);
-            
-            // Section 2: Random products, from 'weightableProducts'
             displayRandomProducts(productId, 'random-products-scroll-1', 15);
-            
-            // Section 3: Random packet products, from 'packetProducts' (using our new function)
             displayPacketProducts('random-products-scroll-2', 15);
-
-            // --- 3. Initialize Q&A Section ---
             fetchAndDisplayQA(productId);
             setupQAForm(productId);
 
@@ -260,64 +343,142 @@
     // --- ALL HELPER FUNCTIONS BELOW ---
 
     // Function for Section 1: Same Category (Measurable Products)
-    function displayRecommendedProducts(currentProduct) {
-        const container = document.getElementById('recommended-products');
-        if (!container) return;
-        const recommendations = weightableProducts
-            .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
-            .sort(() => 0.10 - Math.random()).slice(0, 10);
-        if (recommendations.length === 0) {
-            container.closest('.recommended-container').style.display = 'none';
-            return;
-        }
-        container.innerHTML = '';
-        recommendations.forEach(recProduct => {
-            const weightOptionsHTML = recProduct.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
-            const cardHTML = `<div class="product-card" data-product-id="${recProduct.id}"><a href="?id=${recProduct.id}"><img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4></a><p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${recProduct.id}">₹${recProduct.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
-            container.innerHTML += cardHTML;
-        });
-        container.querySelectorAll('.weight-selector-rec').forEach(selector => { /* ... event listener ... */ });
-        container.querySelectorAll('.add-btn-rec').forEach(button => { /* ... event listener ... */ });
+  // REPLACE this entire function
+function displayRecommendedProducts(currentProduct) {
+    const container = document.getElementById('recommended-products');
+    if (!container) return;
+    const recommendations = weightableProducts
+        .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+        .sort(() => 0.5 - Math.random()).slice(0, 10);
+    if (recommendations.length === 0) {
+        container.closest('.recommended-container').style.display = 'none';
+        return;
     }
+    container.innerHTML = '';
+    recommendations.forEach(recProduct => {
+        const weightOptionsHTML = recProduct.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
+        const cardHTML = `<div class="product-card" data-product-id="${recProduct.id}"><a href="?id=${recProduct.id}"><img src="${recProduct.image}" alt="${recProduct.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${recProduct.name}">${recProduct.name}</abbr></h4></a><p class="price-comparison">(₹${recProduct.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${recProduct.id}">₹${recProduct.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
+        container.innerHTML += cardHTML;
+    });
 
-    // Function for Section 2: Random (Measurable Products)
-    function displayRandomProducts(currentProductId, containerId, count) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        const randomProducts = weightableProducts.filter(p => p.id !== currentProductId).sort(() => 0.5 - Math.random()).slice(0, count);
-        container.innerHTML = '';
-        randomProducts.forEach(product => {
-            const weightOptionsHTML = product.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
-            const cardHTML = `<div class="product-card" data-product-id="${product.id}"><a href="?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4></a><p class="price-comparison">(₹${product.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${product.id}">₹${product.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
-            container.innerHTML += cardHTML;
+    // --- FIX: Added event listeners ---
+    container.querySelectorAll('.weight-selector-rec').forEach(selector => {
+        selector.addEventListener('change', (e) => {
+            const priceEl = e.target.closest('.product-card').querySelector('.product-price');
+            priceEl.textContent = `₹${e.target.value}`;
         });
-        container.querySelectorAll('.weight-selector-rec').forEach(selector => { /* ... event listener ... */ });
-        container.querySelectorAll('.add-btn-rec').forEach(button => { /* ... event listener ... */ });
-    }
+    });
+    container.querySelectorAll('.add-btn-rec').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.product-card');
+            const productId = parseInt(card.dataset.productId);
+            const productToAdd = weightableProducts.find(p => p.id === productId);
+            const selector = card.querySelector('.weight-selector-rec');
+            const selectedOption = selector.options[selector.selectedIndex];
+
+            const newItem = {
+                ...productToAdd,
+                price: parseFloat(selectedOption.value),
+                amount: selectedOption.text,
+                cartItemId: `${productToAdd.id}-${selectedOption.text.replace(/\s/g, '')}`,
+                quantity: 1
+            };
+            addItemToCart(newItem);
+        });
+    });
+}
+
+// REPLACE this entire function too
+function displayRandomProducts(currentProductId, containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const randomProducts = weightableProducts.filter(p => p.id !== currentProductId).sort(() => 0.5 - Math.random()).slice(0, count);
+    container.innerHTML = '';
+    randomProducts.forEach(product => {
+        const weightOptionsHTML = product.available_weights.map(w => `<option value="${w.price}">${w.weight}</option>`).join('');
+        const cardHTML = `<div class="product-card" data-product-id="${product.id}"><a href="?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4></a><p class="price-comparison">(₹${product.price_per_100gm} / 100gm)</p><select class="weight-selector-rec">${weightOptionsHTML}</select><p class="product-price" id="price-rec-${product.id}">₹${product.available_weights[0].price}</p><button class="add-btn-rec">Add to Cart</button></div>`;
+        container.innerHTML += cardHTML;
+    });
+    
+    // --- FIX: Added event listeners ---
+    container.querySelectorAll('.weight-selector-rec').forEach(selector => {
+        selector.addEventListener('change', (e) => {
+            const priceEl = e.target.closest('.product-card').querySelector('.product-price');
+            priceEl.textContent = `₹${e.target.value}`;
+        });
+    });
+    container.querySelectorAll('.add-btn-rec').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.product-card');
+            const productId = parseInt(card.dataset.productId);
+            const productToAdd = weightableProducts.find(p => p.id === productId);
+            const selector = card.querySelector('.weight-selector-rec');
+            const selectedOption = selector.options[selector.selectedIndex];
+
+            const newItem = {
+                ...productToAdd,
+                price: parseFloat(selectedOption.value),
+                amount: selectedOption.text,
+                cartItemId: `${productToAdd.id}-${selectedOption.text.replace(/\s/g, '')}`,
+                quantity: 1
+            };
+            addItemToCart(newItem);
+        });
+    });
+}
 
     // NEW Function for Section 3: Random (Packet Products)
-    function displayPacketProducts(containerId, count) {
-        const container = document.getElementById(containerId);
-        if (!container || typeof packetProducts === 'undefined' || packetProducts.length === 0) {
-            const containerWrapper = container.closest('.recommended-container');
-            if(containerWrapper) containerWrapper.style.display = 'none';
-            return;
-        }
-        const randomPacketProducts = [...packetProducts].sort(() => 0.5 - Math.random()).slice(0, count);
-        container.innerHTML = '';
-        randomPacketProducts.forEach(product => {
-            const cardHTML = `<div class="product-card" data-product-id="${product.id}" data-product-type="packet"><a href="product-details.html?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4></a><p class="product-amount">${product.amount}</p><div class="packet-price-container"><p class="product-price">₹${product.price}</p><del class="original-price">₹${product.originalPrice}</del></div><button class="add-btn-rec">Add to Cart</button></div>`;
-            container.innerHTML += cardHTML;
-        });
-        container.querySelectorAll('.add-btn-rec').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const card = e.target.closest('.product-card');
-                const productId = parseInt(card.dataset.productId);
-                const productToAdd = packetProducts.find(p => p.id === productId);
-                if (productToAdd) { addToCart(productToAdd); }
-            });
-        });
+    // REPLACE this entire function
+function displayPacketProducts(containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container || typeof packetProducts === 'undefined' || packetProducts.length === 0) {
+        const containerWrapper = container.closest('.recommended-container');
+        if (containerWrapper) containerWrapper.style.display = 'none';
+        return;
     }
+    const randomPacketProducts = [...packetProducts].sort(() => 0.5 - Math.random()).slice(0, count);
+    container.innerHTML = '';
+    randomPacketProducts.forEach(product => {
+        const cardHTML = `
+            <div class="product-card" data-product-id="${product.id}" data-product-type="packet">
+                <a href="product-details.html?id=${product.id}">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    <h4 class="product-name"><abbr style="text-decoration: none;" title="${product.name}">${product.name}</abbr></h4>
+                </a>
+                <p class="product-amount">${product.amount}</p>
+                <div class="packet-price-container">
+                    <p class="product-price">₹${product.price}</p>
+                    <del class="original-price">₹${product.originalPrice}</del>
+                </div>
+                <button class="add-btn-rec">Add to Cart</button>
+            </div>`;
+        container.innerHTML += cardHTML;
+    });
+
+    // Event listener logic
+    container.querySelectorAll('.add-btn-rec').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const card = e.target.closest('.product-card');
+            const productId = parseInt(card.dataset.productId);
+            const productToAdd = packetProducts.find(p => p.id === productId);
+            
+            if (productToAdd) {
+                // --- FIX STARTS HERE ---
+                // Create a consistent item object to add to the cart.
+                // For standard products, the cartItemId can just be the product's ID.
+                const newItem = {
+                    ...productToAdd,
+                    cartItemId: productToAdd.id, // Use the product ID as the unique identifier
+                    quantity: 1
+                };
+                
+                // Call the correct, universal 'addItemToCart' function
+                addItemToCart(newItem);
+                // --- FIX ENDS HERE ---
+            }
+        });
+    });
+}
         // This is the ONLY place the URL should be. This is correct.
 const G_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmcrsVmhl49aq4asoO6k1YzWULJRenTBKIaW6BNTWj_-vhVOEtczCqPE9sKSICsgxV/exec';
 
