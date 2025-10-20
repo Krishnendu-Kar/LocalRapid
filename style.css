@@ -453,11 +453,11 @@ a {
     width: 100vw;
     display:flex;
     position:relative;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
-    align-content: flex-end;
+    /* align-content: flex-end; */
 }
 @media (max-width: 600px) {
     .hero-section{
@@ -512,10 +512,10 @@ a {
     }
 }
 .box1a{
-    background-image:url("product images/");
+    background-image:url("staples.png");
 }
 .box1b{
-    background-image:url("product images/");
+    background-image:url("cold drink.png");
 }
 .box2a{
     background-image:url("staples.png");
@@ -527,13 +527,13 @@ a {
     background-image:url("snacks.png");
 }
 .box3b{
-    background-image:url("product images/");
+    background-image:url("cold drink.png");
 }
 .box4a{
-    background-image:url("product images/");
+    background-image:url("snacks.png");
 }
 .box4b{
-    background-image:url("product images/mustardOil1lfront.jpg");
+    background-image:url("staples.png");
 }
 
 .shop-section{    
@@ -546,7 +546,6 @@ a {
 
 .product {
     background-color: rgb(255, 254, 253);
-    width: 170px;
     display: flex;
     flex-direction: column;
     border: 3px solid rgb(225, 223, 214);
@@ -554,13 +553,17 @@ a {
     margin:5px;
     transition: transform 0.2s ease;
 }
- @media (max-width: 401px) {
-    .product{width: 300px;
+ @media (max-width: 421px) {
+    .product{width: 90vw;
     margin-left:15px;
     margin-right:15px;
 }
     
   }
+@media (min-width: 399px) and (max-width: 601px) {
+    .product {width: 200px; }
+}
+
 
 
 .image-wrapper img {

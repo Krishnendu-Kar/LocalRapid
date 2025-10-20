@@ -212,13 +212,17 @@ a.product {
     margin:5px;
     transition: transform 0.2s ease;
 }
- @media (max-width: 400px) {
-    .product{width: 300px;
+ @media (max-width: 421px) {
+    .product{width: 90vw;
     margin-left:15px;
     margin-right:15px;
 }
     
   }
+@media (min-width: 399px) and (max-width: 601px) {
+    .product {width: 200px; }
+}
+
 
 
 .image-wrapper img {
