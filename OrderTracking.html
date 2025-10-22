@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order | E-Commerce</title>
+    <meta name="description" content="Track your order status securely with OTP verification. Enter your order ID to view complete order details and delivery status.">
+    <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --primary: hsl(220, 90%, 56%);
+            --primary-hover: hsl(220, 90%, 48%);
+            --success: hsl(142, 71%, 45%);
+            --warning: hsl(38, 92%, 50%);
+            --error: hsl(0, 84%, 60%);
+            --info: hsl(199, 89%, 48%);
+            --background: hsl(0, 0%, 100%);
+            --surface: hsl(220, 13%, 97%);
+            --border: hsl(220, 13%, 91%);
+            --text-primary: hsl(220, 9%, 20%);
+            --text-secondary: hsl(220, 9%, 46%);
+            --text-tertiary: hsl(220, 9%, 65%);
+            
+            /* Fonts */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark {
+            --primary: hsl(220, 90%, 60%);
+            --primary-hover: hsl(220, 90%, 68%);
+            --success: hsl(142, 71%, 55%);
+            --warning: hsl(38, 92%, 60%);
+            --error: hsl(0, 84%, 70%);
+            --info: hsl(199, 89%, 58%);
+            --background: hsl(220, 13%, 10%);
+            --surface: hsl(220, 13%, 15%);
+            --border: hsl(220, 13%, 25%);
+            --text-primary: hsl(220, 9%, 95%);
+            --text-secondary: hsl(220, 9%, 65%);
+            --text-tertiary: hsl(220, 9%, 50%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        
+        .container-wide {
+            max-width: 64rem;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .header-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Card */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+        
+        /* Form */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-tertiary);
+            letter-spacing: normal;
+        }
+        
+        .form-hint {
+            margin-top: var(--spacing-sm);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            min-height: 2.75rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            max-width: 28rem;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .modal-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto var(--spacing-md);
+            background: hsla(220, 90%, 56%, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .modal p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+        
+        /* OTP Input */
+        .otp-container {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .otp-input {
+            width: 3rem;
+            height: 3.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-align: center;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+        
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .otp-separator {
+            display: flex;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+        
+        /* Order Details */
+        .order-details {
+            display: none;
+        }
+        
+        .order-details.active {
+            display: block;
+        }
+        
+        .order-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .status-pending {
+            background: hsla(38, 92%, 50%, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-processing {
+            background: hsla(220, 90%, 56%, 0.1);
+            color: var(--primary);
+        }
+        
+        .status-packed {
+            background: hsla(199, 89%, 48%, 0.1);
+            color: var(--info);
+        }
+        
+        .status-shipped {
+            background: hsla(199, 89%, 48%, 0.1);
+            color: var(--info);
+        }
+        
+        .status-delivered {
+            background: hsla(142, 71%, 45%, 0.1);
+            color: var(--success);
+        }
+        
+        .status-cancelled {
+            background: hsla(0, 84%, 60%, 0.1);
+            color: var(--error);
+        }
+        
+        .order-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .order-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .info-item {
+            padding: var(--spacing-lg);
+            background: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .info-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .info-value.mono {
+            font-family: var(--font-mono);
+            letter-spacing: 0.03em;
+        }
+        
+        /* Items List */
+        .items-list {
+            background: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        
+        .items-list-item {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .items-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Payment Summary */
+        .payment-summary {
+            background: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: var(--spacing-lg);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+        }
+        
+        .summary-row.total {
+            border-top: 2px solid var(--border);
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-md);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        
+        .summary-label {
+            color: var(--text-secondary);
+        }
+        
+        .summary-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .summary-value.mono {
+            font-family: var(--font-mono);
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Error Message */
+        .error-message {
+            padding: var(--spacing-lg);
+            background: hsla(0, 84%, 60%, 0.1);
+            border: 1px solid var(--error);
+            border-radius: var(--radius-md);
+            color: var(--error);
+            margin-top: var(--spacing-lg);
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--background);
+            transform: scale(1.05);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .card {
+                padding: var(--spacing-xl);
+            }
+            
+            .header h1 {
+                font-size: 1.875rem;
+            }
+            
+            .otp-input {
+                width: 2.5rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" data-testid="button-theme-toggle">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Search Section -->
+    <div class="container" id="searchSection">
+        <div class="header">
+            <div class="header-icon">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            <h1>Track Your Order</h1>
+            <p>Enter your Order ID to track your package</p>
+        </div>
+
+        <div class="card">
+            <form id="trackingForm" onsubmit="trackOrder(event)">
+                <div class="form-group">
+                    <label class="form-label" for="orderId">Order ID</label>
+                    <input 
+                        type="text" 
+                        id="orderId" 
+                        class="form-input" 
+                        placeholder="LR*************"
+                        required
+                        data-testid="input-order-id"
+                    >
+                    <p class="form-hint">You can find your Order ID in the confirmation email or SMS</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="trackBtn" data-testid="button-track-order">
+                    <span id="trackBtnText">Track Order</span>
+                    <span id="trackBtnSpinner" class="spinner hidden"></span>
+                </button>
+
+                <div class="error-message" id="searchError" data-testid="text-search-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Details Section -->
+    <div class="container container-wide order-details" id="orderDetailsSection">
+        <div class="header">
+            <h1>Order Details</h1>
+            <p id="orderIdDisplay" data-testid="text-order-id-display"></p>
+        </div>
+
+        <div class="card">
+            <div id="orderStatusBadge" data-testid="badge-order-status"></div>
+
+            <div class="order-section">
+                <h3>Customer Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Customer Name</div>
+                        <div class="info-value" id="customerName" data-testid="text-customer-name"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Mobile Number</div>
+                        <div class="info-value mono" id="customerMobile" data-testid="text-customer-mobile"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Order Placed On</div>
+                        <div class="info-value" id="orderDate" data-testid="text-order-date"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Payment Method</div>
+                        <div class="info-value" id="paymentMethod" data-testid="text-payment-method"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h3>Order Items</h3>
+                <div class="items-list" id="orderItems" data-testid="list-order-items"></div>
+            </div>
+
+            <div class="order-section">
+                <h3>Payment Summary</h3>
+                <div class="payment-summary">
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value mono" id="subtotal" data-testid="text-subtotal"></span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Delivery Charge</span>
+                        <span class="summary-value mono" id="deliveryCharge" data-testid="text-delivery-charge"></span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">COD Charge</span>
+                        <span class="summary-value mono" id="codCharge" data-testid="text-cod-charge"></span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Discount</span>
+                        <span class="summary-value mono" id="discount" data-testid="text-discount"></span>
+                    </div>
+                    <div class="summary-row total">
+                        <span class="summary-label">Total Amount</span>
+                        <span class="summary-value mono" id="totalAmount" data-testid="text-total-amount"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-full" onclick="resetTracking()" data-testid="button-track-another">
+                Track Another Order
+            </button>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div class="modal-overlay" id="otpModal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeOtpModal()" aria-label="Close modal" data-testid="button-close-modal">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h2>Verify Your Order</h2>
+                <p>Enter the 6-digit OTP sent to your registered mobile number</p>
+            </div>
+
+            <form onsubmit="verifyOtp(event)">
+                <div class="otp-container">
+                    <input type="text" maxlength="1" class="otp-input" data-index="0" data-testid="input-otp-1">
+                    <input type="text" maxlength="1" class="otp-input" data-index="1" data-testid="input-otp-2">
+                    <input type="text" maxlength="1" class="otp-input" data-index="2" data-testid="input-otp-3">
+                    <span class="otp-separator">-</span>
+                    <input type="text" maxlength="1" class="otp-input" data-index="3" data-testid="input-otp-4">
+                    <input type="text" maxlength="1" class="otp-input" data-index="4" data-testid="input-otp-5">
+                    <input type="text" maxlength="1" class="otp-input" data-index="5" data-testid="input-otp-6">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="verifyBtn" data-testid="button-verify-otp">
+                    <span id="verifyBtnText">Verify OTP</span>
+                    <span id="verifyBtnSpinner" class="spinner hidden"></span>
+                </button>
+
+                <div class="error-message" id="otpError" data-testid="text-otp-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCdSPs0tvOnV_ivH609DoU8Xw-3xTgRbKQJyDHuc7XvUbY3RgFmjjONinGiuwU51Z7EQ/exec';
+        
+        let currentOrderData = null;
+        
+        // Theme Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+        
+        // Initialize theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Track Order
+        async function trackOrder(event) {
+            event.preventDefault();
+            
+            const orderId = document.getElementById('orderId').value.trim();
+            const trackBtn = document.getElementById('trackBtn');
+            const trackBtnText = document.getElementById('trackBtnText');
+            const trackBtnSpinner = document.getElementById('trackBtnSpinner');
+            const searchError = document.getElementById('searchError');
+            
+            // Reset error
+            searchError.classList.remove('active');
+            searchError.textContent = '';
+            
+            // Show loading state
+            trackBtn.disabled = true;
+            trackBtnText.textContent = 'Searching...';
+            trackBtnSpinner.classList.remove('hidden');
+            
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getOrder&orderId=${encodeURIComponent(orderId)}`);
+                const data = await response.json();
+                
+                if (data.result === 'success' && data.order) {
+                    currentOrderData = data.order;
+                    openOtpModal();
+                } else {
+                    showError(searchError, data.message || 'Order not found. Please check your Order ID and try again.');
+                }
+            } catch (error) {
+                console.error('Error tracking order:', error);
+                showError(searchError, 'Unable to connect to the server. Please check your internet connection and try again.');
+            } finally {
+                // Reset button state
+                trackBtn.disabled = false;
+                trackBtnText.textContent = 'Track Order';
+                trackBtnSpinner.classList.add('hidden');
+            }
+        }
+        
+        // OTP Modal
+        function openOtpModal() {
+            const modal = document.getElementById('otpModal');
+            modal.classList.add('active');
+            
+            // Clear OTP inputs
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach(input => input.value = '');
+            
+            // Focus first input
+            otpInputs[0].focus();
+            
+            // Setup OTP input navigation
+            setupOtpInputs();
+        }
+        
+        function closeOtpModal() {
+            document.getElementById('otpModal').classList.remove('active');
+            document.getElementById('otpError').classList.remove('active');
+        }
+        
+        function setupOtpInputs() {
+            const inputs = document.querySelectorAll('.otp-input');
+            
+            inputs.forEach((input, index) => {
+                // Handle input
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                
+                // Handle backspace
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+                
+                // Handle paste
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').slice(0, 6);
+                    pastedData.split('').forEach((char, i) => {
+                        if (inputs[i]) {
+                            inputs[i].value = char;
+                        }
+                    });
+                    if (pastedData.length === 6) {
+                        inputs[5].focus();
+                    }
+                });
+            });
+        }
+        
+        // Verify OTP
+        async function verifyOtp(event) {
+            event.preventDefault();
+            
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const verifyBtnText = document.getElementById('verifyBtnText');
+            const verifyBtnSpinner = document.getElementById('verifyBtnSpinner');
+            const otpError = document.getElementById('otpError');
+            
+            if (otp.length !== 6) {
+                showError(otpError, 'Please enter complete 6-digit OTP');
+                return;
+            }
+            
+            // Reset error
+            otpError.classList.remove('active');
+            otpError.textContent = '';
+            
+            // Show loading state
+            verifyBtn.disabled = true;
+            verifyBtnText.textContent = 'Verifying...';
+            verifyBtnSpinner.classList.remove('hidden');
+            
+            try {
+                // Verify OTP matches the one in order data
+                if (otp === currentOrderData.otp) {
+                    closeOtpModal();
+                    displayOrderDetails(currentOrderData);
+                } else {
+                    showError(otpError, 'Invalid OTP. Please check and try again.');
+                    // Clear OTP inputs
+                    otpInputs.forEach(input => input.value = '');
+                    otpInputs[0].focus();
+                }
+            } catch (error) {
+                console.error('Error verifying OTP:', error);
+                showError(otpError, 'Verification failed. Please try again.');
+            } finally {
+                // Reset button state
+                verifyBtn.disabled = false;
+                verifyBtnText.textContent = 'Verify OTP';
+                verifyBtnSpinner.classList.add('hidden');
+            }
+        }
+        
+        // Display Order Details
+        function displayOrderDetails(order) {
+            // Hide search section, show details
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('orderDetailsSection').classList.add('active');
+            
+            // Order ID
+            document.getElementById('orderIdDisplay').textContent = `Order ID: ${order.orderId}`;
+            
+            // Status Badge
+            const statusBadge = document.getElementById('orderStatusBadge');
+            const statusClass = getStatusClass(order.orderStatus);
+            statusBadge.className = `order-status-badge ${statusClass}`;
+            statusBadge.innerHTML = `
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="3"></circle>
+                </svg>
+                ${order.orderStatus}
+            `;
+            
+            // Customer Information
+            document.getElementById('customerName').textContent = order.customerName;
+            document.getElementById('customerMobile').textContent = `****${order.mobileLast4}`;
+            document.getElementById('orderDate').textContent = formatDate(order.orderDate);
+            document.getElementById('paymentMethod').textContent = order.paymentMethod;
+            
+            // Order Items
+            const itemsContainer = document.getElementById('orderItems');
+            itemsContainer.innerHTML = order.items.split('\n').map(item => `
+                <div class="items-list-item">${escapeHtml(item)}</div>
+            `).join('');
+            
+            // Payment Summary
+            const subtotal = parseFloat(order.totalAmount) - parseFloat(order.deliveryCharge || 0) - parseFloat(order.codCharge || 0) + parseFloat(order.discount || 0);
+            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryCharge').textContent = `₹${parseFloat(order.deliveryCharge || 0).toFixed(2)}`;
+            document.getElementById('codCharge').textContent = `₹${parseFloat(order.codCharge || 0).toFixed(2)}`;
+            document.getElementById('discount').textContent = `-₹${parseFloat(order.discount || 0).toFixed(2)}`;
+            document.getElementById('totalAmount').textContent = `₹${parseFloat(order.totalAmount).toFixed(2)}`;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Reset Tracking
+        function resetTracking() {
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('orderDetailsSection').classList.remove('active');
+            document.getElementById('orderId').value = '';
+            currentOrderData = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Helper Functions
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add('active');
+        }
+        
+        function getStatusClass(status) {
+            const statusMap = {
+                'Pending': 'status-pending',
+                'Processing': 'status-processing',
+                'Packed': 'status-packed',
+                'Shipped': 'status-shipped',
+                'Delivered': 'status-delivered',
+                'Cancelled': 'status-cancelled'
+            };
+            return statusMap[status] || 'status-pending';
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+    </script>
+</body>
+</html>

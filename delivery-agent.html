@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Agent Portal | E-Commerce</title>
+    <meta name="description" content="Delivery agent portal for order verification and status updates.">
+    <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: hsl(220, 90%, 56%);
+            --primary-hover: hsl(220, 90%, 48%);
+            --success: hsl(142, 71%, 45%);
+            --warning: hsl(38, 92%, 50%);
+            --error: hsl(0, 84%, 60%);
+            --info: hsl(199, 89%, 48%);
+            --background: hsl(0, 0%, 100%);
+            --surface: hsl(220, 13%, 97%);
+            --border: hsl(220, 13%, 91%);
+            --text-primary: hsl(220, 9%, 20%);
+            --text-secondary: hsl(220, 9%, 46%);
+            --text-tertiary: hsl(220, 9%, 65%);
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark {
+            --primary: hsl(220, 90%, 60%);
+            --primary-hover: hsl(220, 90%, 68%);
+            --success: hsl(142, 71%, 55%);
+            --warning: hsl(38, 92%, 60%);
+            --error: hsl(0, 84%, 70%);
+            --info: hsl(199, 89%, 58%);
+            --background: hsl(220, 13%, 10%);
+            --surface: hsl(220, 13%, 15%);
+            --border: hsl(220, 13%, 25%);
+            --text-primary: hsl(220, 9%, 95%);
+            --text-secondary: hsl(220, 9%, 65%);
+            --text-tertiary: hsl(220, 9%, 50%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .header-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-prefix {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-input.with-prefix {
+            padding-left: 3rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            min-height: 2.75rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover:not(:disabled) {
+            background: hsl(142, 71%, 40%);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover:not(:disabled) {
+            background: hsl(38, 92%, 45%);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-error {
+            background: var(--error);
+            color: white;
+        }
+        
+        .btn-error:hover:not(:disabled) {
+            background: hsl(0, 84%, 55%);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .info-item {
+            padding: var(--spacing-lg);
+            background: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .info-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+        
+        .info-value.mono {
+            font-family: var(--font-mono);
+            letter-spacing: 0.03em;
+        }
+        
+        .call-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .btn-call {
+            flex: 1;
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-call:hover:not(:disabled) {
+            background: hsl(142, 71%, 40%);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            max-width: 28rem;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .modal-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto var(--spacing-md);
+            background: hsla(220, 90%, 56%, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .modal p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+        
+        .otp-container {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .otp-input {
+            width: 3rem;
+            height: 3.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-align: center;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+        
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .otp-separator {
+            display: flex;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+        
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message, .success-message {
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-lg);
+            display: none;
+        }
+        
+        .error-message {
+            background: hsla(0, 84%, 60%, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+        
+        .success-message {
+            background: hsla(142, 71%, 45%, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .error-message.active, .success-message.active {
+            display: block;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--background);
+            transform: scale(1.05);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .order-details {
+            display: none;
+        }
+        
+        .order-details.active {
+            display: block;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .card {
+                padding: var(--spacing-xl);
+            }
+            
+            .header h1 {
+                font-size: 1.875rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-group .btn {
+                width: 100%;
+            }
+            
+            .otp-input {
+                width: 2.5rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" data-testid="button-theme-toggle">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Search Section -->
+    <div class="container" id="searchSection">
+        <div class="header">
+            <div class="header-icon">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8v8l4 4"></path>
+                    <circle cx="16" cy="16" r="14"></circle>
+                </svg>
+            </div>
+            <h1>Delivery Agent Portal</h1>
+            <p>Search and manage order deliveries</p>
+        </div>
+
+        <div class="card">
+            <form id="searchForm" onsubmit="searchOrder(event)">
+                <div class="form-group">
+                    <label class="form-label" for="orderNumber">Order Number</label>
+                    <div class="input-wrapper">
+                        <span class="input-prefix">LR</span>
+                        <input 
+                            type="text" 
+                            id="orderNumber" 
+                            class="form-input with-prefix" 
+                            placeholder="1761042424801"
+                            required
+                            data-testid="input-order-number"
+                        >
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        Enter only the number after "LR"
+                    </p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="searchBtn" data-testid="button-search-order">
+                    <span id="searchBtnText">Search Order</span>
+                    <span id="searchBtnSpinner" class="spinner hidden"></span>
+                </button>
+
+                <div class="error-message" id="searchError" data-testid="text-search-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Details Section -->
+    <div class="container order-details" id="orderDetailsSection">
+        <div class="header">
+            <h1>Order Details</h1>
+            <p id="orderIdDisplay" data-testid="text-order-id-display"></p>
+        </div>
+
+        <div class="card">
+            <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--spacing-xl); color: var(--text-primary);">
+                Customer Information
+            </h2>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Order Placed On</div>
+                    <div class="info-value" id="orderPlaceTime" data-testid="text-order-time"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Customer Name</div>
+                    <div class="info-value" id="customerName" data-testid="text-customer-name"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Payment Method</div>
+                    <div class="info-value" id="paymentMethod" data-testid="text-payment-method"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Total Amount</div>
+                    <div class="info-value mono" id="totalAmount" data-testid="text-total-amount"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--spacing-xl);">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--spacing-lg); color: var(--text-primary);">
+                    Contact Information
+                </h3>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Primary Mobile</div>
+                        <div class="info-value mono" id="primaryMobile" data-testid="text-primary-mobile"></div>
+                        <a href="#" id="callPrimary" class="btn btn-call" style="margin-top: var(--spacing-md);" data-testid="button-call-primary">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            Call Primary
+                        </a>
+                    </div>
+                    <div class="info-item" id="altMobileSection">
+                        <div class="info-label">Alternate Mobile</div>
+                        <div class="info-value mono" id="altMobile" data-testid="text-alt-mobile"></div>
+                        <a href="#" id="callAlt" class="btn btn-call" style="margin-top: var(--spacing-md); display: none;" data-testid="button-call-alt">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            Call Alternate
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--spacing-xl);">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--spacing-lg); color: var(--text-primary);">
+                    Delivery Address
+                </h3>
+                
+                <div class="info-item">
+                    <div class="info-value" id="fullAddress" data-testid="text-full-address"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 2px solid var(--border);">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--spacing-lg); color: var(--text-primary);">
+                    Delivery Actions
+                </h3>
+                
+                <button class="btn btn-primary btn-full" onclick="openVerifyModal()" data-testid="button-verify-delivery">
+                    Verify & Update Delivery Status
+                </button>
+                
+                <div class="success-message" id="statusSuccess" data-testid="text-status-success"></div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="resetSearch()" style="margin-top: var(--spacing-lg);" data-testid="button-search-another">
+            Search Another Order
+        </button>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div class="modal-overlay" id="verifyModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeVerifyModal()" aria-label="Close modal" data-testid="button-close-modal">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h2>Verify Delivery</h2>
+                <p>Ask customer for their 6-digit OTP to verify delivery</p>
+            </div>
+
+            <form onsubmit="verifyAndUpdate(event)">
+                <div class="otp-container">
+                    <input type="text" maxlength="1" class="otp-input" data-index="0" data-testid="input-otp-1">
+                    <input type="text" maxlength="1" class="otp-input" data-index="1" data-testid="input-otp-2">
+                    <input type="text" maxlength="1" class="otp-input" data-index="2" data-testid="input-otp-3">
+                    <span class="otp-separator">-</span>
+                    <input type="text" maxlength="1" class="otp-input" data-index="3" data-testid="input-otp-4">
+                    <input type="text" maxlength="1" class="otp-input" data-index="4" data-testid="input-otp-5">
+                    <input type="text" maxlength="1" class="otp-input" data-index="5" data-testid="input-otp-6">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="deliveryStatus">Delivery Status</label>
+                    <select id="deliveryStatus" class="form-input" style="font-family: var(--font-sans);" onchange="toggleCancelReason()" required data-testid="select-delivery-status">
+                        <option value="Delivered">Delivered</option>
+                        <option value="Attempted Delivery">Attempted Delivery</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="cancelReasonGroup">
+                    <label class="form-label" for="cancelReason">Cancellation Reason</label>
+                    <textarea id="cancelReason" class="form-textarea" placeholder="Please provide reason for cancellation..." data-testid="input-cancel-reason"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-full" id="updateBtn" data-testid="button-update-status">
+                    <span id="updateBtnText">Verify & Update Status</span>
+                    <span id="updateBtnSpinner" class="spinner hidden"></span>
+                </button>
+
+                <div class="error-message" id="verifyError" data-testid="text-verify-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxGpvmYtk5rvQtvdxUviVV34f6p3L4ynvuprYnelcJbJAQKtzF412k7MKDcwXcwKmOJ1g/exec';
+        
+        let currentOrderData = null;
+        
+        // Theme Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+        
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Search Order
+        async function searchOrder(event) {
+            event.preventDefault();
+            
+            const orderNumber = document.getElementById('orderNumber').value.trim();
+            const orderId = 'LR' + orderNumber;
+            const searchBtn = document.getElementById('searchBtn');
+            const searchBtnText = document.getElementById('searchBtnText');
+            const searchBtnSpinner = document.getElementById('searchBtnSpinner');
+            const searchError = document.getElementById('searchError');
+            
+            searchError.classList.remove('active');
+            searchError.textContent = '';
+            
+            searchBtn.disabled = true;
+            searchBtnText.textContent = 'Searching...';
+            searchBtnSpinner.classList.remove('hidden');
+            
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getOrder&orderId=${encodeURIComponent(orderId)}`);
+                const data = await response.json();
+                
+                if (data.result === 'success' && data.order) {
+                    currentOrderData = data.order;
+                    displayOrderDetails(data.order);
+                } else {
+                    showError(searchError, data.message || 'Order not found. Please check the order number and try again.');
+                }
+            } catch (error) {
+                console.error('Error searching order:', error);
+                showError(searchError, 'Unable to connect to the server. Please try again.');
+            } finally {
+                searchBtn.disabled = false;
+                searchBtnText.textContent = 'Search Order';
+                searchBtnSpinner.classList.add('hidden');
+            }
+        }
+        
+        // Display Order Details
+        function displayOrderDetails(order) {
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('orderDetailsSection').classList.add('active');
+            
+            document.getElementById('orderIdDisplay').textContent = `Order ID: ${order.orderId}`;
+            document.getElementById('orderPlaceTime').textContent = formatDate(order.orderDate);
+            document.getElementById('customerName').textContent = order.customerName;
+            document.getElementById('paymentMethod').textContent = order.paymentMethod;
+            document.getElementById('totalAmount').textContent = `₹${parseFloat(order.totalAmount).toFixed(2)}`;
+            document.getElementById('primaryMobile').textContent = `****${order.mobileLast4}`;
+            
+            // Setup call button
+            document.getElementById('callPrimary').href = `tel:${order.mobileNumber}`;
+            
+            // Alternate mobile
+            const altMobile = order.altMobileNumber;
+            const callAltBtn = document.getElementById('callAlt');
+            if (altMobile && altMobile.trim()) {
+                document.getElementById('altMobile').textContent = order.altMobileNumber4;
+                callAltBtn.href = `tel:${altMobile}`;
+                callAltBtn.style.display = 'inline-flex';
+            } else {
+                document.getElementById('altMobile').textContent = 'Not provided';
+                callAltBtn.style.display = 'none';
+            }
+            
+            // Full address
+            const fullAddress = `${order.fullAddress}, ${order.city}, ${order.state} - ${order.pinCode}`;
+            document.getElementById('fullAddress').textContent = fullAddress;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Open Verify Modal
+        function openVerifyModal() {
+            const modal = document.getElementById('verifyModal');
+            modal.classList.add('active');
+            
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach(input => input.value = '');
+            document.getElementById('deliveryStatus').value = 'Delivered';
+            document.getElementById('cancelReasonGroup').classList.add('hidden');
+            document.getElementById('cancelReason').value = '';
+            document.getElementById('verifyError').classList.remove('active');
+            
+            otpInputs[0].focus();
+            setupOtpInputs();
+        }
+        
+        function closeVerifyModal() {
+            document.getElementById('verifyModal').classList.remove('active');
+        }
+        
+        function toggleCancelReason() {
+            const status = document.getElementById('deliveryStatus').value;
+            const reasonGroup = document.getElementById('cancelReasonGroup');
+            const reasonInput = document.getElementById('cancelReason');
+            
+            if (status === 'Cancelled') {
+                reasonGroup.classList.remove('hidden');
+                reasonInput.required = true;
+            } else {
+                reasonGroup.classList.add('hidden');
+                reasonInput.required = false;
+            }
+        }
+        
+        // Setup OTP Inputs
+        function setupOtpInputs() {
+            const inputs = document.querySelectorAll('.otp-input');
+            
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+                
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').slice(0, 6);
+                    pastedData.split('').forEach((char, i) => {
+                        if (inputs[i]) inputs[i].value = char;
+                    });
+                    if (pastedData.length === 6) inputs[5].focus();
+                });
+            });
+        }
+        
+        // Verify and Update
+        async function verifyAndUpdate(event) {
+            event.preventDefault();
+            
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            const status = document.getElementById('deliveryStatus').value;
+            const cancelReason = document.getElementById('cancelReason').value;
+            const updateBtn = document.getElementById('updateBtn');
+            const updateBtnText = document.getElementById('updateBtnText');
+            const updateBtnSpinner = document.getElementById('updateBtnSpinner');
+            const verifyError = document.getElementById('verifyError');
+            
+            if (otp.length !== 6) {
+                showError(verifyError, 'Please enter complete 6-digit OTP');
+                return;
+            }
+            
+            if (status === 'Cancelled' && !cancelReason.trim()) {
+                showError(verifyError, 'Please provide cancellation reason');
+                return;
+            }
+            
+            verifyError.classList.remove('active');
+            updateBtn.disabled = true;
+            updateBtnText.textContent = 'Verifying...';
+            updateBtnSpinner.classList.remove('hidden');
+            
+            try {
+                if (otp !== currentOrderData.otp) {
+                    showError(verifyError, 'Invalid OTP. Please check with customer and try again.');
+                    otpInputs.forEach(input => input.value = '');
+                    otpInputs[0].focus();
+                    return;
+                }
+                
+                // Update order status
+                const response = await fetch(`${SCRIPT_URL}?action=updateStatus&orderId=${encodeURIComponent(currentOrderData.orderId)}&status=${encodeURIComponent(status)}&cancelReason=${encodeURIComponent(cancelReason)}`);
+                const data = await response.json();
+                
+                if (data.result === 'success') {
+                    closeVerifyModal();
+                    const successMsg = document.getElementById('statusSuccess');
+                    successMsg.textContent = `Order status successfully updated to: ${status}`;
+                    successMsg.classList.add('active');
+                    
+                    setTimeout(() => {
+                        successMsg.classList.remove('active');
+                    }, 5000);
+                } else {
+                    showError(verifyError, data.message || 'Failed to update status. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showError(verifyError, 'Unable to update status. Please try again.');
+            } finally {
+                updateBtn.disabled = false;
+                updateBtnText.textContent = 'Verify & Update Status';
+                updateBtnSpinner.classList.add('hidden');
+            }
+        }
+        
+        // Reset Search
+        function resetSearch() {
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('orderDetailsSection').classList.remove('active');
+            document.getElementById('orderNumber').value = '';
+            document.getElementById('statusSuccess').classList.remove('active');
+            currentOrderData = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Helper Functions
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add('active');
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+        //   let gameNum= 140207; 
+        //   let userNum= prompt("Enter password:");
+        //   while( userNum != gameNum){
+        //       userNum=prompt("you entered wrong password, try again:");
+        //   }
+        //   console.log("congratulations, you entered right password");
+        
+    </script>
+</body>
+</html>

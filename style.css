@@ -78,6 +78,8 @@ header{
     background-color:#ff5959;
     color:rgb(249, 249, 236);
     display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 
@@ -142,12 +144,21 @@ header{
     border-radius: 8px; 
     z-index:9;
 }
-.car-icon{
-    color:rgb(215, 193, 136);
-    z-index:9;
+.order{
     
+    font-size:1.2em;
 }
 
+@media ((max-width: 800px)){
+    .order{
+    font-size:0.95em;
+}
+}
+@media ((min-width: 1260px)){
+    .order{
+    margin-left:20px;
+    }
+}
 .feedback { 
     display: none; 
     font-size: 18px; 
@@ -187,7 +198,7 @@ a {
 }  
 
 /* Show "Give your Feedback Here" on PC (>768px) */
-@media (min-width: 1011px) {
+@media (min-width: 1138px) {
     .full-feedback { display: block; }
     .feedback{ height:25px;
     width: 200px;}

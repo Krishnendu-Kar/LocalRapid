@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard | E-Commerce</title>
+    <meta name="description" content="Seller dashboard for viewing multiple orders at once.">
+    <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: hsl(220, 90%, 56%);
+            --primary-hover: hsl(220, 90%, 48%);
+            --success: hsl(142, 71%, 45%);
+            --warning: hsl(38, 92%, 50%);
+            --error: hsl(0, 84%, 60%);
+            --info: hsl(199, 89%, 48%);
+            --background: hsl(0, 0%, 100%);
+            --surface: hsl(220, 13%, 97%);
+            --border: hsl(220, 13%, 91%);
+            --text-primary: hsl(220, 9%, 20%);
+            --text-secondary: hsl(220, 9%, 46%);
+            --text-tertiary: hsl(220, 9%, 65%);
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark {
+            --primary: hsl(220, 90%, 60%);
+            --primary-hover: hsl(220, 90%, 68%);
+            --success: hsl(142, 71%, 55%);
+            --warning: hsl(38, 92%, 60%);
+            --error: hsl(0, 84%, 70%);
+            --info: hsl(199, 89%, 58%);
+            --background: hsl(220, 13%, 10%);
+            --surface: hsl(220, 13%, 15%);
+            --border: hsl(220, 13%, 25%);
+            --text-primary: hsl(220, 9%, 95%);
+            --text-secondary: hsl(220, 9%, 65%);
+            --text-tertiary: hsl(220, 9%, 50%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .header-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 150px;
+            letter-spacing: 0.03em;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .form-hint {
+            margin-top: var(--spacing-sm);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            min-height: 2.75rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            padding: var(--spacing-lg);
+            background: hsla(0, 84%, 60%, 0.1);
+            border: 1px solid var(--error);
+            border-radius: var(--radius-md);
+            color: var(--error);
+            margin-top: var(--spacing-lg);
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        .orders-grid {
+            display: grid;
+            gap: var(--spacing-xl);
+        }
+        
+        .order-card {
+            background: var(--background);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: all 0.2s ease;
+        }
+        
+        .order-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .order-id {
+            font-family: var(--font-mono);
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+        
+        .order-time {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .info-item {
+            padding: var(--spacing-md);
+            background: var(--surface);
+            border-radius: var(--radius-md);
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .info-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+        
+        .info-value.mono {
+            font-family: var(--font-mono);
+            letter-spacing: 0.03em;
+        }
+        
+        .order-items {
+            margin-top: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background: var(--surface);
+            border-radius: var(--radius-md);
+        }
+        
+        .order-items-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .order-items-list {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            white-space: pre-line;
+            line-height: 1.8;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--background);
+            transform: scale(1.05);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .results-section {
+            display: none;
+        }
+        
+        .results-section.active {
+            display: block;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .results-count {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .results-count span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--text-secondary);
+        }
+        
+        .empty-state svg {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--text-tertiary);
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .card {
+                padding: var(--spacing-xl);
+            }
+            
+            .header h1 {
+                font-size: 1.875rem;
+            }
+            
+            .order-header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .order-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" data-testid="button-theme-toggle">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Search Section -->
+    <div class="container" id="searchSection">
+        <div class="header">
+            <div class="header-icon">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <h1>Seller Dashboard</h1>
+            <p>View multiple orders simultaneously</p>
+        </div>
+
+        <div class="card">
+            <form id="searchForm" onsubmit="fetchOrders(event)">
+                <div class="form-group">
+                    <label class="form-label" for="orderIds">Order IDs</label>
+                    <textarea 
+                        id="orderIds" 
+                        class="form-textarea" 
+                        placeholder="LR1760863661820&#10;LR1760867156187&#10;LR1761041972720&#10;LR1761042424801"
+                        required
+                        data-testid="input-order-ids"
+                    ></textarea>
+                    <p class="form-hint">Enter one Order ID per line. Example: LR1760863661820</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="fetchBtn" data-testid="button-fetch-orders">
+                    <span id="fetchBtnText">Fetch Orders</span>
+                    <span id="fetchBtnSpinner" class="spinner hidden"></span>
+                </button>
+
+                <div class="error-message" id="fetchError" data-testid="text-fetch-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="container results-section" id="resultsSection">
+        <div class="results-header">
+            <div>
+                <h2 class="results-count">
+                    Found <span id="orderCount" data-testid="text-order-count">0</span> Orders
+                </h2>
+            </div>
+            <button class="btn btn-primary" onclick="resetSearch()" data-testid="button-new-search">
+                New Search
+            </button>
+        </div>
+
+        <div class="orders-grid" id="ordersGrid" data-testid="container-orders-grid"></div>
+    </div>
+
+    <script>
+        // Configuration - REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxG01iUcSfDzQouywo-lC7kWGamu26pvHyntuOO_wYTyge9wYtZJEVLNi8-QbykVhV7XQ/exec';
+        
+        // Theme Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+        
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Fetch Orders
+        async function fetchOrders(event) {
+            event.preventDefault();
+            
+            const orderIdsText = document.getElementById('orderIds').value.trim();
+            const orderIds = orderIdsText.split('\n')
+                .map(id => id.trim())
+                .filter(id => id.length > 0);
+            
+            if (orderIds.length === 0) {
+                showError('Please enter at least one Order ID');
+                return;
+            }
+            
+            const fetchBtn = document.getElementById('fetchBtn');
+            const fetchBtnText = document.getElementById('fetchBtnText');
+            const fetchBtnSpinner = document.getElementById('fetchBtnSpinner');
+            const fetchError = document.getElementById('fetchError');
+            
+            fetchError.classList.remove('active');
+            fetchBtn.disabled = true;
+            fetchBtnText.textContent = 'Fetching Orders...';
+            fetchBtnSpinner.classList.remove('hidden');
+            
+            try {
+                const orders = [];
+                const notFound = [];
+                
+                // Fetch all orders
+                for (const orderId of orderIds) {
+                    try {
+                        const response = await fetch(`${SCRIPT_URL}?action=getOrder&orderId=${encodeURIComponent(orderId)}`);
+                        const data = await response.json();
+                        
+                        if (data.result === 'success' && data.order) {
+                            orders.push(data.order);
+                        } else {
+                            notFound.push(orderId);
+                        }
+                    } catch (error) {
+                        console.error(`Error fetching ${orderId}:`, error);
+                        notFound.push(orderId);
+                    }
+                }
+                
+                // Display results
+                displayOrders(orders, notFound);
+                
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+                showError('Unable to connect to server. Please try again.');
+            } finally {
+                fetchBtn.disabled = false;
+                fetchBtnText.textContent = 'Fetch Orders';
+                fetchBtnSpinner.classList.add('hidden');
+            }
+        }
+        
+        // Display Orders
+        function displayOrders(orders, notFound) {
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('resultsSection').classList.add('active');
+            
+            const ordersGrid = document.getElementById('ordersGrid');
+            ordersGrid.innerHTML = '';
+            
+            document.getElementById('orderCount').textContent = orders.length;
+            
+            if (orders.length === 0) {
+                ordersGrid.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <p style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">No Orders Found</p>
+                        <p>None of the provided Order IDs were found in the system.</p>
+                    </div>
+                `;
+            } else {
+                orders.forEach(order => {
+                    const orderCard = createOrderCard(order);
+                    ordersGrid.appendChild(orderCard);
+                });
+                
+                if (notFound.length > 0) {
+                    const notFoundCard = document.createElement('div');
+                    notFoundCard.className = 'card';
+                    notFoundCard.style.background = 'hsla(0, 84%, 60%, 0.1)';
+                    notFoundCard.style.borderColor = 'var(--error)';
+                    notFoundCard.innerHTML = `
+                        <h3 style="color: var(--error); margin-bottom: var(--spacing-md); font-size: 1.125rem; font-weight: 600;">
+                            Orders Not Found
+                        </h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-sm);">
+                            The following Order IDs were not found:
+                        </p>
+                        <div style="font-family: var(--font-mono); color: var(--error); font-size: 0.875rem; line-height: 1.8;">
+                            ${notFound.join('<br>')}
+                        </div>
+                    `;
+                    ordersGrid.appendChild(notFoundCard);
+                }
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Create Order Card
+        function createOrderCard(order) {
+            const card = document.createElement('div');
+            card.className = 'order-card';
+            card.setAttribute('data-testid', `order-card-${order.orderId}`);
+            
+            card.innerHTML = `
+                <div class="order-header">
+                    <div>
+                        <div class="order-id" data-testid="text-order-id-${order.orderId}">${escapeHtml(order.orderId)}</div>
+                        <div class="order-time" data-testid="text-order-time-${order.orderId}">${formatDate(order.orderDate)}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 0.25rem;">
+                            Total
+                        </div>
+                        <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--primary);" data-testid="text-total-${order.orderId}">
+                            ₹${parseFloat(order.totalAmount).toFixed(2)}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-info">
+                    <div class="info-item">
+                        <div class="info-label">Customer Name</div>
+                        <div class="info-value" data-testid="text-customer-${order.orderId}">${escapeHtml(order.customerName)}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Payment Method</div>
+                        <div class="info-value" data-testid="text-payment-${order.orderId}">${escapeHtml(order.paymentMethod)}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Order Status</div>
+                        <div class="info-value" data-testid="text-status-${order.orderId}">${escapeHtml(order.orderStatus)}</div>
+                    </div>
+                </div>
+                
+                <div class="order-items">
+                    <div class="order-items-title">Order Items</div>
+                    <div class="order-items-list" data-testid="text-items-${order.orderId}">${escapeHtml(order.items)}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Reset Search
+        function resetSearch() {
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('resultsSection').classList.remove('active');
+            document.getElementById('orderIds').value = '';
+            document.getElementById('fetchError').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Helper Functions
+        function showError(message) {
+            const errorEl = document.getElementById('fetchError');
+            errorEl.textContent = message;
+            errorEl.classList.add('active');
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+        
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+    </script>
+</body>
+</html>
