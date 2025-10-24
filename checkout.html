@@ -656,7 +656,7 @@
                                 window.location.href = waUrl;
 
                             } else {
-                                throw new Error(data.error || 'An unknown error occurred in the Google Script.');
+                                throw new Error(data.error || 'An unknown error occurred in our server.');  //the Google Script
                             }
                         })
                         .catch(error => {

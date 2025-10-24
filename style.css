@@ -569,12 +569,16 @@ a {
     transition: transform 0.2s ease;
 }
  @media (max-width: 421px) {
-    .product{width: 90vw;
-    margin-left:15px;
-    margin-right:15px;
+  .shop-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .product {
+    margin:2px; 
+    width:49vw; /* Let grid handle the sizing */
+  }
 }
     
-  }
+  
 @media (min-width: 399px) and (max-width: 601px) {
     .product {width: 200px; }
 }
