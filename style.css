@@ -176,9 +176,6 @@ a {
 }
 /* Show "Feedback" on mobile (≤768px) */
 @media (max-width: 1010px) {
-    .short-feedback { display: block; }
-    .feedback{ height:25px;
-    width: 72px;align-items:center;}
     .logo-name{
     display:none}
     .nav-logo{

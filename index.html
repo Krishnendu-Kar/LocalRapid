@@ -294,14 +294,14 @@
 
                 // Start animation
                 typeAnimation();
-            // Helper function to display the initial 40 random products
+            // Helper function to display the initial 75 random products
             function displayInitialProducts() {
                 // 1. IMPROVEMENT: Create a safe copy of the products array before sorting
                 // This prevents the original 'products' array from being permanently shuffled.
                 const productCopy = [...packetProducts];
 
-                // 2. Get 40 random products from the copy
-                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 40);
+                // 2. Get 75 random products from the copy
+                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 75);
                 
                 // Display the products (using the default 'initial' context)
                 displayProducts(featuredProducts, 'productList');
@@ -318,7 +318,7 @@
                 
                 // 3. BUG FIX: Check if the search bar is empty
                 if (query === '') {
-                    // If it's empty, show the initial 40 products and stop
+                    // If it's empty, show the initial 75 products and stop
                     displayInitialProducts();
                     return;
                 }
