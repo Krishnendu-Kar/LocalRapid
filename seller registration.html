@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration - LocalRapid</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'localrapid-blue': '#2874f0',
+                        'localrapid-yellow': '#ffc200',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold text-localrapid-blue">
+                <a href="index.html">LocalRapid </a>
+            </div>
+            <div class="text-sm">
+                <a href="seller home.html" class="text-gray-600 hover:text-localrapid-blue font-medium">Back to Seller Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl w-full bg-white p-8 sm:p-10 md:p-12 rounded-xl shadow-2xl space-y-8 border border-gray-200">
+            <div>
+                <h2 class="text-center text-3xl font-extrabold text-gray-900">
+                    Create your Seller Account
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    Just a few details to get you started.
+                </p>
+            </div>
+            
+            <!-- This message box will show success or error -->
+            <div id="form-message" class="hidden p-4 rounded-lg mt-4 text-sm"></div>
+
+            <!-- Registration Form -->
+            <form id="sellerRegistrationForm" class="mt-8 space-y-6" action="#" method="POST">
+                
+                <!-- Section: Personal Details -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2">1. Account Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="seller-name" class="block text-sm font-medium text-gray-700">Seller Name <span class="text-red-500">*</span></label>
+                            <input id="seller-name" name="seller-name" type="text" required class="mt-1 appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue sm:text-sm" placeholder="e.g. Ramesh Kumar">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address <span class="text-red-500">*</span></label>
+                            <input id="email" name="email" type="email" autocomplete="email" required class="mt-1 appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue sm:text-sm" placeholder="you@example.com">
+                        </div>
+                        <div>
+                            <label for="mobile1" class="block text-sm font-medium text-gray-700">Mobile Number <span class="text-red-500">*</span></label>
+                            <input id="mobile1" name="mobile1" type="tel" required 
+                                   class="mt-1 appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue sm:text-sm" 
+                                   placeholder="10-digit mobile number"
+                                   minlength="10" 
+                                   maxlength="15" 
+                                   pattern="\d{10,}" 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity('');"
+                                   oninvalid="this.setCustomValidity('Please enter at least 10 digits.')">
+                        </div>
+                        <div>
+                            <label for="whatsapp-number" class="block text-sm font-medium text-gray-700">WhatsApp Number <span class="text-red-500">*</span></label>
+                            <input id="whatsapp-number" name="whatsapp-number" type="tel" required 
+                                   class="mt-1 appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue sm:text-sm" 
+                                   placeholder="10-digit WhatsApp number"
+                                   minlength="10" 
+                                   maxlength="15" 
+                                   pattern="\d{10,}"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity('');"
+                                   oninvalid="this.setCustomValidity('Please enter at least 10 digits.')">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="mobile2" class="block text-sm font-medium text-gray-700">Alternative Mobile <span class="text-gray-500">(Optional)</span></label>
+                            <input id="mobile2" name="mobile2" type="tel" 
+                                   class="mt-1 appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue sm:text-sm" 
+                                   placeholder="Alternative 10-digit number"
+                                   minlength="10" 
+                                   maxlength="15" 
+                                   pattern="\d{10,}"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity('');"
+                                   oninvalid="this.setCustomValidity('Please enter at least 10 digits.')">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Business Type -->
+                <div class="space-y-6 pt-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2">2. Business Type</h3>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">What are you registering to sell? <span class="text-red-500">*</span></label>
+                        <fieldset class="mt-2">
+                            <div class="flex items-center space-x-6">
+                                <div class="flex items-center">
+                                    <input id="type-products" name="business-type" type="radio" value="products" checked class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue">
+                                    <label for="type-products" class="ml-2 block text-sm text-gray-900">Products</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="type-services" name="business-type" type="radio" value="services" class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue">
+                                    <label for="type-services" class="ml-2 block text-sm text-gray-900">Services</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="type-both" name="business-type" type="radio" value="both" class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue">
+                                    <label for="type-both" class="ml-2 block text-sm text-gray-900">Both</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    
+                    <!-- Conditional Fields for Services -->
+                    <div id="services-details" class="hidden space-y-4 p-4 bg-gray-50 rounded-lg border">
+                        <label for="services-list" class="block text-sm font-medium text-gray-700">Please list the services you offer <span class="text-red-500">*</span></label>
+                        <textarea id="services-list" name="services-list" rows="3" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="e.g., Plumbing, Electrician, Graphic Design, Home Cleaning"></textarea>
+                    </div>
+                </div>
+
+                <!-- Section: Business Details -->
+                <div class="space-y-6 pt-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2">3. Business Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="business-name" class="block text-sm font-medium text-gray-700">Business/Shop Name <span class="text-red-500">*</span></label>
+                            <input id="business-name" name="business-name" type="text" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="Your registered company name">
+                        </div>
+                        <div>
+                            <label for="gstin" class="block text-sm font-medium text-gray-700">GSTIN <span class="text-gray-500">(Optional)</span></label>
+                            <input id="gstin" name="gstin" type="text" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="15-digit GSTIN">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="pickup-pincode" class="block text-sm font-medium text-gray-700">Business Pincode <span class="text-red-500">*</span></label>
+                        <input id="pickup-pincode" name="pickup-pincode" type="text" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="Your business / pickup pincode">
+                    </div>
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700">Primary Category <span class="text-red-500">*</span></label>
+                        <select id="category" name="category" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-localrapid-blue focus:border-localrapid-blue">
+                            <option value="" disabled selected>Select your main category</option>
+                            <optgroup label="Products" id="category-products">
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion & Apparel</option>
+                                <option value="home">Home & Kitchen</option>
+                                <option value="beauty">Beauty & Personal Care</option>
+                                <option value="grocery">Grocery</option>
+                                <option valueD="books">Books & Media</option>
+                            </optgroup>
+                            <optgroup label="Services" id="category-services">
+                                <option value="home-services">Home Services (Plumbing, Repair, etc.)</option>
+                                <option value="personal-services">Personal Services (Salon, Fitness, etc.)</option>
+                                <option value="prof-services">Professional Services (Design, Tutoring, etc.)</option>
+                            </optgroup>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section: Existing Offline Presence -->
+                <div class="space-y-6 pt-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2">4. Offline Presence</h3>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Do you have an existing offline shop?</label>
+                        <fieldset class="mt-2">
+                            <div class="flex items-center space-x-6">
+                                <div class="flex items-center">
+                                    <input id="offline-shop-yes" name="offline-shop" type="radio" value="yes" class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue">
+                                    <label for="offline-shop-yes" class="ml-2 block text-sm text-gray-900">Yes</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="offline-shop-no" name="offline-shop" type="radio" value="no" checked class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue">
+                                    <label for="offline-shop-no" class="ml-2 block text-sm text-gray-900">No</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    
+                    <!-- Conditional Fields -->
+                    <div id="existing-offline-shop-details" class="hidden space-y-6 p-4 bg-gray-50 rounded-lg border">
+                        <div>
+                            <label for="offline-shop-name" class="block text-sm font-medium text-gray-700">Offline Shop Name</label>
+                            <input id="offline-shop-name" name="offline-shop-name" type="text" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="Your shop name">
+                        </div>
+                        <div>
+                            <label for="offline-shop-address" class="block text-sm font-medium text-gray-700">Shop Address</label>
+                            <textarea id="offline-shop-address" name="offline-shop-address" rows="3" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-lg" placeholder="Your full shop address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Fulfillment -->
+                <div class="space-y-4 pt-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2">5. Fulfillment / Service Method</h3>
+                    <label class="block text-sm font-medium text-gray-700">How do you want to deliver your products/services?</label>
+                    <fieldset class="mt-2">
+                        <div class="space-y-4">
+                            <!-- Product Option 1 -->
+                            <div id="fulfill-product-self" class="flex items-start p-4 border border-gray-200 rounded-lg has-[:checked]:bg-blue-50 has-[:checked]:border-localrapid-blue">
+                                <input id="fulfill-self" name="fulfillment" type="radio" value="self" checked class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue mt-0.5">
+                                <div class="ml-3 text-sm">
+                                    <label for="fulfill-self" class="font-medium text-gray-900">Ship Myself (Products)</label>
+                                    <p class="text-gray-500">You store, pack, and ship products to customers using your own or third-party courier.</p>
+                                </div>
+                            </div>
+                            <!-- Product Option 2 -->
+                            <div id="fulfill-product-fblr" class="flex items-start p-4 border border-gray-200 rounded-lg has-[:checked]:bg-blue-50 has-[:checked]:border-localrapid-blue">
+                                <input id="fulfill-localrapid" name="fulfillment" type="radio" value="fblr" class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue mt-0.5">
+                                <div class="ml-3 text-sm">
+                                    <label for="fulfill-localrapid" class="font-medium text-gray-900">Fulfillment by LocalRapid (FBLR)</label>
+                                    <p class="text-gray-500">You store your products in our warehouse. We pack and ship them for you.</p>
+                                </div>
+                            </div>
+                             <!-- Local / Service Option -->
+                            <div id="fulfill-local-service" class="flex items-start p-4 border border-gray-200 rounded-lg has-[:checked]:bg-blue-50 has-[:checked]:border-localrapid-blue">
+                                <input id="fulfill-local" name="fulfillment" type="radio" value="local" class="h-4 w-4 text-localrapid-blue border-gray-300 focus:ring-localrapid-blue mt-0.5">
+                                <div class="ml-3 text-sm">
+                                    <label id="fulfill-local-label" for="fulfill-local" class="font-medium text-gray-900">Local Delivery / Service</label>
+                                    <p id="fulfill-local-text" class="text-gray-500">You deliver products locally or perform services at the customer's location.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <div class="flex items-center">
+                        <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-localrapid-blue border-gray-300 rounded focus:ring-localrapid-blue">
+                        <label for="terms" class="ml-2 block text-sm text-gray-900">I agree to the <a href="#" class="font-medium text-localrapid-blue hover:text-blue-700">Terms & Conditions</a><span class="text-red-500">*</span></label>
+                    </div>
+
+                    <button type="submit" id="submit-button" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-lg text-white bg-localrapid-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-localrapid-blue mt-6">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="bg-gray-100 py-6">
+        <!-- This is the fixed typo -->
+        <p class="text-center text-sm text-gray-500">
+            &copy; 2025 LocalRapid. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- ===== START OF SCRIPT ===== -->
+    <script>
+        // --- This first part is your existing script for conditional fields ---
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Field Selectors ---
+            const businessTypeRadios = document.querySelectorAll('input[name="business-type"]');
+            const servicesDetails = document.getElementById('services-details');
+            const servicesListTextarea = document.getElementById('services-list');
+            const categoryProducts = document.getElementById('category-products');
+            const categoryServices = document.getElementById('category-services');
+            const categorySelect = document.getElementById('category');
+            const fulfillProductSelf = document.getElementById('fulfill-product-self');
+            const fulfillProductFblr = document.getElementById('fulfill-product-fblr');
+            const fulfillLocalService = document.getElementById('fulfill-local-service');
+            const fulfillLocalLabel = document.getElementById('fulfill-local-label');
+            const fulfillLocalText = document.getElementById('fulfill-local-text');
+            const fulfillSelfRadio = document.getElementById('fulfill-self');
+            const fulfillLocalRadio = document.getElementById('fulfill-local');
+            const offlineShopRadios = document.querySelectorAll('input[name="offline-shop"]');
+            const existingOfflineShopDetails = document.getElementById('existing-offline-shop-details');
+
+            // --- Offline Shop Logic ---
+            offlineShopRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'yes') {
+                        existingOfflineShopDetails.classList.remove('hidden');
+                    } else {
+                        existingOfflineShopDetails.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- Business Type Logic Function ---
+            function handleBusinessTypeChange(value) {
+                categorySelect.value = ""; // Reset category selection
+                if (value === 'services') {
+                    servicesDetails.classList.remove('hidden');
+                    servicesListTextarea.setAttribute('required', 'true');
+                    categoryProducts.hidden = true; 
+                    categoryServices.hidden = false;
+                    fulfillProductSelf.classList.add('hidden');
+                    fulfillProductFblr.classList.add('hidden');
+                    fulfillLocalService.classList.remove('hidden');
+                    fulfillLocalLabel.textContent = "On-Site Service";
+                    fulfillLocalText.textContent = "You perform services at the customer's location.";
+                    fulfillLocalRadio.checked = true;
+                } else if (value === 'products') {
+                    servicesDetails.classList.add('hidden');
+                    servicesListTextarea.removeAttribute('required');
+                    categoryProducts.hidden = false;
+                    categoryServices.hidden = true;
+                    fulfillProductSelf.classList.remove('hidden');
+                    fulfillProductFblr.classList.remove('hidden');
+                    fulfillLocalService.classList.remove('hidden'); 
+                    fulfillLocalLabel.textContent = "Local Delivery";
+                    fulfillLocalText.textContent = "You deliver products locally to nearby customers yourself.";
+                    fulfillSelfRadio.checked = true;
+                } else { // 'both'
+                    servicesDetails.classList.remove('hidden');
+                    servicesListTextarea.setAttribute('required', 'true');
+                    categoryProducts.hidden = false;
+                    categoryServices.hidden = false;
+                    fulfillProductSelf.classList.remove('hidden');
+                    fulfillProductFblr.classList.remove('hidden');
+                    fulfillLocalService.classList.remove('hidden');
+                    fulfillLocalLabel.textContent = "Local Delivery / Service";
+                    fulfillLocalText.textContent = "You deliver products locally or perform services at the customer's location.";
+                    fulfillSelfRadio.checked = true;
+                }
+            }
+
+            // --- Add Event Listener ---
+            businessTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    handleBusinessTypeChange(this.value);
+                });
+            });
+
+            // --- Initial Run On Page Load ---
+            const initialBusinessType = document.querySelector('input[name="business-type"]:checked').value;
+            handleBusinessTypeChange(initialBusinessType);
+
+            // --- NEW: Google Sheet Form Submission Script ---
+            const form = document.getElementById('sellerRegistrationForm');
+            const submitButton = document.getElementById('submit-button');
+            const messageBox = document.getElementById('form-message');
+
+            // --- IMPORTANT ---
+            // PASTE YOUR WEB APP URL FROM GOOGLE APPS SCRIPT HERE
+            const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzV0essrGqNsjGeaMduMAdYe7M6PE944OnKCI2CTDWU6wZAo_gsLMQO_-CN_VPHhDe2/exec";
+
+            // Function to show messages
+            function showMessage(message, type) {
+                messageBox.textContent = message;
+                if (type === 'success') {
+                    messageBox.className = "p-4 rounded-lg mt-4 bg-green-100 text-green-800 text-sm";
+                } else {
+                    messageBox.className = "p-4 rounded-lg mt-4 bg-red-100 text-red-800 text-sm";
+                }
+                messageBox.classList.remove('hidden');
+            }
+
+            // Add submit event listener to the form
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Stop the default form submission
+
+                // Check if URL is set
+                if (WEB_APP_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+                    showMessage("Form submission error: The Web App URL is not set in the script.", "error");
+                    return;
+                }
+
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = "Submitting...";
+                showMessage("Submitting your registration... Please wait.", "success");
+
+                // Create FormData object from the form
+                const formData = new FormData(form);
+
+                // Send the data using fetch
+                fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === "success") {
+                        // Handle success
+                        showMessage("Registration Successful! Your data has been saved.", "success");
+                        form.reset(); // Clear the form
+                        // Reset conditional fields to default
+                        handleBusinessTypeChange('products');
+                        existingOfflineShopDetails.classList.add('hidden');
+                        document.getElementById('offline-shop-no').checked = true;
+                        
+                    } else {
+                        // Handle error from Apps Script
+                        showMessage(`Registration failed: ${result.message || 'Unknown error.'}`, "error");
+                    }
+                })
+                .catch(error => {
+                    // Handle network or fetch errors
+                    console.error("Error submitting form:", error);
+                    showMessage("A network error occurred. Please check your connection or the Web App URL.", "error");
+                })
+                .finally(() => {
+                    // Re-enable the button
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Create Account";
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+

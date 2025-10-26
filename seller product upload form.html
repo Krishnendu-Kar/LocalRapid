@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller add product on LocalRapid</title>
+    <link rel="shortcut icon" href="LocaalRapid.ico" type="image/x-icon">
+    <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
+    <base target="_top">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .form-row .form-group {
+            flex: 1 1 200px;
+            margin-bottom: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Important */
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        input:disabled {
+            background-color: #eee;
+            color: #777;
+        }
+        .helper-text {
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 4px;
+        }
+        .warning-text {
+            font-size: 0.85em;
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .radio-group label {
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+        input[type="radio"] {
+            margin-right: 4px;
+        }
+        input[type="file"] {
+            display: block;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button.secondary {
+            background-color: #6c757d;
+        }
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+        #product-details-section,
+        #batch-section {
+            display: none; /* Hidden by default */
+        }
+        #product-batch-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        #product-batch-list li {
+            background-color: #f9f9f9;
+            padding: 10px 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status-message {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .status-success { color: green; }
+        .status-error { color: red; }
+        .status-loading { color: #555; }
+
+/*
+  ▼▼▼ ADD THIS NEW CSS BLOCK ▼▼▼
+*/
+        /* Styles for the review list buttons */
+        .list-button-group {
+            display: flex;
+            gap: 8px;
+        }
+        .list-button {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Styles for the Modal Pop-up */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px; /* Max width */
+        }
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #modal-content-details strong {
+            display: inline-block;
+            min-width: 120px;
+            color: #333;
+        }
+        #modal-content-details img {
+            max-width: 150px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======== STEP 1: SELLER DETAILS ======== -->
+    <div id="seller-details-section" class="container">
+        <h2>Step 1: Seller Details</h2>
+        <form id="seller-form">
+            <div class="form-row">
+                <div class="form-group" style="flex-basis: 100%;">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sellerId">Seller Id</label>
+                    <input type="text" id="sellerId" name="sellerId" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialCode">Seller Special Code</label>
+                    <input type="text" id="specialCode" name="specialCode" required>
+                    <p class="warning-text">Fill it properly or your request will be rejected.</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sellerName">Seller Name</label>
+                    <input type="text" id="sellerName" name="sellerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="tel" id="mobileNumber" name="mobileNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsappNumber">WhatsApp Number</label>
+                    <input type="tel" id="whatsappNumber" name="whatsappNumber">
+                </div>
+            </div>
+            <button type="button" id="lockDetailsButton">Lock Seller Details</button>
+            <div id="seller-status" class="status-message"></div>
+        </form>
+    </div>
+
+    <!-- ======== STEP 2: PRODUCT DETAILS ======== -->
+    <div id="product-details-section" class="container">
+        <h2>Step 2: Add Products</h2>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="productAmount">Product Amount (e.g. , 500g, 250ml, 1 piece)</label>
+                <input type="text" id="productAmount" name="productAmount" required>
+                <p class="helper-text">Enter the weight or volume of the product.</p>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="mrp">MRP</label>
+                    <input type="number" id="mrp" name="mrp" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="leftAmount">Stock Quantity (Left Amount)</label>
+                    <input type="number" id="leftAmount" name="leftAmount">
+                    <p class="helper-text">(Not required)</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date (if available)</label>
+                    <input type="date" id="expiryDate" name="expiryDate">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Is it in offer?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="inOffer" value="Yes" required> Yes</label>
+                        <label><input type="radio" name="inOffer" value="No" required> No</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="offerEndDate">If in Offer, then offer end date:</label>
+                    <input type="date" id="offerEndDate" name="offerEndDate">
+                </div>
+            </div>
+            <hr style="margin: 24px 0; border-color: #eee;">
+            <div class="form-group">
+                <label>Product Images</label>
+                <p class="warning-text">Every image maximum size: 60kb. Larger files will be rejected.</p>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="mainImage">Main Image (1)</label>
+                    <input type="file" id="mainImage" name="mainImage" class="file-input" accept="image/*" required>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="subImage1">Sub Product Image (1 of 3)</label>
+                    <input type="file" id="subImage1" name="subImage1" class="file-input" accept="image/*">
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="subImage2">Sub Product Image (2 of 3)</label>
+                    <input type="file" id="subImage2" name="subImage2" class="file-input" accept="image/*">
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="subImage3">Sub Product Image (3 of 3)</label>
+                    <input type="file" id="subImage3" name="subImage3" class="file-input" accept="image/*">
+                </div>
+            </div>
+            <hr style="margin: 24px 0; border-color: #eee;">
+            <div class="form-group">
+                <label for="shortDetails">Little Details about product</label>
+                <textarea id="shortDetails" name="shortDetails" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fullDetails">Full Details about product</label>
+                <textarea id="fullDetails" name="fullDetails" rows="6"></textarea>
+            </div>
+            <button type="button" id="addButton">Add This Product</button>
+            <div id="product-status" class="status-message"></div>
+        </form>
+    </div>
+
+    <!-- ======== STEP 3: BATCH UPLOAD ======== -->
+    <div id="batch-section" class="container">
+        <h3>Step 3: Review & Upload Batch</h3>
+        <p>You have <strong id="batch-count" style="font-size: 1.2em;">0</strong> products in your batch.</p>
+        
+        <!-- This list will show added products -->
+        <ul id="product-batch-list">
+            <!-- Example: <li><span>Product Name (500g)</span> <button>Remove</button></li> -->
+        </ul>
+        
+        <button type="button" id="submitBatchButton" style="margin-top: 20px;">Submit All Products</button>
+        <div id="batch-status" class="status-message"></div>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModalButton">&times;</span>
+            <h3>Review Product Details</h3>
+            <div id="modal-content-details">
+                <!-- Product details will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ... (Your HTML body and modal code is above this) ... -->
+
+    <script>
+        // --- Global variables ---
+        let sellerDetails = {};
+        let productBatch = []; // Array to hold all product data objects
+        
+        // --- Element references ---
+        const sellerForm = document.getElementById('seller-form');
+        const productForm = document.getElementById('product-form');
+        const lockDetailsButton = document.getElementById('lockDetailsButton');
+        const addButton = document.getElementById('addButton');
+        const submitBatchButton = document.getElementById('submitBatchButton');
+
+        const sellerDetailsSection = document.getElementById('seller-details-section');
+        const productDetailsSection = document.getElementById('product-details-section');
+        const batchSection = document.getElementById('batch-section');
+
+        const sellerStatus = document.getElementById('seller-status');
+        const productStatus = document.getElementById('product-status');
+        const batchStatus = document.getElementById('batch-status');
+        
+        const batchCountDisplay = document.getElementById('batch-count');
+        const productBatchList = document.getElementById('product-batch-list');
+        
+        const reviewModal = document.getElementById('reviewModal');
+        const modalContentDetails = document.getElementById('modal-content-details');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        const maxFileSize = 60 * 1024; // 60kb in bytes
+
+        // --- Prevent default form submission ---
+        sellerForm.addEventListener('submit', (e) => e.preventDefault());
+        productForm.addEventListener('submit', (e) => e.preventDefault());
+
+        // --- Attach event listeners ---
+        lockDetailsButton.addEventListener('click', lockSellerDetails);
+        addButton.addEventListener('click', addProductToBatch);
+        submitBatchButton.addEventListener('click', processBatch);
+        
+        closeModalButton.addEventListener('click', closeModal);
+        window.addEventListener('click', (event) => {
+            if (event.target == reviewModal) {
+                closeModal();
+            }
+        });
+
+        /**
+         * STEP 1: Lock Seller Details
+         */
+        function lockSellerDetails() {
+            clearStatus(sellerStatus);
+            
+            const requiredInputs = sellerForm.querySelectorAll('input[required]');
+            for (const input of requiredInputs) {
+                if (!input.value) {
+                    showError(`Please fill out the "${input.name}" field.`, sellerStatus);
+                    return;
+                }
+            }
+
+            sellerDetails = {
+                email: sellerForm.email.value,
+                sellerId: sellerForm.sellerId.value,
+                specialCode: sellerForm.specialCode.value,
+                sellerName: sellerForm.sellerName.value,
+                mobileNumber: sellerForm.mobileNumber.value,
+                whatsappNumber: sellerForm.whatsappNumber.value
+            };
+
+            sellerForm.querySelectorAll('input, button').forEach(el => el.disabled = true);
+            showSuccess("Seller Details Locked.", sellerStatus);
+            productDetailsSection.style.display = 'block';
+            batchSection.style.display = 'block';
+        }
+
+        /**
+         * STEP 2: Add Product to Batch
+         */
+        async function addProductToBatch() {
+            clearStatus(productStatus);
+            
+            const fileInputs = productForm.querySelectorAll('.file-input');
+            for (const input of fileInputs) {
+                if (input.files.length > 0) {
+                    const file = input.files[0];
+                    if (file.size > maxFileSize) {
+                        showError(`File "${file.name}" is too large (Max 60kb).`, productStatus);
+                        return;
+                    }
+                }
+            }
+            
+            const requiredInputs = productForm.querySelectorAll('input[required], textarea[required]');
+            for (const input of requiredInputs) {
+                if (!input.value) {
+                    showError(`Please fill out the "${input.name}" field.`, productStatus);
+                    return;
+                }
+            }
+            
+            showLoading("Reading product data...", productStatus);
+            addButton.disabled = true;
+
+            const productData = {
+                productName: productForm.productName.value,
+                productAmount: productForm.productAmount.value,
+                price: productForm.price.value,
+                mrp: productForm.mrp.value,
+                expiryDate: productForm.expiryDate.value,
+                leftAmount: productForm.leftAmount.value,
+                inOffer: productForm.inOffer.value,
+                offerEndDate: productForm.offerEndDate.value,
+                category: productForm.category.value,
+                shortDetails: productForm.shortDetails.value,
+                fullDetails: productForm.fullDetails.value,
+                files: []
+            };
+
+            try {
+                const filePromises = [];
+                // *** THE TYPO WAS LIKELY ON THE NEXT LINE ***
+                fileInputs.forEach(input => filePromises.push(readFileAsBase64(input)));
+                
+                const fileObjects = await Promise.all(filePromises);
+                
+                productData.files = fileObjects.filter(f => f != null);
+                productBatch.push(productData);
+
+                showSuccess(`Product "${productData.productName}" added to batch!`, productStatus);
+                updateBatchList();
+                productForm.reset();
+                
+            } catch (err) {
+                // This is where your error is being shown
+                showError("Error reading file: " + err.message, productStatus);
+            }
+            
+            addButton.disabled = false;
+        }
+        
+        /**
+         * UPDATED: Updates the visual list of products in the batch
+         */
+        function updateBatchList() {
+            productBatchList.innerHTML = "";
+            batchCountDisplay.textContent = productBatch.length;
+            
+            productBatch.forEach((product, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>
+                        <strong>${product.productName}</strong>
+                        (${product.productAmount || 'N/A'})
+                    </span>
+                    <div class="list-button-group">
+                        <button type="button" class="list-button secondary" onclick="reviewProduct(${index})">Review</button>
+                        <button type="button" class="list-button secondary" onclick="removeProductFromBatch(${index})">Remove</button>
+                    </div>
+                `;
+                productBatchList.appendChild(li);
+            });
+        }
+        
+        /**
+         * Allows removing a product from the batch
+         */
+        function removeProductFromBatch(index) {
+            productBatch.splice(index, 1);
+            updateBatchList();
+        }
+
+        /**
+         * NEW: Opens the review modal and populates it with product data
+         */
+        function reviewProduct(index) {
+            const product = productBatch[index];
+            if (!product) return;
+            
+            let html = `
+                <p><strong>Product:</strong> ${product.productName}</p>
+                <p><strong>Amount:</strong> ${product.productAmount}</p>
+                <p><strong>Price:</strong> ${product.price}</p>
+                <p><strong>MRP:</strong> ${product.mrp}</p>
+                <p><strong>Category:</strong> ${product.category}</p>
+                <p><strong>Stock:</strong> ${product.leftAmount || 'N/A'}</p>
+                <p><strong>Expiry:</strong> ${product.expiryDate || 'N/A'}</p>
+                <p><strong>Offer:</strong> ${product.inOffer} (Ends: ${product.offerEndDate || 'N/A'})</p>
+                <p><strong>Details:</strong> ${product.shortDetails}</p>
+                <p><strong>Full Details:</strong> ${product.fullDetails}</p>
+            `;
+
+            const mainImage = product.files.find(f => f.name === 'mainImage');
+            if (mainImage) {
+                html += `
+                    <strong>Main Image:</strong><br>
+                    <img src="data:${mainImage.mimeType};base64,${mainImage.data}" alt="${mainImage.fileName}">
+                `;
+            }
+
+            modalContentDetails.innerHTML = html;
+            reviewModal.style.display = "block";
+        }
+        
+        /**
+         * NEW: Closes the review modal
+         */
+        function closeModal() {
+            reviewModal.style.display = "none";
+            modalContentDetails.innerHTML = ""; // Clear content
+        }
+
+        /**
+         * STEP 3: Process and Upload the Entire Batch
+         */
+        async function processBatch() {
+            if (productBatch.length === 0) {
+                showError("No products in the batch to submit.", batchStatus);
+                return;
+            }
+
+            submitBatchButton.disabled = true;
+            addButton.disabled = true;
+            clearStatus(productStatus);
+            
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (const [index, productData] of productBatch.entries()) {
+                const productName = productData.productName || `Product ${index + 1}`;
+                showLoading(`Uploading ${index + 1} of ${productBatch.length}: "${productName}"...`, batchStatus);
+                
+                const completeFormData = { ...sellerDetails, ...productData };
+                
+                try {
+                    const message = await new Promise((resolve, reject) => {
+                        google.script.run
+                            .withSuccessHandler(resolve)
+                            .withFailureHandler(reject)
+                            .processForm(completeFormData);
+                    });
+                    successCount++;
+                } catch (err) {
+                    errorCount++;
+                    console.error(`Failed to upload ${productName}:`, err);
+                }
+            }
+            
+            showSuccess(`Batch complete! ${successCount} succeeded, ${errorCount} failed.`, batchStatus);
+            
+            productBatch = [];
+            updateBatchList();
+            submitBatchButton.disabled = false;
+            addButton.disabled = false;
+        }
+
+        // *** THIS IS THE FUNCTION THAT WAS MISSPELLED ***
+        // *** MAKE SURE IT IS EXACTLY LIKE THIS ***
+        /**
+         * Helper function to read a file input as a base64 string.
+         */
+        function readFileAsBase64(inputElement) {
+            return new Promise((resolve, reject) => {
+                const file = inputElement.files[0];
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const base64Data = event.target.result.split(',')[1];
+                    resolve({
+                        name: inputElement.name,
+                        fileName: file.name,
+                        mimeType: file.type,
+                        data: base64Data
+                    });
+                };
+                reader.onerror = (err) => reject(err);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // --- UI Helper Functions ---
+        function showLoading(message, element) {
+            element.className = "status-message status-loading";
+            element.innerHTML = message;
+        }
+        function showSuccess(message, element) {
+            element.className = "status-message status-success";
+            element.innerHTML = message;
+        }
+        function showError(message, element) {
+            element.className = "status-message status-error";
+            element.innerHTML = `Error: ${message}`;
+        }
+        function clearStatus(element) {
+            element.innerHTML = "";
+            element.className = "status-message";
+        }
+    </script>
+
+
+</body>
+</html>

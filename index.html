@@ -7,22 +7,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- SEO Meta -->
-        <meta name="description" content="LocaalRapid - Fast, reliable, and secure e-commerce shopping. Get trusted products with quick delivery and excellent customer support.">
-        <meta name="keywords" content="LocaalRapid, online shopping, fast delivery, secure e-commerce, reliable service">
+        <meta name="description" content="LocalRapid - Fast, reliable, and secure e-commerce shopping. Get trusted products with quick delivery and excellent customer support.">
+        <meta name="keywords" content="LocalRapid, online shopping, fast delivery, secure e-commerce, reliable service">
         <meta name="author" content="Krishnendu Kar">
         <meta name="robots" content="index, follow">
 
         <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-        <meta property="og:title" content="LocaalRapid - Our Official e-commerce Website">
-        <meta property="og:description" content="Shop faster and safer with LocaalRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta property="og:title" content="LocalRapid - Our Official e-commerce Website">
+        <meta property="og:description" content="Shop faster and safer with LocalRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
         <meta property="og:image" content="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.png">
         <meta property="og:url" content="https://krishnendu-kar.github.io/LocalRapid/">
         <meta property="og:type" content="website">
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="LocaalRapid - Our Official e-commerce Website">
-        <meta name="twitter:description" content="Shop faster and safer with LocaalRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
+        <meta name="twitter:title" content="LocalRapid - Our Official e-commerce Website">
+        <meta name="twitter:description" content="Shop faster and safer with LocalRapid – your trusted e-commerce platform for quick delivery, secure shopping, and reliable service.">
         <meta name="twitter:image" content="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.png">
 
         <!-- Preloads -->
@@ -42,7 +42,7 @@
         <link rel="stylesheet" href="style.css">
 
         <!-- Title -->
-        <title>LocaalRapid - Fast & Reliable E-commerce Shopping</title>
+        <title>LocalRapid - Fast & Reliable E-commerce Shopping</title>
     </head>
     <body>
             <div class="loader-container" id="page-loader">
@@ -58,7 +58,7 @@
         <header>
             <div class="navbar">
                 <div class="nav-logo border" onclick="window.location.href='index.html'">
-                    <div class="logo-name">LocaalRapid</div>
+                    <div class="logo-name">LocalRapid</div>
                     <div class="logo" load="lazy"></div>
                 </div>
                 <div class="nav-address border">
@@ -113,7 +113,10 @@
                     <a class="bar-a" href="dailyProductCategory.html">Many daily use products</a>
                     <a class="bar-a" href="educationCategory.html">study material</a>
                     <a class="bar-a" href="otherCategory.html">Other</a>
-                    <a class="bar-a" href="about_us.html">About Us</a>
+                    <a class="bar-a" href="lucky winners.html">lucky winners</a>
+                    <a class="bar-a" href="tutorial video.html">Tutorial video</a>
+                    <a class="bar-a" href="seller home.html">Become a seller</a>
+                    <a class="bar-a" href="about_us.html">About Us</a> 
                 </div>
 
             <!-- Overlay -->
@@ -198,7 +201,7 @@
             </div>
         </main>
         <footer>
-            ©2025 LocaalRapid ; All Right will be reserved
+            ©2025 LocalRapid ; All Right will be reserved
         </footer>
         
 
@@ -294,14 +297,14 @@
 
                 // Start animation
                 typeAnimation();
-            // Helper function to display the initial 75 random products
+            // Helper function to display the initial 78 random products
             function displayInitialProducts() {
                 // 1. IMPROVEMENT: Create a safe copy of the products array before sorting
                 // This prevents the original 'products' array from being permanently shuffled.
                 const productCopy = [...packetProducts];
 
-                // 2. Get 75 random products from the copy
-                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 75);
+                // 2. Get 78 random products from the copy
+                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 78);
                 
                 // Display the products (using the default 'initial' context)
                 displayProducts(featuredProducts, 'productList');
@@ -318,7 +321,7 @@
                 
                 // 3. BUG FIX: Check if the search bar is empty
                 if (query === '') {
-                    // If it's empty, show the initial 75 products and stop
+                    // If it's empty, show the initial 78 products and stop
                     displayInitialProducts();
                     return;
                 }

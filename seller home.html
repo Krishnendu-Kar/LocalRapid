@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Seller on LocalRapid</title>
+    <link rel="shortcut icon" href="LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
+       
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'localrapid-blue': '#2874f0',
+                        'localrapid-yellow': '#ffc200',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom styles for process timeline */
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem; /* Space for icon */
+        }
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #e0e7ff; /* indigo-100 */
+            color: #4f46e5; /* indigo-600 */
+            font-weight: bold;
+        }
+        .timeline-connector {
+            position: absolute;
+            left: 19px; /* Centered with icon */
+            top: 40px;
+            bottom: -1.5rem; /* Connects to the next step */
+            width: 2px;
+            background-color: #e0e7ff; /* indigo-100 */
+        }
+        /* Hide connector on last step */
+        
+        @media (max-width: 767.30px){
+            .timeline-step:last-child .timeline-connector {
+            display: none;
+        }
+        }
+        .space-y-3{
+            display:flex;
+    flex-direction:row; 
+    position:relative;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 30px;
+
+        }
+        .center{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold text-localrapid-blue">
+             <a href="index.html">LocalRapid </a>   
+            </div>
+            <!-- Auth Buttons -->
+            <div class="flex items-center space-x-4">
+                <a href="seller registration.html" class="bg-localrapid-blue text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                    Start Selling
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative bg-white py-16 sm:py-24">
+            <div class="absolute inset-0">
+                <!-- Using a placeholder for the background image -->
+                <img class="w-full h-full object-cover opacity-10" src="https://placehold.co/1600x600/e2e8f0/a0aec0?text=Marketplace+Image" alt="Marketplace background">
+                <div class="absolute inset-0 bg-white bg-opacity-75"></div>
+            </div>
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 text-center lg:text-left">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+                            Become a <span class="text-localrapid-blue">LocalRapid</span> Seller
+                        </h1>
+                        <p class="text-lg sm:text-xl text-gray-600 mb-8">
+                            Sell to customers on LocalRapid, Tamluk's leading online marketplace.
+                        </p>
+                        <a href="seller registration.html" class="inline-block bg-localrapid-yellow text-gray-900 px-8 py-3 rounded-md text-lg font-bold hover:bg-yellow-400 transition-colors shadow-lg">
+                            Start Selling for <span style="color:rgb(255, 0, 0);">₹0</span>
+                        </a>
+                    </div>
+                    <!-- Stats Cards -->
+                    <div class="lg:w-1/2 grid grid-cols-2 gap-4 w-full center">
+                       
+                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">24x7</h3>
+                            <p class="text-gray-600 font-medium">Seller Support</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">UNLIMITED</h3>
+                            <p class="text-gray-600 font-medium">Categories to Sell</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">UNLIMITED</h3>
+                            <p class="text-gray-600 font-medium">Services to Provide Without Limits</p>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Sellers Love LocalRapid -->
+        <section class="py-16 sm:py-24 bg-blue-50">
+            <div class="container mx-auto px-4 sm:px-6">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
+                    Why sellers love selling on <span class="text-localrapid-blue">LocalRapid</span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.323-.036-.475-.106L4.16 17.14A2 2 0 013 15.263V6a2 2 0 012-2h4a2 2 0 012 2v4z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1"><span style="color:rgba(227, 21, 21, 0.96);">₹0</span> Entry Fee</h3>
+                                <p class="text-gray-600">Join LocalRapid and start selling for free — no entry fee, no setup cost</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Easy Payments</h3>
+                                <p class="text-gray-600">Get your payments credited directly to your bank account in as fast as <strong style="color:rgb(1, 125, 80);">3 - 7</strong> working days.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Fulfilment by LocalRapid</h3>
+                                <p class="text-gray-600">Worried about storing, packing, shipping, and delivering your products? Let LocalRapid do it all for you.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Support & Growth</h3>
+                                <p class="text-gray-600">Get dedicated support and access to tools to grow your business online.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 5 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Mobile Access</h3>
+                                <p class="text-gray-600">You can also manage your full business on mobile.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 6 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-100 text-localrapid-blue p-3 rounded-full">
+                                <img src="management.png" alt="management logo" loading="lazy" style="width: 30px; height: 30px;">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Easy Management</h3>
+                                <p class="text-gray-600">No tech skills? Don't worry. We shall help you in full process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seller Journey -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
+                    Your Journey on <span class="text-localrapid-blue">LocalRapid</span>
+                </h2>
+                <div class="grid md:grid-cols-4 gap-8 md:gap-4">
+                    <!-- Step 1 -->
+                    <div class="timeline-step">
+                        <div class="timeline-icon">1</div>
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-2">Create Account</h3>
+                        <p class="text-gray-600">Tap on <strong style="color:rgb(0, 85, 255);">Start Selling</strong> buttoon then register your details. After review you may receive a confirmation call in 2-3 working days, further information may be asked.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="timeline-step">
+                        <div class="timeline-icon">2</div>
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-2">List Your Products</h3>
+                        <p class="text-gray-600">List your products on the LocalRapid marketplace.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="timeline-step">
+                        <div class="timeline-icon">3</div>
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-2">Receive Orders</h3>
+                        <p class="text-gray-600">Start getting orders from customers.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="timeline-step">
+                        <div class="timeline-icon">4</div>
+                        <!-- No connector -->
+                        <h3 class="text-xl font-semibold mb-2">Ship & Get Paid</h3>
+                        <p class="text-gray-600">Ship orders and receive payments in your account.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seller Testimonial -->
+        <!-- <section class="py-16 sm:py-24 bg-gray-100">
+            <div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+                <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">
+                    Seller Success Stories
+                </h2>
+                <div class="bg-white p-8 rounded-lg shadow-xl relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2">
+                        <img class="w-16 h-16 rounded-full border-4 border-white shadow-md" src="https://placehold.co/100x100/60a5fa/ffffff?text=S" alt="Seller Photo">
+                    </div>
+                    <blockquote class="text-xl text-gray-700 italic mt-8 mb-4">
+                        "Selling on LocalRapid has transformed my business. The platform's reach and the support team's guidance have been invaluable. My sales have grown 5X in just one year!"
+                    </blockquote>
+                    <p class="text-gray-900 font-bold">Simran R.</p>
+                    <p class="text-gray-500">Owner, Simran's Handicrafts</p>
+                </div>
+            </div>
+        </section> -->
+
+
+       
+        
+       
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 pt-16 pb-8">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="bottom-information grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-8">
+               
+                <!-- Column 3 -->
+                <div>
+                    <h5 class="font-semibold text-gray-200 mb-4 uppercase text-sm">Policy</h5>
+                    <ul class="flex flex-wrap gap-4">
+                        <li><a href="Replacement and Exchange Policy.html" class="hover:text-white">Return Policy</a></li>
+                        <li><a href="terms and condition.html" class="hover:text-white">Terms of Use</a></li>
+                        <li><a href="privacy policy.html" class="hover:text-white">Privacy</a></li>
+                    </ul>
+                </div>
+
+                
+            
+        </div>
+        <!-- Bottom Bar -->
+            <div class="bottom-bar border-t border-gray-700 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center text-sm">
+                <p>&copy; 2025 LocalRapid. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="seller login.html" class="hover:text-white">Sell on LocalRapid</a>
+                    <!-- <a href="#" class="hover:text-white">Advertise</a> -->
+                    <a href="about_us.html" class="hover:text-white">About Us</a>
+                </div>
+            </div>
+    </footer>
+
+</body>
+</html>
