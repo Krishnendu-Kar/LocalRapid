@@ -104,7 +104,7 @@ header{
 }
 .nav-search{
     height: 37px;
-    width: 420px;
+    /* width: 420px; */
     margin-top:5px;
     display:flex;
     border: 4px solid #ff5959;
@@ -117,7 +117,7 @@ header{
     border-top-left-radius:5px;
     border-bottom-left-radius:5px;
     border:none;
-    flex-grow:1;    
+    flex-grow:0.8;    
 }
 .search-icon{
     height: 37px;
@@ -145,11 +145,11 @@ header{
     z-index:9;
 }
 .order{
-    
+    width: auto;
     font-size:1.2em;
 }
 
-@media ((max-width: 800px)){
+@media ((max-width: 400px)){
     .order{
     font-size:0.95em;
 }
@@ -173,14 +173,16 @@ a {
 .nav-logo{
     display:flex;
     align-items:center;
+    width: 23vw;
 }
+
 /* Show "Feedback" on mobile (≤768px) */
-@media (max-width: 1010px) {
+@media (max-width: 724px) {
     .logo-name{
     display:none}
     .nav-logo{
     height: 50px;
-    width: 150px;
+    
     display:flex;
     margin-left:4px;
     }
@@ -188,15 +190,16 @@ a {
     background-image:url("LocaalRapid.ico");
     background-size:cover;
     height: 60px;
-    width: 65px;}
-    .nav-search{
-    width: 420px;
-    }
+    width: 65px;
+}
+    
 }  
-
-/* Show "Give your Feedback Here" on PC (>768px) */
-@media (min-width: 1138px) {
+@media (min-width: 1212px) {
     .full-feedback { display: block; }
+}
+/* Show "Give your Feedback Here" on PC (>1138px) */
+@media (min-width: 725px) {
+    /* .full-feedback { display: block; } */
     .feedback{ height:25px;
     width: 200px;}
     .logo-name{
@@ -211,10 +214,10 @@ a {
     margin-left:5px;
     padding-bottom:3px;
     height: 50px;
-    width: 200px;
+    /* width: 200px; */
     display:flex;}
     .nav-search{
-    width: 550px;
+    width: 40vw;
     }
 }
 /* Top panel */
