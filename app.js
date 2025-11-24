@@ -294,7 +294,7 @@ function addToCart(product) {
     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
 
-    product.name=product.name.length > 25 ? product.name.substring(0, 25) + "..." : product.name;
+    product.name=product.name.length > 20 ? product.name.substring(0, 20) + "..." : product.name;
     
     cartMessage.style.display= "inline-flex";
     cartMessage.innerHTML = `<strong> <i class="fa-solid fa-check" style="color: #50e658ff;font-size: 20px;"></i> ${product.name} added to cart! </strong>`;
