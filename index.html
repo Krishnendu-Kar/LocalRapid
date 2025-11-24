@@ -213,6 +213,9 @@
                     </div>
                 </div>
             </div>
+
+            <div id="addCartMessage" class="cartMessage"></div>
+    
             <div class="shop-section" id="productList">
                 
             </div>
@@ -223,6 +226,53 @@
         
 
         <script src="products.js"></script><script src="products_weightable.js"></script> <script src="app.js"></script> 
+        <script>
+            // --- Slider Functionality (Unchanged) ---
+            document.addEventListener('DOMContentLoaded', function () {
+                // ... all your slider code is perfect ...
+            });
+
+            // --- Loading and Search Logic (MODIFIED) ---
+            
+            // This holds the *full* 20k random list for the page
+            let pageSpecificProducts = []; 
+
+            // This function prepares the random list and starts the infinite scroll
+            function initializeHomePage() {
+                // 1. Create a shuffled copy of all products
+                pageSpecificProducts = [...packetProducts].sort(() => 0.5 - Math.random());
+                
+                // 2. Tell app.js to start loading them (74 initially, 14 on scroll)
+                // We also pass 'packetProducts' as the searchFallback
+                initInfiniteScroll(pageSpecificProducts, 24, 14);
+            }
+
+            // This runs when the page is fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                initializeHomePage();
+            });
+
+            // This function is called every time the user types
+            function searchProducts() {
+                const query = document.getElementById("productSearch").value.toLowerCase();
+                
+                if (query === '') {
+                    // 1. If search is empty, RESTART the infinite scroll
+                    initializeHomePage();
+                } else {
+                    // 2. If user is searching, STOP infinite scroll
+                    isSearchActive = true; 
+                    
+                    // 3. Filter the FULL list of products
+                    const filteredProducts = packetProducts.filter(product =>
+                        product.name.toLowerCase().includes(query)
+                    );
+                    
+                    // 4. Call displayProducts to REPLACE HTML with search results
+                    displayProducts(filteredProducts, 'productList', 'search');
+                }
+            }
+        </script>
         <script>
      
         const messages = [
@@ -365,6 +415,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let slideInterval;
     const totalSlides = slides.length;
 
+    
     // Create navigation dots
     for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement('div');

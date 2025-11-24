@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Agent Login | LocalRapid</title>
+    <meta name="description" content="Secure login for delivery agents">
+    <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+    <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: hsl(220, 90%, 56%);
+            --primary-hover: hsl(220, 90%, 48%);
+            --success: hsl(142, 71%, 45%);
+            --warning: hsl(38, 92%, 50%);
+            --error: hsl(0, 84%, 60%);
+            --info: hsl(199, 89%, 48%);
+            --background: hsl(0, 0%, 100%);
+            --surface: hsl(220, 13%, 97%);
+            --border: hsl(220, 13%, 91%);
+            --text-primary: hsl(220, 9%, 20%);
+            --text-secondary: hsl(220, 9%, 46%);
+            --text-tertiary: hsl(220, 9%, 65%);
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark {
+            --primary: hsl(220, 90%, 60%);
+            --primary-hover: hsl(220, 90%, 68%);
+            --success: hsl(142, 71%, 55%);
+            --warning: hsl(38, 92%, 60%);
+            --error: hsl(0, 84%, 70%);
+            --info: hsl(199, 89%, 58%);
+            --background: hsl(220, 13%, 10%);
+            --surface: hsl(220, 13%, 15%);
+            --border: hsl(220, 13%, 25%);
+            --text-primary: hsl(220, 9%, 95%);
+            --text-secondary: hsl(220, 9%, 65%);
+            --text-tertiary: hsl(220, 9%, 50%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 28rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .header-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .header p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            width: 100%;
+            min-height: 2.75rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .message {
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .message.active {
+            display: block;
+        }
+        
+        .error-message {
+            background: hsla(0, 84%, 60%, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+        
+        .success-message {
+            background: hsla(142, 71%, 45%, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--background);
+            transform: scale(1.05);
+        }
+        
+        .input-hint {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+        
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: var(--spacing-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <div class="login-container">
+        <div class="header">
+            <div class="header-icon">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <h1>Delivery Agent Login</h1>
+            <p>Sign in to access your delivery portal</p>
+        </div>
+
+        <div class="card">
+            <div class="error-message message" id="errorMessage"></div>
+            <div class="success-message message" id="successMessage"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="identifier">Email or Phone Number</label>
+                    <input 
+                        type="text" 
+                        id="identifier" 
+                        class="form-input" 
+                        placeholder="agent@example.com or +1234567890"
+                        required
+                        autocomplete="username"
+                    >
+                    <div class="input-hint">Enter your registered email or phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Toggle password visibility">
+                            <svg id="eyeIcon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <span id="loginBtnText">Sign In</span>
+                    <span id="loginBtnSpinner" class="spinner hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+   const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8ST5Qq4v1et0vfpsoOzKOqVAiPT1NJQSrVTPNaZIgRYAaVApCyZzqtmTlViAZ9QOG9A/exec';
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            }
+        }
+
+        function showMessage(message, isError = false) {
+            const errorEl = document.getElementById('errorMessage');
+            const successEl = document.getElementById('successMessage');
+            
+            errorEl.classList.remove('active');
+            successEl.classList.remove('active');
+            
+            if (isError) {
+                errorEl.textContent = message;
+                errorEl.classList.add('active');
+            } else {
+                successEl.textContent = message;
+                successEl.classList.add('active');
+            }
+            
+            setTimeout(() => {
+                errorEl.classList.remove('active');
+                successEl.classList.remove('active');
+            }, 5000);
+        }
+
+        function setLoading(isLoading) {
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+            const loginBtnSpinner = document.getElementById('loginBtnSpinner');
+            const form = document.getElementById('loginForm');
+            
+            loginBtn.disabled = isLoading;
+            
+            if (isLoading) {
+                loginBtnText.classList.add('hidden');
+                loginBtnSpinner.classList.remove('hidden');
+            } else {
+                loginBtnText.classList.remove('hidden');
+                loginBtnSpinner.classList.add('hidden');
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const identifier = document.getElementById('identifier').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!identifier || !password) {
+                showMessage('Please enter both email/phone and password', true);
+                return;
+            }
+
+            // --- THIS IS CORRECT ---
+            if (GOOGLE_APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbw8ST5Qq4v1et0vfpsoOzKOqVAiPT1NJQSrVTPNaZIgRYAaVApCyZzqtmTlViAZ9QOG9A/exec') {
+                showMessage('Please configure your Google Apps Script URL in the JavaScript code', true);
+                return;
+            }
+            
+            setLoading(true);
+            
+            try {
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'login',
+                        identifier: identifier,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('deliveryAgentSession', JSON.stringify({
+                        agentId: data.agentId,
+                        agentName: data.agentName,
+                        email: data.email,
+                        phone: data.phone,
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    showMessage('Login successful! Redirecting...', false);
+                    
+                    setTimeout(() => {
+                        window.location.href = 'delivery-agent.html';
+                    }, 1000);
+                } else { 
+                    showMessage(data.message || 'Authentication failed. Please try again.', true);
+
+     
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Connection error. Please check your internet connection and try again.', true);
+                setLoading(false);
+            }
+        }
+
+        function checkExistingSession() {
+           async function checkExistingSession() {
+            const session = localStorage.getItem('deliveryAgentSession');
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    if (!sessionData.sessionToken) {
+                        localStorage.removeItem('deliveryAgentSession');
+                        return;
+                    }
+                    
+                    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'validateSession',
+                            sessionToken: sessionData.sessionToken
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        window.location.href = 'delivery-agent.html';
+                    } else {
+                        localStorage.removeItem('deliveryAgentSession');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('deliveryAgentSession');
+                }
+            }
+        }
+      }
+        initTheme();
+        checkExistingSession();
+    </script>
+</body>
+</html>

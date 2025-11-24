@@ -1,6 +1,6 @@
 
         // ====== COUNTDOWN TIMER ======
-        function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
+      async function startCountdown(timerString, buttonElement, timerContainerId, timerClass) {
             const countdownContainer = document.getElementById(timerContainerId);
             if (!countdownContainer) return;
             const countDownDate = new Date(timerString).getTime();

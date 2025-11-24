@@ -560,6 +560,11 @@
         </svg>
     </button>
 
+    <div style="position:fixed; top:1rem; left:1rem; background:#0062ff; color:white; padding:8px 16px; border-radius:8px; font-weight:500;">
+        Logged in as <span id="agentName"></span>
+    </div>
+
+
     <!-- Search Section -->
     <div class="container" id="searchSection">
         <div class="header">
@@ -569,7 +574,7 @@
                     <circle cx="16" cy="16" r="14"></circle>
                 </svg>
             </div>
-            <h1>Delivery Agent Portal</h1>
+            <h1>Delivery Agent Portal - LocalRapid</h1>
             <p>Search and manage order deliveries</p>
         </div>
 
@@ -583,7 +588,7 @@
                             type="text" 
                             id="orderNumber" 
                             class="form-input with-prefix" 
-                            placeholder="1761042424801"
+                            placeholder="1234567890"
                             required
                             data-testid="input-order-number"
                         >
@@ -606,7 +611,7 @@
     <!-- Order Details Section -->
     <div class="container order-details" id="orderDetailsSection">
         <div class="header">
-            <h1>Order Details</h1>
+            <h1>Order Details - LocalRapid</h1>
             <p id="orderIdDisplay" data-testid="text-order-id-display"></p>
         </div>
 
@@ -743,6 +748,18 @@
     </div>
 
     <script>
+        // Redirect if not logged in
+        const agentId = localStorage.getItem("agentId");
+        if (!agentId) {
+            window.location.href = "delivery-agent login.html";
+        }
+
+        const agentName = localStorage.getItem("agentName");
+        if (agentName) {
+            document.getElementById("agentName").textContent = agentName;
+        }
+
+  
         // Configuration - REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxGpvmYtk5rvQtvdxUviVV34f6p3L4ynvuprYnelcJbJAQKtzF412k7MKDcwXcwKmOJ1g/exec';
         
@@ -815,7 +832,7 @@
             const altMobile = order.altMobileNumber;
             const callAltBtn = document.getElementById('callAlt');
             if (altMobile && altMobile.trim()) {
-                document.getElementById('altMobile').textContent = order.altMobileNumber4;
+                document.getElementById('altMobile').textContent = `****${order.altMobileNumber4}`;
                 callAltBtn.href = `tel:${altMobile}`;
                 callAltBtn.style.display = 'inline-flex';
             } else {
