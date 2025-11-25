@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - LocaalRapid</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .success-card { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; }
+        .success-header { background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; padding: 40px 20px; text-align: center; }
+        .success-icon { font-size: 60px; margin-bottom: 15px; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        /* OTP Box Styling */
+        .otp-box { border: 2px dashed #0d6efd; background-color: #f8f9fa; border-radius: 10px; padding: 15px; text-align: center; margin: 20px 0; }
+        .otp-code { font-size: 2rem; font-weight: 800; letter-spacing: 5px; color: #0d6efd; }
+
+        /* Timeline Styling - 6 Steps */
+        .timeline-container { position: relative; padding: 30px 0; }
+        .timeline-steps { display: flex; justify-content: space-between; position: relative; }
+        .timeline-steps::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 3px; background: #e9ecef; z-index: 0; }
+        /* Width is 100% / 6 items = 16.66% */
+        .step { position: relative; z-index: 1; text-align: center; width: 16.66%; }
+        .step-circle { width: 35px; height: 35px; background: #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #6c757d; border: 3px solid #fff; box-shadow: 0 0 0 2px #e9ecef; transition: all 0.3s ease; }
+        .step.active .step-circle { background: #198754; color: white; box-shadow: 0 0 0 2px #198754; }
+        .step.active p { font-weight: 700; color: #198754; }
+        .step p { font-size: 0.70rem; color: #6c757d; margin: 0; line-height: 1.2; }
+
+        @media (max-width: 576px) {
+            .step p { font-size: 0.55rem; }
+            .step-circle { width: 25px; height: 25px; font-size: 12px; }
+            .timeline-steps::before { top: 10px; }
+        }
+
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
+        .total-row { border-top: 1px solid #dee2e6; padding-top: 10px; font-weight: 700; font-size: 1.1rem; color: #198754; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card success-card">
+                <div class="success-header">
+                    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 class="fw-bold">Order Placed Successfully!</h2>
+                    <p class="mb-0">Thank you, <span id="userName">User</span>. We've received your order.</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="otp-box">
+                        <small class="text-uppercase text-muted fw-bold">Your Delivery OTP</small>
+                        <div class="otp-code" id="orderOTP">----</div>
+                        <small class="text-muted">Save and share this OTP only when you receive your order.</small>
+                    </div>
+
+                    <div class="timeline-container">
+                        <div class="timeline-steps">
+                            <div class="step active">
+                                <div class="step-circle"><i class="fas fa-clipboard-check"></i></div>
+                                <p>Placed</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-circle"><i class="fas fa-user-check"></i></div>
+                                <p>Verification</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-circle"><i class="fas fa-box-open"></i></div>
+                                <p>Packed</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-circle"><i class="fas fa-shipping-fast"></i></div>
+                                <p>Shipped</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-circle"><i class="fas fa-motorcycle"></i></div>
+                                <p>Out for Delivery</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-circle"><i class="fas fa-home"></i></div>
+                                <p>Delivered</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-receipt me-2"></i>Order Details</h5>
+                            <p class="mb-1"><strong>Order ID:</strong> <span id="orderId">...</span></p>
+                            <p class="mb-1"><strong>Date:</strong> <span id="orderDate">...</span></p>
+                            <p class="mb-1"><strong>Payment:</strong> <span id="paymentMethod">...</span></p>
+                            <p class="mb-1" id="upiRow" style="display:none;"><strong>UPI ID:</strong> <span id="upiId">...</span></p>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt me-2"></i>Delivery Address</h5>
+                            <p class="mb-0 text-muted" id="fullAddress">...</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6 class="fw-bold mb-3">Order Summary</h6>
+                        <div id="itemsList"></div>
+                        <hr>
+                        <div class="summary-row">
+                            <span class="text-muted">Listing Price</span>
+                            <span>₹<span id="listingPrice">0.00</span></span>
+                        </div>
+                        <div class="summary-row text-success">
+                            <span class="text-muted">Discount</span>
+                            <span>- ₹<span id="discountPrice">0.00</span></span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">Delivery Charge</span>
+                            <span>+ ₹<span id="deliveryCharge">0.00</span></span>
+                        </div>
+                        <div class="summary-row" id="codRow" style="display:none;">
+                            <span class="text-muted">COD Charge</span>
+                            <span>+ ₹<span id="codCharge">0.00</span></span>
+                        </div>
+                        <div class="summary-row total-row mt-2">
+                            <span>Grand Total</span>
+                            <span>₹<span id="totalPrice">0.00</span></span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <button onclick="copyOrderDetails()" class="btn btn-outline-dark w-100 py-2">
+                                    <i class="bi bi-clipboard me-2"></i>Copy Order Details
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="shareOrderDetails()" class="btn btn-primary w-100 py-2">
+                                    <i class="bi bi-share me-2"></i>Share Order Details
+                                </button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <a href="invoice.html" class="btn btn-outline-success w-100 py-2">
+                                    <i class="bi bi-file-earmark-text me-2"></i>Get Digital Invoice
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-center text-muted" style="font-size: 0.8rem; margin-top: -5px;">
+                            <i class="bi bi-info-circle me-1"></i> Verification of OTP may be required for further step like to track order or to raise issue etc.
+                        </p>
+                        
+                        <a href="index.html" class="btn btn-primary btn-lg mt-3">
+                            <i class="bi bi-cart-plus me-2"></i>Continue Shopping
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const orderData = JSON.parse(sessionStorage.getItem('lastOrderData'));
+
+        if (!orderData) {
+            alert("No recent order found. Redirecting to home.");
+            window.location.href = 'index.html';
+            return;
+        }
+
+        document.getElementById('userName').textContent = orderData.customerName;
+        document.getElementById('orderOTP').textContent = orderData.otp;
+        document.getElementById('orderId').textContent = orderData.orderId;
+        
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        document.getElementById('orderDate').textContent = new Date().toLocaleDateString('en-IN', dateOptions);
+
+        document.getElementById('paymentMethod').textContent = orderData.paymentMethod;
+        document.getElementById('fullAddress').textContent = `${orderData.address}, ${orderData.city} - ${orderData.pinCode}`;
+
+        if (orderData.paymentMethod === 'UPI Payment') {
+            document.getElementById('upiRow').style.display = 'block';
+            document.getElementById('upiId').textContent = orderData.upiId;
+        }
+
+        const itemsContainer = document.getElementById('itemsList');
+        let itemsTextForCopy = ""; 
+        
+        orderData.cartItems.forEach(item => {
+            const itemTotal = (item.price * item.quantity).toFixed(2);
+            itemsContainer.innerHTML += `
+                <div class="d-flex justify-content-between mb-2 text-muted">
+                    <span>${item.name} [${item.amount}] (x${item.quantity})</span>
+                    <span>₹${itemTotal}</span>
+                </div>`;
+            itemsTextForCopy += `- ${item.name} [${item.amount}] (Qty: ${item.quantity})\n`;
+        });
+
+        document.getElementById('listingPrice').textContent = orderData.listingPrice;
+        document.getElementById('discountPrice').textContent = orderData.discount;
+        document.getElementById('deliveryCharge').textContent = orderData.deliveryCharge;
+        document.getElementById('totalPrice').textContent = orderData.total;
+
+        if(parseFloat(orderData.codCharge) > 0) {
+            document.getElementById('codRow').style.display = 'flex';
+            document.getElementById('codCharge').textContent = orderData.codCharge;
+        }
+
+        window.copyOrderDetails = function() {
+            const copyText = ` LocaalRapid Order Receipt\n` +
+                ` Order ID: ${orderData.orderId}\n` +
+                ` OTP: ${orderData.otp}\n\n` +
+                ` Name: ${orderData.customerName}\n` +
+                ` Address: ${orderData.address}, ${orderData.city}\n\n` +
+                ` Items:\n${itemsTextForCopy}\n` +
+                ` Total Amount: ₹${orderData.total}\n` +
+                ` Payment: ${orderData.paymentMethod}`;
+
+            navigator.clipboard.writeText(copyText).then(() => {
+                const btn = document.querySelector('button[onclick="copyOrderDetails()"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+                btn.classList.replace('btn-outline-dark', 'btn-success');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('btn-success', 'btn-outline-dark');
+                }, 2000);
+            });
+        };
+        window.shareOrderDetails = function () {
+            const orderData = JSON.parse(sessionStorage.getItem('lastOrderData'));
+
+            if (!orderData) return;
+
+            let itemsTextForShare = "";
+            orderData.cartItems.forEach(item => {
+                itemsTextForShare += `- ${item.name} [${item.amount}] (Qty: ${item.quantity})\n`;
+            });
+
+            const shareText = 
+                ` *LocaalRapid Order Receipt*\n` +
+                ` Order ID: ${orderData.orderId}\n` +
+                ` Delivery OTP: ${orderData.otp}\n\n` +
+                ` Name: ${orderData.customerName}\n` +
+                ` Address: ${orderData.address}, ${orderData.city} - ${orderData.pinCode}\n\n` +
+                ` Items:\n${itemsTextForShare}\n` +
+                ` Total Amount: ₹${orderData.total}\n` +
+                ` Payment Mode: ${orderData.paymentMethod}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: "Order Details",
+                    text: shareText,
+                })
+                .then(() => console.log("Shared successfully"))
+                .catch((err) => console.log("Share failed:", err));
+            } else {
+                alert("Sharing is not supported on this device. Please update your browser.");
+            }
+        };
+
+    });
+</script>
+
+</body>
+</html>

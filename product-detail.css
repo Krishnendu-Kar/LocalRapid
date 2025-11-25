@@ -644,6 +644,7 @@ del {
 .delivery_time img {
     vertical-align: middle; /* Aligns the icon with the text */
     margin-right: 8px;      /* Adds a small space next to the icon */
+    filter: invert(29%) sepia(83%) saturate(2476%) hue-rotate(346deg) brightness(96%) contrast(85%);
 }
 @keyframes color-side {
     0% {background: linear-gradient(90deg, #ffc0ad 0%, #fff4f4 100%);

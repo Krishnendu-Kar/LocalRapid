@@ -26,6 +26,60 @@ body {
     line-height: 1.6;
 }
 
+/* Custom Loader Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.95); /* White background */
+    z-index: 9999;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Your Custom Animation CSS */
+.loaderout {
+    height: 60px; width: 60px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 6px dashed #ff6b6b;
+    border-bottom: 5px dashed rgb(73, 5, 133);
+    border-top: 5px dashed rgb(73, 5, 133);
+    display: flex; justify-content: center; align-items: center;
+    animation: rotate 1s linear infinite;
+}
+.loaderin1 {
+    height: 53px; width: 53px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+}
+.loaderin2 {
+    height: 43px; width: 43px;
+    background-color: rgb(178, 20, 20);
+    border-radius: 50%;
+    animation: rotate 3s linear infinite alternate-reverse;
+}
+.loaderin3 {
+    height: 36px; width: 36px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+}
+@keyframes rotate {
+    from { transform: rotateZ(1980deg) scale(0.6); }
+    to { transform: rotateZ(0deg) scale(1.2); }
+}
+
+/* Typing Text Animation */
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    min-height: 1.5em; /* Prevent layout jump */
+}
+
 /* 2. Page Structure & Layout
 -------------------------------------------------- */
 .container-fluid {
@@ -303,32 +357,7 @@ textarea.form-control {
 }
 
 
-/* 9. Loading Overlay & Animations
--------------------------------------------------- */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    display: none; /* Initially hidden */
-    justify-content: center;
-    align-items: center;
-    z-index: 1060;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
 
-.loading-overlay.d-flex {
-    display: flex !important;
-    opacity: 1;
-}
-
-.spinner-border {
-    color: var(--primary-color);
-}
 
 @keyframes fadeInDown {
     from {

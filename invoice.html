@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - LocaalRapid</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            background: #555; 
+            padding: 20px; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        
+        .invoice-container {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 45px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            min-height: 900px;
+            position: relative;
+        }
+
+        /* Responsive Adjustments for Mobile Screens */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .invoice-container { padding: 20px; min-height: auto; }
+            .company-name { font-size: 24px !important; }
+            .invoice-title { font-size: 20px !important; margin-top: 15px; }
+            .text-md-end { text-align: left !important; }
+            .mobile-spacing { margin-bottom: 20px; }
+        }
+
+        /* HEADER STYLING */
+        .company-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0d6efd;
+            letter-spacing: -1px;
+            margin-bottom: 0;
+            line-height: 1;
+        }
+        .invoice-title {
+            color: #333;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        /* TABLE STYLING */
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: #555;
+        }
+        .table td {
+            vertical-align: middle;
+            padding: 12px 8px;
+        }
+
+        /* --- PRINT FIXES START HERE --- */
+        @media print {
+            body { background: white; padding: 0; -webkit-print-color-adjust: exact; }
+            .invoice-container { 
+                box-shadow: none; 
+                padding: 40px; 
+                margin: 0; 
+                width: 100% !important; 
+                max-width: 100% !important; 
+            }
+            .no-print { display: none !important; }
+            tr { page-break-inside: avoid; }
+            thead { display: table-header-group; } 
+            a { text-decoration: none; color: black; }
+            
+            /* FORCE DESKTOP GRID LAYOUT */
+            .row {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+            }
+            
+            /* Reset Column Widths for Print */
+            .col-md-7 { width: 60% !important; flex: 0 0 60% !important; }
+            .col-md-5 { width: 40% !important; flex: 0 0 40% !important; }
+            .col-md-6 { width: 50% !important; flex: 0 0 50% !important; }
+            
+            /* FIX THE ALIGNMENT SWAP */
+            /* Force the Message (Left) to be first */
+            .order-md-1 { order: 1 !important; }
+            /* Force the Totals (Right) to be second */
+            .order-md-2 { order: 2 !important; }
+            
+            /* Force Text Alignment */
+            .text-md-end { text-align: right !important; }
+            
+            /* Ensure the totals table stays on the right */
+            .d-flex.flex-column { display: flex !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-container">
+    <div class="row border-bottom pb-4 mb-4 align-items-center">
+        <div class="col-12 col-md-7 mobile-spacing">
+            <img src="LocaalRapid.png" alt="LocaalRapid Logo" style="height: 50px; width: auto; margin-right: 15px;filter: invert(28%) sepia(98%) saturate(4200%) hue-rotate(185deg) brightness(98%) contrast(102%);">
+            <div class="d-flex align-items-center mb-2">
+                
+                <div>
+                    <div class="company-name">LocaalRapid</div>
+                </div>
+            </div>
+            <div class="text-muted fw-bold ps-1">Fast, Reliable & Secure</div>
+            <div class="small text-secondary mt-1 ps-1"><i class="fa-solid fa-envelope me-1"></i> locaalrapid@gmail.com</div>
+        </div>
+        
+        <div class="col-12 col-md-5 text-md-end">
+            <h2 class="h3 invoice-title text-uppercase mb-2">Retail Invoice</h2>
+            <div class="fs-6">
+                <strong>Invoice #:</strong> <span id="invId" class="font-monospace">Loading...</span>
+            </div>
+            <div class="fs-6 mt-1">
+                <strong>Date:</strong> <span id="invDate">...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 col-md-6 mobile-spacing">
+            <h6 class="text-uppercase text-secondary fw-bold small mb-2">Bill To</h6>
+            <div id="custName" class="fw-bold fs-5">...</div>
+            <div id="custAddress" class="text-muted">...</div>
+            <div id="custMobile" class="mt-1"><i class="fa-solid fa-phone me-1 small"></i> ...</div>
+        </div>
+        
+        <div class="col-12 col-md-6 text-md-end">
+            <h6 class="text-uppercase text-secondary fw-bold small mb-2">Payment Info</h6>
+            <div><span class="badge bg-light text-dark border px-3 py-2 fs-6" id="payMethod">...</span></div>
+            <div id="upiDetails" class="mt-2 small text-muted" style="display:none;"></div>
+            <div class="mt-2 text-primary fw-bold" style="font-size: 0.9rem;">
+                Delivery OTP: <span id="invOtp" class="font-monospace bg-primary text-white px-2 rounded">...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive mb-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Description</th>
+                    <th class="text-center" style="width: 80px;">Qty</th>
+                    <th class="text-end" style="width: 120px;">Total</th>
+                </tr>
+            </thead>
+            <tbody id="invItems">
+                </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-end order-2 order-md-1">
+            <div class="mb-4 mt-4 mt-md-0">
+                <h5 class="fw-bold text-primary mb-1">Thank you!</h5>
+                <p class="text-muted small">
+                    We appreciate your business. <br>
+                    For queries, please contact support with your Invoice ID.
+                </p>
+            </div>
+            
+            <div class="pt-3 border-top" style="font-size: 0.75rem; color: #888;">
+                <p class="mb-1"><i class="fa-solid fa-circle-info me-1"></i> This is a computer-generated invoice.</p>
+                <p class="mb-0 fw-bold fst-italic">Subject to local jurisdiction.</p>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-6 order-1 order-md-2">
+            <div class="bg-light p-3 rounded">
+                <table class="table table-sm table-borderless text-end mb-0">
+                    <tr>
+                        <td class="text-muted">Subtotal:</td>
+                        <td class="fw-bold">₹<span id="invSubtotal">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Discount:</td>
+                        <td class="text-success fw-bold">- ₹<span id="invDiscount">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Delivery:</td>
+                        <td>₹<span id="invDelivery">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">COD/Handling:</td>
+                        <td>₹<span id="invCod">0.00</span></td>
+                    </tr>
+                    <tr class="border-top">
+                        <td class="pt-3 fs-5 fw-bold text-dark">Grand Total:</td>
+                        <td class="pt-3 fs-5 fw-bold text-success">₹<span id="invTotal">0.00</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 no-print" style="margin-bottom: 50px;">
+        <button onclick="window.print()" class="btn btn-success btn-lg px-5 shadow rounded-pill">
+            <i class="fa-solid fa-download me-2"></i>Download PDF
+        </button>
+        <div class="mt-3">
+            <a href="order-success.html" class="text-decoration-none text-secondary">
+                <i class="fa-solid fa-arrow-left me-1"></i> Back to Order Summary
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const orderData = JSON.parse(sessionStorage.getItem('lastOrderData'));
+        if (!orderData) {
+            document.body.innerHTML = "<div class='text-center text-white mt-5'><h3>No Invoice Data Found</h3><a href='index.html' class='btn btn-light'>Go Home</a></div>";
+            return;
+        }
+
+        // Fill Header Info
+        document.getElementById('invId').textContent = orderData.orderId;
+        
+        // DATE & TIME Logic
+        const now = new Date();
+        const dateTimeString = now.toLocaleDateString('en-IN', { 
+            day: 'numeric', month: 'short', year: 'numeric' 
+        }) + ', ' + now.toLocaleTimeString('en-IN', { 
+            hour: '2-digit', minute: '2-digit', hour12: true 
+        });
+        document.getElementById('invDate').textContent = dateTimeString;
+
+        document.getElementById('custName').textContent = orderData.customerName;
+        document.getElementById('custAddress').textContent = `${orderData.address}, ${orderData.city} - ${orderData.pinCode}`;
+        document.getElementById('custMobile').textContent = `${orderData.mobile}`;
+        document.getElementById('payMethod').textContent = orderData.paymentMethod;
+        document.getElementById('invOtp').textContent = orderData.otp;
+
+        if(orderData.upiId) {
+            const upiDiv = document.getElementById('upiDetails');
+            upiDiv.style.display = 'block';
+            upiDiv.textContent = `UPI ID: ${orderData.upiId}`;
+        }
+
+        // Fill Items
+        const tbody = document.getElementById('invItems');
+        let subtotalCalc = 0;
+        orderData.cartItems.forEach(item => {
+            const total = item.price * item.quantity;
+            subtotalCalc += total;
+            tbody.innerHTML += `
+                <tr>
+                    <td>
+                        <span class="fw-bold text-dark">${item.name}</span>
+                        <br><small class="text-muted">Pack: ${item.amount}</small>
+                    </td>
+                    <td class="text-center pt-3">${item.quantity}</td>
+                    <td class="text-end pt-3 fw-bold">₹${total.toFixed(2)}</td>
+                </tr>`;
+        });
+
+        // Fill Totals
+        document.getElementById('invSubtotal').textContent = subtotalCalc.toFixed(2);
+        document.getElementById('invDiscount').textContent = orderData.discount;
+        document.getElementById('invDelivery').textContent = orderData.deliveryCharge;
+        document.getElementById('invCod').textContent = orderData.codCharge;
+        document.getElementById('invTotal').textContent = orderData.total;
+    });
+</script>
+
+</body>
+</html>
