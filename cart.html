@@ -194,7 +194,7 @@
 
                     /* Popup content box */
                     .popup-box {
-                        background: #fff;
+                        background: rgba(255, 255, 255, 0.848);
                         border-radius: 16px;
                         width: 90%;
                         max-width: 500px;
@@ -241,6 +241,7 @@
                     .glass-popup {
                         backdrop-filter: blur(5px) !important;
                         -webkit-backdrop-filter: blur(5px) !important;
+                        background: rgba(255, 255, 255, 0.677);
                     }
 
                     /* Toastify Container */
@@ -308,7 +309,7 @@
         <!-- Popup 2 -->
         <div class="popup-overlay" id="popup2">
         <div class="popup-box">
-            <button class="close-btn" id="close2">X</button>
+            <button class="close-btn" id="close2"><i class="fa-solid fa-xmark"></i></button>
             <h2 style="color:#010445;">Platform Fee</h2>
             <p>Fee levied by LocaalRapid to sustain the efficient operations and continuous improvement of the platform, for a hassle-free app experience.</p>
             <p>Have a question? Contact us <a href="about_us.html">here</a>.</p>
@@ -609,11 +610,11 @@ if (amountNeeded > 0) {
                     backdrop-filter:blur(3px); justify-content:center; align-items:center;
                     z-index:9999;">
             <div class="popup-box"
-                 style="background:#fff; border-radius:16px; max-width:450px; width:90%; padding:20px 28px;
+                 style="background: rgba(255, 255, 255, 0.788); border-radius:16px; max-width:450px; width:90%; padding:20px 28px;
                         box-shadow:0 4px 20px rgba(0,0,0,0.15); position:relative; animation:fadeIn 0.25s ease;">
                 <button id="close-delivery"
                         style="position:absolute; top:10px; right:16px; background:none; border:none;
-                               color:black; cursor:pointer;">X</button>
+                               color:black; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
                 <h5 style="margin-top:0; color:black">Delivery Charge Information</h5>
                 <p style="font-size:14px; line-height:1.6;">
                     💡 Otherwise, <b>₹5 - ₹15</b> delivery charge may apply depending on your location.<br>
@@ -686,7 +687,7 @@ const totalSave = totaloriginalPrice - itemsSubtotal;
                         <!-- Popup HTML -->
                         <div id="deliveryPopup" class="popup-overlay">
                             <div class="popup-box">
-                                <button class="close-btn" id="closeDeliveryPopup">X</button>
+                                <button class="close-btn" id="closeDeliveryPopup"><i class="fa-solid fa-xmark"></i></button>
                                 <h2 style="color:#010445;">Why We Charge for Delivery</h2>
                                 <p style="font-size:14px; line-height:1.6;">
                                     At <strong>LocaalRapid</strong>, a small delivery charge (₹5-₹15) helps us maintain 
