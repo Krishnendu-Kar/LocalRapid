@@ -96,7 +96,11 @@ html, body {
     width: 420px;
     }
 }  
-
+@media(min-width:404px) and (max-width: 670px) {
+    .logo{display:none;}
+    .nav-logo{padding-right:3px;
+    }
+}
 /* Show "Give your Feedback Here" on PC (>768px) */
 @media (min-width: 405px) {
     .logo-name{
@@ -107,11 +111,12 @@ html, body {
     background-image:url("LocaalRapid.ico");
     background-size:cover;
     height: 50px;
-    width: 65px;}
+    width: 65px;
+}
     .nav-logo{
     margin-left:5px;
     height: 50px;
-    width: 150px;
+    width: 170px;
     display:flex;
     align-items:center;
     justify-content:center;}
@@ -566,13 +571,14 @@ footer{
 }
 
 footer{
-    height: 35px;
+    height: 40px;
     width:100vw;
     color:whitesmoke;
     position:sticky;
     bottom:0px;
     text-align:center;
     padding-top:12px;
+    padding-bottom:23px;
     display:inline-block;
     background-color:#eb0000;
     border:5px solid #eb0000e6;
