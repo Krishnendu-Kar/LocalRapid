@@ -340,24 +340,27 @@
 
             // --- MODIFIED FUNCTION ---
             // Now accepts a uniqueId (like 'productID-amount') instead of just productId
+            // --- MODIFIED FUNCTION ---
             function updateQuantity(uniqueId, change) {
                 let cart = getCart();
                 const item = cart.find(i => (i.cartItemId || i.id) == uniqueId);
 
                 if (item) {
-                    // --- NEW: Add confirmation before quantity becomes zero ---
+                    // CASE 1: REMOVAL SCENARIO
+                    // If quantity is 1 and we try to decrease, we treat it as a "Delete" action
                     if (item.quantity === 1 && change < 0) {
-                        if (!confirm("This will remove the item from your cart. Are you sure?")) {
-                            return; // Exit if user cancels
-                        }
+                        
+                        // We pass the job to removeItem. 
+                        // It handles the Alert, Trash Buffer, Removal, and Undo Toast.
+                        removeItem(uniqueId); 
+                        
+                        // STOP HERE. Do not continue to the math part below.
+                        return; 
                     }
 
+                    // CASE 2: NORMAL UPDATE
+                    // If we are just adding (+1) or subtracting from a higher number (e.g. 5 -> 4)
                     item.quantity += change;
-
-                    if (item.quantity <= 0) {
-                        // --- FIX: Filter using the uniqueId to remove only the specific variant ---
-                        cart = cart.filter(i => (i.cartItemId || i.id) != uniqueId);
-                    }
                     saveCart(cart);
                     loadCart();
                 }
@@ -384,6 +387,7 @@
                 // 2. Trigger SweetAlert (The Glass Modal)
                 Swal.fire({
                     title: "Remove Item?",
+                    iconColor: '#ff4444',
                     // We use HTML to show the image and details nicely
                    html: `
     <img src="${item.image}" style="width:80px;border-radius:8px;margin-bottom:10px;">
