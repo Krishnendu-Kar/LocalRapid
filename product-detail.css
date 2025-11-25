@@ -90,7 +90,65 @@ html, body {
     .btn-buy { background: #e74c3c; color: #fff; }
     .btn-buy:hover { background: #c0392b; }
 
+    .cartMessage {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Hidden by default */
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
 
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    
+   text-shadow:
+    1px 1px 0 #000,
+    1.5px 1.5px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #6a6767,
+    4px 4px 0 #feb47b;
+
+
+
+    background: linear-gradient(165deg, #ff7e5f, #feb47b, #ff6a00, #c23a00);
+    border-radius: 50px;       /* beautiful pill shape */
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px); /* glass effect */
+    
+    animation: popupDrop .78s ease-out;
+    z-index: 99999;
+}
+ @media (max-width: 421px) {
+    .cartMessage {
+        width: 90vw;
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+
+/* Smooth Perfect Animation */
+@keyframes popupDrop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -30px) scale(0.85);
+        filter: blur(4px);
+    }
+    60% {
+        opacity: 1;
+        transform: translate(-50%, 5px) scale(1.03);
+        filter: blur(0px);
+    }
+    100% {
+        transform: translate(-50%, 0) scale(1);
+        opacity: 1;
+    }
+    
+}
      
      .add-cart{
     height: 44px;

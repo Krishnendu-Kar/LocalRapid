@@ -333,13 +333,22 @@ animation-delay:6s;
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
+    
+   text-shadow:
+    1px 1px 0 #000,
+    1.5px 1.5px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #6a6767,
+    4px 4px 0 #feb47b;
 
-    background: linear-gradient(135deg, #ff8a00, #ff2f6e, #6a11cb);
+
+
+    background: linear-gradient(165deg, #ff7e5f, #feb47b, #ff6a00, #c23a00);
     border-radius: 50px;       /* beautiful pill shape */
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(8px); /* glass effect */
     
-    animation: popupDrop 0.55s ease-out;
+    animation: popupDrop .78s ease-out;
     z-index: 99999;
 }
  @media (max-width: 421px) {
@@ -367,6 +376,7 @@ animation-delay:6s;
         transform: translate(-50%, 0) scale(1);
         opacity: 1;
     }
+    
 }
 .product-timer strong {
     color: #f80f0f; /* A reddish color */

@@ -590,8 +590,18 @@ a {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
+      text-shadow:
+    1px 1px 0 #000,
+    1.5px 1.5px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #6a6767,
+    4px 4px 0 #feb47b;
 
-    background: linear-gradient(135deg, #ff8a00, #ff2f6e, #6a11cb);
+
+
+    background: linear-gradient(165deg, #ff7e5f, #feb47b, #ff6a00, #c23a00);
+    /* background: linear-gradient(165deg, #a0f2f5, #44cfc1, #2485e6, #5c07ad); */
+    /* background: linear-gradient(165deg, #ff7e5f, #feb47b, #ff6a00, #c23a00); */
     border-radius: 50px;       /* beautiful pill shape */
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(8px); /* glass effect */

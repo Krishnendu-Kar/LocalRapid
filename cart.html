@@ -33,19 +33,24 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <title>Cart- LocaalRapid Fast & Reliable E-commerce Shopping</title>
         <style>
         @media (min-width: 769px) and (max-width: 991px) {
         .my-box {
             width: 300px;
              position: absolute;
-  right: 0;
+         right: 0;
         }
         }
         a{
         color:#3683ff;
         text-decoration:none;
-    }</style>
+        }</style>
     </head>
     <body>
         <header>
@@ -85,7 +90,7 @@
                 <div class="discount-banner">
                 <p>You will save <span class="currency">₹</span><span class="amount" id="you-save1">0</span> on this order</p>
                 </div>
-                <style>/* Progress bar */
+            <style>/* Progress bar */
                 .checkout-progress {
                 display: flex;
                 align-items: center;
@@ -131,13 +136,16 @@
                 background: #ddd;
                 margin-top: -40px;
                 }
-
+                del, .mrp {
+                    color: #f25050;
+                    font-weight: 500;
+                }
                 /* Discount banner */
                 .discount-banner {
                     border-radius:9px;
                 text-align: center;
                 font-size: 1.2rem;
-                background: linear-gradient(-210deg, blue, red);
+                background: linear-gradient(-210deg, blue, rgb(199, 50, 50));
                 padding: 14px 0;
                 color: #333;
                 font-weight: 500;
@@ -167,67 +175,119 @@
 
                   /* Text trigger */
   
-  .info-text {
-    cursor: pointer;
-    margin-right: 15px;
-  }
+                    .info-text {
+                        cursor: pointer;
+                        margin-right: 15px;
+                    }
 
-  /* Common overlay */
-  .popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0,0,0,0.3);
-    backdrop-filter: blur(3px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+                    /* Common overlay */
+                    .popup-overlay {
+                        display: none;
+                        position: fixed;
+                        inset: 0;
+                        background-color: rgba(0,0,0,0.3);
+                        backdrop-filter: blur(3px);
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                    }
 
-  /* Popup content box */
-  .popup-box {
-    background: #fff;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 500px;
-    padding: 24px 32px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    text-align: left;
-    position: relative;
-    animation: fadeIn 0.25s ease;
-  }
+                    /* Popup content box */
+                    .popup-box {
+                        background: #fff;
+                        border-radius: 16px;
+                        width: 90%;
+                        max-width: 500px;
+                        padding: 24px 32px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                        text-align: left;
+                        position: relative;
+                        animation: fadeIn 0.25s ease;
+                    }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: scale(0.95); }
+                        to { opacity: 1; transform: scale(1); }
+                    }
 
-  .popup-box h2 {
-    font-size: 22px;
-    margin-top: 0;
-  }
+                    .popup-box h2 {
+                        font-size: 22px;
+                        margin-top: 0;
+                    }
 
-  .popup-box p {
-    color: #5f6368;
-    margin: 8px 0;
-  }
+                    .popup-box p {
+                        color: #5f6368;
+                        margin: 8px 0;
+                    }
 
-  .check {
-    color: #1a73e8;
-    margin-right: 8px;
-  }
+                    .check {
+                        color: #1a73e8;
+                        margin-right: 8px;
+                    }
 
-  .close-btn {
-    position: absolute;
-    right: 16px;
-    top: 12px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: #051b38;
-    cursor: pointer;
-  }
-                </style>
+                    .close-btn {
+                        position: absolute;
+                        right: 16px;
+                        top: 12px;
+                        background: none;
+                        border: none;
+                        font-size: 16px;
+                        color: #051b38;
+                        cursor: pointer;
+                    } 
+                    
+                    /* --- NEW PREMIUM UI STYLES --- */
+                    /* Custom SweetAlert Glass Effect */
+                    .glass-popup {
+                        backdrop-filter: blur(5px) !important;
+                        -webkit-backdrop-filter: blur(5px) !important;
+                    }
+
+                    /* Toastify Container */
+                    .undo-toast {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                        font-family: 'Poppins', sans-serif;
+                    }
+                    
+                    /* Force the Toastify container to allow interaction */
+                    .toastify {
+                        pointer-events: auto !important; 
+                    }
+
+                    /* Ensure the button sits on top of everything */
+                    .undo-btn {
+                        /* Your existing styles... */
+                        padding: 6px 14px;
+                        background: #27cc5b; 
+                        color: white;
+                        border-radius: 6px;
+                        font-size: 13px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        border: none;
+                        
+                        /* CRITICAL NEW LINES */
+                        pointer-events: auto !important;
+                        position: relative;
+                        z-index: 1000;
+                    }
+                    .undo-btn:hover { background: #20a84b; }
+
+                    /* The Timer Bar Animation */
+                    .timer-bar {
+                        height: 3px;
+                        background: #27cc5b;
+                        animation: timer 4s linear forwards;
+                        border-radius: 3px;
+                        margin-top: 6px;
+                    }
+                    @keyframes timer {
+                        from { width: 100%; }
+                        to   { width: 0%; }
+                    }
+            </style>
             <div id="cart-container">
                 </div>
 
@@ -245,15 +305,15 @@
                             <h4><span id="platform-fee" style="cursor: pointer;"> Platform Fee<i style="color:#ffd900;font-size:0.5em;position:relative;top:-7px;" class="fa-solid fa-circle-info"></i> : <span style="color:orangered;">Free</span></span></h4>
 
 
-<!-- Popup 2 -->
-<div class="popup-overlay" id="popup2">
-  <div class="popup-box">
-    <button class="close-btn" id="close2">X</button>
-    <h2 style="color:#010445;">Platform Fee</h2>
-    <p>Fee levied by LocaalRapid to sustain the efficient operations and continuous improvement of the platform, for a hassle-free app experience.</p>
-    <p>Have a question? Contact us <a href="about_us.html">here</a>.</p>
-  </div>
-</div>
+        <!-- Popup 2 -->
+        <div class="popup-overlay" id="popup2">
+        <div class="popup-box">
+            <button class="close-btn" id="close2">X</button>
+            <h2 style="color:#010445;">Platform Fee</h2>
+            <p>Fee levied by LocaalRapid to sustain the efficient operations and continuous improvement of the platform, for a hassle-free app experience.</p>
+            <p>Have a question? Contact us <a href="about_us.html">here</a>.</p>
+        </div>
+        </div>
 
                             <h4>Total: ₹<span id="total-price">0</span></h4>
                             <button class="btn btn-success btn-lg w-100" id="checkout-btn">
@@ -266,6 +326,9 @@
         </div>
 
         <script>
+            // --- NEW GLOBAL VARIABLE (Trash Buffer) ---
+            // This holds the items you delete so they can be restored.
+            let deletedItemsMap = {};
             function getCart() {
                 return JSON.parse(localStorage.getItem('cart')) || [];
             }
@@ -299,17 +362,131 @@
                 }
             }
 
+           
             // --- MODIFIED FUNCTION ---
+            // --- NEW PREMIUM REMOVE FUNCTION ---
             function removeItem(uniqueIdToRemove) {
-                // --- NEW: Add confirmation alert before removing ---
-                if (confirm("Are you sure you want to remove this item from your cart?")) {
+                let cart = getCart();
+                
+                // 1. Find the item SAFELY using your Unique ID logic
+                const item = cart.find(i => (i.cartItemId || i.id) == uniqueIdToRemove);
+
+                 item.name = item.name
+                .split(" ")
+                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(" ");
+
+
+                if (!item) return; // Safety check
+                
+
+                // 2. Trigger SweetAlert (The Glass Modal)
+                Swal.fire({
+                    title: "Remove Item?",
+                    // We use HTML to show the image and details nicely
+                   html: `
+    <img src="${item.image}" style="width:80px;border-radius:8px;margin-bottom:10px;">
+    <br>
+    <b>${item.name}</b><br>
+
+    <span style="color:#666">
+        ₹${item.price} 
+        ${item.originalPrice != item.price ? `<del>₹${item.originalPrice}</del>` : ""}
+        (${item.quantity})
+    </span>
+`,
+
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ff4444", // Red for delete
+                    cancelButtonColor: "#3085d6", // Blue for cancel
+                    confirmButtonText: "Yes, remove",
+                    cancelButtonText: "Cancel",
+                    // Glass effect class we added in CSS
+                    customClass: { popup: "glass-popup" }
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        
+                        // 3. Save to Trash Buffer (The "One Product" Logic)
+                        // We use the uniqueId as the key so we don't mix up weights
+                        deletedItemsMap[uniqueIdToRemove] = item;
+
+                        // 4. Remove from Cart (Your Original Logic)
+                        cart = cart.filter(i => (i.cartItemId || i.id) != uniqueIdToRemove);
+                        saveCart(cart);
+                        loadCart(); // Refresh UI
+
+                        // 5. Show the Undo Toast
+                        showUndoToast(item, uniqueIdToRemove);
+                    }
+                });
+            }
+
+            // --- HELPER: SHOW THE UNDO TOAST ---
+            // --- HELPER: SHOW THE UNDO TOAST ---
+            function showUndoToast(item, uniqueId) {
+                Toastify({
+                    close: false, // We handle closing manually
+                    gravity: "bottom",
+                    position: "right",
+                    duration: 4000, 
+                    stopOnFocus: true,
+                    escapeMarkup: false, 
+                    style: {
+                        background: "white",
+                        color: "#111",
+                        borderRadius: "12px",
+                        boxShadow: "0 8px 30px rgba(0,0,0,0.15)",
+                        border: "1px solid #eee",
+                        padding: "0",
+                        minWidth: "300px",
+                        // Fix for stacking context issues
+                        zIndex: "99999" 
+                    },
+                    // FIX: We use onclick="restoreItem(...)" directly. 
+                    // We accept the uniqueId as a string safe parameter.
+                    text: `
+                        <div style="padding: 12px 15px;">
+                            <div class="undo-toast">
+                                <div style="flex:1">
+                                    <b style="font-size:14px;">${item.name}</b><br>
+                                    <small style="color:#888;">Removed from cart</small>
+                                </div>
+                                
+                                <button class="undo-btn" onclick="restoreItem('${uniqueId}')">
+                                    Undo
+                                </button>
+                            </div>
+                            <div class="timer-bar"></div>
+                        </div>
+                    `
+                }).showToast();
+            }
+
+            // --- HELPER: RESTORE ITEM (UNDO LOGIC) ---
+            function restoreItem(uniqueId) {
+                // 1. Find in Trash
+                const itemToRestore = deletedItemsMap[uniqueId];
+
+                if (itemToRestore) {
                     let cart = getCart();
-                    cart = cart.filter(item => {
-                        const currentItemUniqueId = item.cartItemId || item.id;
-                        return currentItemUniqueId != uniqueIdToRemove;
-                    });
+                    
+                    // 2. Add back to cart
+                    cart.push(itemToRestore);
                     saveCart(cart);
-                    loadCart(); // Refresh the cart display
+                    loadCart(); // Update Screen
+                    
+                    // 3. Clear from Trash
+                    delete deletedItemsMap[uniqueId];
+
+                    // 4. Success Message
+                    Toastify({
+                        text: "✨ Item restored!",
+                        duration: 2500,
+                        gravity: "bottom",
+                        position: "right",
+                        style: { background: "#27cc5b", borderRadius: "8px" }
+                    }).showToast();
                 }
             }
 
@@ -346,6 +523,11 @@
                         ? 'product-details_weightable.html'
                         : 'product-details.html';
 
+                    item.name = item.name
+                .split(" ")
+                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(" ");
+
                     const uniqueId = item.cartItemId || item.id;
                     const price = Number(item.price) || 0;
                     const originalPrice = Number(item.originalPrice) || price;
@@ -360,7 +542,7 @@
                     if (itemTotal === itemMrpTotal) {
                         priceHTML = `₹${itemTotal.toFixed(2)}`;
                     } else {
-                        priceHTML = `<span class="text-success">₹${itemTotal.toFixed(2)}</span> <del class="text-muted">₹${itemMrpTotal.toFixed(2)}</del>`;
+                        priceHTML = `<span class="text-success">₹${itemTotal.toFixed(2)}</span> <del class="mrp">₹${itemMrpTotal.toFixed(2)}</del>`;
                     }
 
                     cartHTML += `
@@ -368,13 +550,13 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-md-2">
-                                        <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" loading="lazy" width="100" height="100" style="max-height: 100px; object-fit: cover; cursor: pointer;" onclick="window.location.href='${detailPage}?id=${item.id}'">
+                                        <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" loading="lazy" width="100" height="100" style="max-height: 100px; object-fit: contain; cursor: pointer;" onclick="window.location.href='${detailPage}?id=${item.id}'">
                                     </div>
                                     <div class="col-md-4">
-                                        <h5 onclick="window.location.href='${detailPage}?id=${item.id}'" style="text-transform:capitalize;"><abbr style="text-decoration: none;cursor:context-menu;" title="${item.name}">${item.name}</abbr></h5>
+                                        <h5 onclick="window.location.href='${detailPage}?id=${item.id}'" style="text-transform:capitalize;"><abbr style="text-decoration: none;cursor:context-menu; cursor: pointer;" title="${item.name}">${item.name}</abbr></h5>
                                         <p class="text-success mb-0" style="color:red;">₹${price.toFixed(2)} (${item.amount})</p>
                                         ${price !== originalPrice
-                                            ? `<p class="text-muted small mb-0"><del>₹${originalPrice.toFixed(2)}</del></p>`
+                                            ? `<p class="text-muted  small mb-0"><del>₹${originalPrice.toFixed(2)}</del></p>`
                                             : ""}
                                     </div>
                                     <div class="col-md-3">

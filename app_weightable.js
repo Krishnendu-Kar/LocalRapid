@@ -101,7 +101,11 @@ function updateCartCount() {
         cartAmountElement.textContent = count;
     }
 }
+let body = document.querySelector('body');;   // ALWAYS attach to body, works everywhere
 
+let cartMessage = document.createElement("div");
+cartMessage.className = "cartMessage";
+body.append(cartMessage);
 function addToCart(product) {
     let cart = getCart();
     const cartItemId = `${product.id}-${product.amount}`;
@@ -119,7 +123,20 @@ function addToCart(product) {
 
     saveCart(cart);
     updateCartCount();
-    alert(`${product.name} (${product.amount}) added to cart!`);
+    
+        product.name = product.name
+    .split(" ")
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+
+    product.name=product.name.length > 20 ? product.name.substring(0, 20) + "..." : product.name;
+    
+    cartMessage.style.display= "inline-flex";
+    cartMessage.innerHTML = `<strong> <i class="fa-solid fa-check" style="color: #50e658ff;font-size: 20px;"></i> ${product.amount} ${product.name} added to cart! </strong>`;
+    
+    setTimeout(() => {
+    cartMessage.style.display = "none";
+}, 4000); // 4000 ms = 4 seconds
 }
 
 // Initial Load
