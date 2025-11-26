@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Invoice - LocaalRapid</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="shortcut icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+        <link rel="icon" href="https://krishnendu-kar.github.io/LocalRapid/LocaalRapid.ico" type="image/x-icon">
+    
+    <style>
+        body { 
+            background: #e0e0e0; 
+            padding: 20px; 
+            font-family: 'Arial', sans-serif; 
+            font-size: 11px; 
+            -webkit-print-color-adjust: exact;
+        }
+        
+        .invoice-paper {
+            background: white;
+            max-width: 800px; /* Changed from fixed width to max-width */
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-height: 297mm;
+            position: relative;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { margin: 0; color: #000; }
+        .company-logo { font-size: 20px; font-weight: 800; color: #2874f0; font-style: italic; }
+        .bold { font-weight: bold; }
+        .text-right { text-align: right; }
+        .small-text { font-size: 10px; color: #444; }
+
+        /* Header Grid */
+        .header-row { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 20px; 
+            flex-wrap: wrap; /* Allow wrapping on mobile */
+            gap: 20px;
+        }
+        .address-box { 
+            width: 48%; 
+            min-width: 250px; /* Prevent squishing */
+        }
+        
+        /* Barcode */
+        .barcode { font-family: 'Libre Barcode 39', cursive; font-size: 40px; line-height: 1; color: #000; }
+
+        /* Table Styling */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+        .invoice-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 11px; 
+            min-width: 500px; /* Force minimum width for scrolling */
+        }
+        .invoice-table th { 
+            background-color: #f1f1f1; 
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            text-align: left;
+            text-transform: uppercase;
+        }
+        .invoice-table td { 
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            vertical-align: top;
+        }
+
+        /* Footer */
+        .footer-section { margin-top: 40px; border-top: 1px dashed #ccc; padding-top: 15px; }
+        .text-success { color: #198754 !important; }
+
+        /* Mobile Specific Adjustments */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .invoice-paper { padding: 15px; }
+            
+            .header-row { flex-direction: column; }
+            .address-box { width: 100%; }
+            
+            /* Stack the top header */
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+            .text-end { text-align: left !important; margin-top: 10px; }
+            
+            /* Adjust footer layout */
+            .footer-section .row { display: flex; flex-direction: column; gap: 20px; }
+            .footer-section .col-8, .footer-section .col-4 { width: 100%; text-align: left !important; }
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: white; padding: 0; margin: 0; }
+            .invoice-paper { 
+                box-shadow: none; 
+                margin: 0; 
+                width: 100%; 
+                max-width: 100%; 
+                padding: 10mm; 
+            }
+            .no-print { display: none !important; }
+            .btn { display: none; }
+            
+            /* Force Desktop Layout for Print even if screen is small */
+            .header-row { flex-direction: row !important; }
+            .address-box { width: 48% !important; }
+            .d-flex.justify-content-between { flex-direction: row !important; align-items: flex-start !important; }
+            .text-end { text-align: right !important; }
+            .footer-section .row { flex-direction: row !important; }
+            .footer-section .col-8 { width: 66.66% !important; }
+            .footer-section .col-4 { width: 33.33% !important; text-align: right !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-paper">
+    
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div class="d-flex align-items-center">
+            <img src="LocaalRapid.png" alt="Logo" style="height: 45px; width: auto; margin-right: 10px;">
+            <div>
+                <div class="company-logo">LocaalRapid</div>
+                <div style="font-size: 12px; margin-top: 2px;">E-Commerce Store</div>
+            </div>
+        </div>
+        <div class="text-end">
+            <div style="font-size: 16px; font-weight: bold;">Retail Invoice</div>
+            <div class="barcode" id="barcodeDisplay">*ORDER*</div>
+            <div class="small-text">Order ID: <span id="invId" class="bold">...</span></div>
+        </div>
+    </div>
+
+    <div class="header-row">
+        <div class="address-box">
+            <div class="bold mb-1" style="border-bottom: 1px solid #eee; padding-bottom: 2px;">Sold By:</div>
+            <div style="line-height: 1.4;">
+                <span class="bold">LocaalRapid</span><br>
+                Radhaballavpur, Tamluk,<br>
+                West Bengal - 721627<br>
+                India
+            </div>
+        </div>
+
+        <div class="address-box">
+            <div class="bold mb-1" style="border-bottom: 1px solid #eee; padding-bottom: 2px;">Bill To:</div>
+            <div class="bold" id="custName" style="font-size: 12px;">...</div>
+            <div class="mt-1">
+                <span class="bold">Mobile:</span> <span id="custMobile">...</span>
+            </div>
+            <div class="mt-2" style="background: #f9f9f9; padding: 5px;">
+                <span class="bold">Date:</span> <span id="invDate">...</span><br>
+                <span class="bold">Payment:</span> <span id="payMethod">...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%">Product Description</th>
+                    <th style="width: 15%" class="text-right">Unit Price</th>
+                    <th style="width: 10%" class="text-right">Qty</th>
+                    <th style="width: 25%" class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody id="invItems">
+                </tbody>
+            
+            <tfoot id="invFooter">
+                <tr style="background-color: #f9f9f9;">
+                    <td colspan="3" class="text-right bold" style="font-size: 14px;">Grand Total</td>
+                    <td class="text-right bold" style="font-size: 14px;">₹<span id="grandTotal">0.00</span></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="mt-2 small-text" style="font-style: italic;">
+        * System Generated Invoice.
+    </div>
+
+    <div class="footer-section">
+        <div class="row">
+            <div class="col-8">
+                <div class="small-text">
+                    <p class="mb-1 bold">Terms & Conditions:</p>
+                    <ol style="padding-left: 15px; margin: 0;">
+                        <li>This is a computer generated invoice. No signature required.</li>
+                        <li>Subject to local jurisdiction (Tamluk, WB).</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-4 text-end">
+                <div class="company-logo" style="font-size: 16px;">Thank You!</div>
+                <div style="font-size: 10px;">Visit us again</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 no-print">
+        <button onclick="window.print()" class="btn btn-primary btn-sm px-4">Print / Download Invoice</button>
+        <button onclick="window.close()" class="btn btn-secondary btn-sm ms-2">Close</button>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const orderData = JSON.parse(localStorage.getItem('trackingInvoiceData'));
+
+        if (!orderData) {
+            document.body.innerHTML = "<h3 class='text-center mt-5'>No Order Data Found.</h3>";
+            return;
+        }
+
+        // 1. Fill Header
+        document.getElementById('invId').textContent = orderData.orderId;
+        document.getElementById('barcodeDisplay').textContent = "*" + orderData.orderId + "*";
+        
+        const d = new Date(orderData.orderDate);
+        document.getElementById('invDate').textContent = d.toLocaleDateString('en-IN', {day:'2-digit', month:'2-digit', year:'numeric'});
+
+        document.getElementById('custName').textContent = orderData.customerName.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+        document.getElementById('custMobile').textContent = "****" + orderData.mobileLast4;
+        document.getElementById('payMethod').textContent = orderData.paymentMethod;
+
+        // 2. Parse Items (Split by Semicolon)
+        const itemsStr = orderData.items || ""; 
+        const itemsArray = itemsStr.split(';').filter(item => item.trim() !== "");
+        
+        const tbody = document.getElementById('invItems');
+        let calculatedTotal = 0;
+
+        itemsArray.forEach(itemRaw => {
+            // Format: "Name [Pack] | (Qty: 2) ₹100.00"
+            const parts = itemRaw.split('|');
+            let name = parts[0].trim().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+            let details = parts[1] ? parts[1].trim() : "";
+            
+            const qtyMatch = details.match(/Qty:\s*(\d+)/);
+            const priceMatch = details.match(/₹([\d.]+)/);
+
+            let qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+            let lineTotal = priceMatch ? parseFloat(priceMatch[1]) : 0;
+            
+            // MATH LOGIC: Calculate Unit Price
+            let unitPrice = lineTotal / qty;
+
+            calculatedTotal += lineTotal;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${name}</td>
+                    <td class="text-right">₹${unitPrice.toFixed(2)}</td>
+                    <td class="text-right">${qty}</td>
+                    <td class="text-right">₹${lineTotal.toFixed(2)}</td>
+                </tr>
+            `;
+        });
+
+        // 3. Footer Calculations
+        const footer = document.getElementById('invFooter');
+        
+        const deliveryCharge = parseFloat(orderData.deliveryCharge || 0);
+        const codCharge = parseFloat(orderData.codCharge || 0);
+        const discount = parseFloat(orderData.discount || 0);
+        
+        // Final Total logic
+        const sheetTotal = parseFloat(orderData.totalAmount);
+        const finalTotal = (!isNaN(sheetTotal) && sheetTotal > 0) ? sheetTotal : calculatedTotal;
+
+        // Formula requested: Listing Price = Grand Total + Discount
+        const listingPrice = finalTotal + discount;
+
+        // 4. Insert Footer Rows (Using insertRow(0) adds them above Grand Total in reverse order)
+
+        // Step A: Add COD Charge (if exists)
+        if (codCharge > 0) {
+            const row = footer.insertRow(0);
+            row.innerHTML = `
+                <td colspan="3" class="text-right">COD Handling Charge</td>
+                <td class="text-right">₹${codCharge.toFixed(2)}</td>
+            `;
+        }
+
+        // Step B: Add Delivery Charge (if exists)
+        if (deliveryCharge > 0) {
+            const row = footer.insertRow(0);
+            row.innerHTML = `
+                <td colspan="3" class="text-right">Delivery Charge</td>
+                <td class="text-right">₹${deliveryCharge.toFixed(2)}</td>
+            `;
+        }
+
+        // Step C: Add Discount (Green text)
+        if (discount > 0) {
+            const row = footer.insertRow(0);
+            row.innerHTML = `
+                <td colspan="3" class="text-right text-success">Discount you got</td>
+                <td class="text-right text-success bold">- ₹${discount.toFixed(2)}</td>
+            `;
+        }
+
+        // Step D: Add Listing Price (Always on top of footer)
+        const rowList = footer.insertRow(0);
+        rowList.innerHTML = `
+            <td colspan="3" class="text-right">Listed Price</td>
+            <td class="text-right">₹${listingPrice.toFixed(2)}</td>
+        `;
+
+        // Set Grand Total
+        document.getElementById('grandTotal').textContent = finalTotal.toFixed(2);
+    });
+</script>
+
+</body>
+</html>

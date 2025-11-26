@@ -54,21 +54,6 @@
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
-        .dark {
-            --primary: hsl(220, 90%, 60%);
-            --primary-hover: hsl(220, 90%, 68%);
-            --success: hsl(142, 71%, 55%);
-            --warning: hsl(38, 92%, 60%);
-            --error: hsl(0, 84%, 70%);
-            --info: hsl(199, 89%, 58%);
-            --background: hsl(220, 13%, 10%);
-            --surface: hsl(220, 13%, 15%);
-            --border: hsl(220, 13%, 25%);
-            --text-primary: hsl(220, 9%, 95%);
-            --text-secondary: hsl(220, 9%, 65%);
-            --text-tertiary: hsl(220, 9%, 50%);
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -77,7 +62,7 @@
         
         body {
             font-family: var(--font-sans);
-            background-color: var(--background);
+            background: linear-gradient(145deg, #F9F9EC , #ffbad8);
             color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
@@ -126,7 +111,7 @@
         
         /* Card */
         .card {
-            background: var(--surface);
+            background: linear-gradient(145deg, #fff8fb , #f6d4e3);
             border-radius: var(--radius-lg);
             padding: var(--spacing-2xl);
             box-shadow: var(--shadow-lg);
@@ -163,12 +148,13 @@
         
         .form-input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: brown;
             box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.1);
         }
         
         .form-input::placeholder {
-            color: var(--text-tertiary);
+            color: #ce3f7b;
+            font-weight: 800;
             letter-spacing: normal;
         }
         
@@ -568,54 +554,99 @@
         .hidden {
             display: none !important;
         }
+        /* --- NEW TABLE STYLES --- */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .tracking-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 600px; /* Forces scroll on mobile */
+            background: var(--surface);
+        }
+
+        .tracking-table th {
+            background: var(--background);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .tracking-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        .tracking-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .text-right { text-align: right; }
+        .font-mono { font-family: var(--font-mono); }
+        .font-bold { font-weight: 600; }
+        .backColor{
+            background-color: #FF5959;
+            color: white;
+            border: none;
+        }
+        
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" data-testid="button-theme-toggle">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-    </button>
-
+    <header style="
+    width:100%;
+    background:#FF5959;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    position:sticky;
+    top:0;
+    z-index:999;
+    ">
+        <div style="font-size:22px;font-weight:700;color:#F9F9EC;cursor:pointer;" onclick="window.location.href='index.html'">
+            LocaalRapid
+             <img src="LocaalRapid.png" alt="Logo" style="height: 30px; width: auto; margin-right: 10px;">
+        </div>
+        
+    </header>
     <!-- Search Section -->
     <div class="container" id="searchSection">
         <div class="header">
-            <div class="header-icon">
-                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                </svg>
-            </div>
-            <h1>Track Your Order</h1>
-            <p>Enter your Order ID to track your package</p>
+            <h1 style="color:#d11a6a">Track Your Order</h1>
+            <p style="color:#eb2078">Enter your Order ID to track your package</p>
         </div>
 
         <div class="card">
             <form id="trackingForm" onsubmit="trackOrder(event)">
                 <div class="form-group">
-                    <label class="form-label" for="orderId">Order ID</label>
+                    <label class="form-label" style="color:#d11a6a" for="orderId">Order ID</label>
                     <input 
                         type="text" 
                         id="orderId" 
                         class="form-input" 
+                        style="color:#eb2078"
                         placeholder="LR*************"
                         required
                         data-testid="input-order-id"
                     >
-                    <p class="form-hint">You can find your Order ID in the confirmation WhatsApp message or SMS or the message you sent us while placing the order</p>
+                    <p class="form-hint" style="color:#eb2078">You can find your Order ID in the confirmation WhatsApp message or SMS</p>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-full" id="trackBtn" data-testid="button-track-order">
+                <button type="submit" class="btn backColor btn-full" id="trackBtn" data-testid="button-track-order">
                     <span id="trackBtnText">Track Order</span>
                     <span id="trackBtnSpinner" class="spinner hidden"></span>
                 </button>
@@ -659,14 +690,29 @@
 
             <div class="order-section">
                 <h3>Order Items</h3>
-                <div class="items-list" id="orderItems" data-testid="list-order-items"></div>
+                <!-- Replaced the old list div with this wrapper -->
+                <div class="table-responsive">
+                    <table class="tracking-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%">Product Description</th>
+                                <th style="width: 15%" class="text-right">Unit Price</th>
+                                <th style="width: 10%" class="text-right">Qty</th>
+                                <th style="width: 25%" class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderItemsTableBody">
+                            <!-- Items will be injected here by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="order-section">
                 <h3>Payment Summary</h3>
                 <div class="payment-summary">
                     <div class="summary-row">
-                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-label">Gross Amount </span>
                         <span class="summary-value mono" id="subtotal" data-testid="text-subtotal"></span>
                     </div>
                     <div class="summary-row">
@@ -687,6 +733,13 @@
                     </div>
                 </div>
             </div>
+
+            <button class="btn btn-outline-secondary btn-full" onclick="downloadSummary()" style="margin-bottom: 1rem; border: 1px solid #ccc; background: white; color: #333;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Download Order Summary
+            </button>
 
             <button class="btn btn-primary btn-full" onclick="resetTracking()" data-testid="button-track-another">
                 Track Another Order
@@ -916,11 +969,58 @@
             document.getElementById('orderDate').textContent = formatDate(order.orderDate);
             document.getElementById('paymentMethod').textContent = order.paymentMethod;
             
-            // Order Items
-            const itemsContainer = document.getElementById('orderItems');
-            itemsContainer.innerHTML = order.items.split('\n').map(item => `
-                <div class="items-list-item">${escapeHtml(item)}</div>
-            `).join('');
+            //Order Items Logic
+            const tbody = document.getElementById('orderItemsTableBody');
+            tbody.innerHTML = ''; // Clear previous data
+
+            // Split by semicolon (matches your new checkout format)
+            // Also handles newlines just in case old data exists
+            const itemsStr = order.items || "";
+            const itemsArray = itemsStr.split(/;|\n/).filter(item => item.trim() !== "");
+
+            itemsArray.forEach(itemRaw => {
+                // Logic to parse "Name [Pack] | (Qty: 1) ₹100"
+                let name = itemRaw; 
+                let unitPrice = 0;
+                let qty = 1;
+                let lineTotal = 0;
+
+                // Check if item follows the new specific format with '|'
+                if (itemRaw.includes('|')) {
+                    const parts = itemRaw.split('|');
+                    name = parts[0].trim().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+                    const details = parts[1] ? parts[1].trim() : "";
+
+                    // Extract numbers
+                    const qtyMatch = details.match(/Qty:\s*(\d+)/);
+                    const priceMatch = details.match(/₹([\d.]+)/);
+
+                    qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+                    lineTotal = priceMatch ? parseFloat(priceMatch[1]) : 0;
+                    unitPrice = lineTotal / qty;
+                } 
+                // Fallback for older data formats (simple text)
+                else {
+                    // Try to find price at the end if possible, otherwise just show text
+                    const priceMatch = itemRaw.match(/₹([\d.]+)/);
+                    if(priceMatch) {
+                        lineTotal = parseFloat(priceMatch[1]);
+                        unitPrice = lineTotal; // Assume qty 1 for simple strings
+                    }
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div style="font-weight: 500;">${escapeHtml(name)}</div>
+                    </td>
+                    <td class="text-right font-mono">₹${unitPrice.toFixed(2)}</td>
+                    <td class="text-right">${qty}</td>
+                    <td class="text-right font-mono font-bold">₹${lineTotal.toFixed(2)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
             
             // Payment Summary
             const subtotal = parseFloat(order.totalAmount) - parseFloat(order.deliveryCharge || 0) - parseFloat(order.codCharge || 0) + parseFloat(order.discount || 0);
@@ -981,6 +1081,19 @@
                 "'": '&#039;'
             };
             return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function downloadSummary() {
+            if (!currentOrderData) {
+                alert("No order details found to download.");
+                return;
+            }
+
+            // Save current tracked data to localStorage so the new page can read it
+            localStorage.setItem('trackingInvoiceData', JSON.stringify(currentOrderData));
+
+            // Open the invoice page in a new tab
+            window.open('track-invoice.html', '_blank');
         }
     </script>
 </body>
