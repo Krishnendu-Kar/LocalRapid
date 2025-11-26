@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - LocaalRapid</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #0d6efd; /* Bootstrap Primary Blue */
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .snack-icon {
+            font-size: 4rem;
+            color: #ffc107; /* Snack Yellow */
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            transform: rotate(15deg);
+        }
+
+        .btn-home {
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.2s;
+        }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Background Decoration */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        .c1 { width: 300px; height: 300px; background: #0d6efd; top: -100px; left: -100px; }
+        .c2 { width: 200px; height: 200px; background: #ffc107; bottom: -50px; right: -50px; }
+
+        @media (max-width: 576px) {
+            .error-code { font-size: 6rem; }
+            .error-message { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Decorative Background Circles -->
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+
+    <div class="container error-container">
+        <!-- Brand Logo -->
+        <img src="LocaalRapid.png" alt="LocaalRapid" style="height: 60px; margin-bottom: 20px;">
+        
+        <!-- 404 Graphic -->
+        <div class="mb-4">
+            <div class="error-code">
+                404
+                <!-- A cookie icon representing the '0' -->
+                <i class="fa-solid fa-cookie-bite snack-icon"></i>
+            </div>
+        </div>
+
+        <h2 class="fw-bold text-dark mb-3">Oops! Where did the page go?</h2>
+        <p class="error-message">
+            It seems the page you are looking for has vanished like a packet of chips at a party.
+        </p>
+
+        <!-- Navigation Buttons -->
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <a href="index.html" class="btn btn-primary btn-home shadow">
+                <i class="fa-solid fa-house me-2"></i> Go Home
+            </a>
+            <a href="OrderTracking.html" class="btn btn-outline-secondary btn-home">
+                <i class="fa-solid fa-truck-fast me-2"></i> Track Order
+            </a>
+        </div>
+
+        <div class="mt-5 text-muted small">
+            Need help? <a href="about_us.html" class="text-decoration-none">Contact Support</a>
+        </div>
+    </div>
+
+</body>
+</html>
