@@ -2553,11 +2553,97 @@ const packetProducts= [
 
 
 
-
-
-
-    
-    
-
-    // 👉 Add more products as needed
+    //Strings attached to "Deal of the Hour"
+    // Category MUST be 'hourdeal'
+    {
+        id: 9001, 
+        name: "Premium Ghee 1L", 
+        price: 450, 
+        originalPrice: 600, 
+        delivery_time: "45 min",
+        message: "Deal of the Hour",
+        amount: "1L",
+        category: "hourdeal", 
+        sub_category: "Staples",
+        image: "product images/staples/ghee.jpg", 
+        little_details: "Pure Cow Ghee",
+        details: "Rich aroma and granular texture. Perfect for Indian cooking.",
+        quantity: 1
+    },
+    {
+        id: 9002, 
+        name: "California Almonds", 
+        price: 399, 
+        originalPrice: 800, 
+        delivery_time: "30 min",
+        message: "50% OFF",
+        amount: "500g",
+        category: "hourdeal", 
+        sub_category: "Dry Fruits",
+        image: "product images/snacks/almonds.jpg", 
+        little_details: "Premium Quality",
+        details: "Handpicked premium almonds. Good for heart health.",
+        quantity: 1
+    },
+    {
+        id: 9003, 
+        name: "Sunflower Oil", 
+        price: 750, 
+        originalPrice: 950, 
+        delivery_time: "60 min",
+        message: "Super Saver",
+        amount: "5L",
+        category: "hourdeal", 
+        sub_category: "Oil",
+        image: "product images/other/milk powder amul 100.JPG", 
+        little_details: "Healthy Heart Oil",
+        details: "Fortified with Vitamins A & D.",
+        quantity: 1
+    },
+    {
+        id: 9004, 
+        name: "Basmati Rice", 
+        price: 499, 
+        originalPrice: 700, 
+        delivery_time: "2 Hours",
+        message: "Limited Stock",
+        amount: "5kg",
+        category: "hourdeal", 
+        sub_category: "Staples",
+        image: "product images/staples/rice.jpg", 
+        little_details: "Extra Long Grain",
+        details: "Aged for 2 years for perfect non-sticky texture.",
+        quantity: 1
+    },
+    {
+        id: 9005, 
+        name: "Choco Chip Cookies", 
+        price: 80, 
+        originalPrice: 120, 
+        delivery_time: "15 min",
+        message: "Hot Deal",
+        amount: "200g",
+        category: "hourdeal", 
+        sub_category: "Biscuits",
+        image: "product images/snacks/cookies.jpg", 
+        little_details: "Crunchy & Chocolaty",
+        details: "Loaded with real chocolate chips.",
+        quantity: 1
+    },
+     {
+        id: 9006, 
+        name: "Premium Ghee 1L", 
+        price: 450, 
+        originalPrice: 600, 
+        delivery_time: "45 min",
+        message: "Deal of the Hour",
+        amount: "1L",
+        category: "hourdeal", 
+        sub_category: "Staples",
+        image: "product images/staples/ghee.jpg", 
+        little_details: "Pure Cow Ghee",
+        details: "Rich aroma and granular texture. Perfect for Indian cooking.",
+        quantity: 1
+    },
+    // Add more items with category: "hourdeal" as needed
 ];
