@@ -6,16 +6,28 @@
 html, body {
     overflow-x: hidden;
 }
-  .loader-container {
-    height: 50vh;
-    width: 50vw;
-    left:25vw;
-    top: 20vh;
-    display:flex;
-    position:relative;
+.loader-container {
+    /* Make it cover the whole screen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* Solid background to hide the header and body behind it */
+    background-color: #ffffff; 
+    
+    /* Ensure it sits ON TOP of the header (header is z-index 99) */
+    z-index: 9999; 
+    
+    /* Center the loader animation */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    /* Optional: Smooth fade out transition */
+    transition: opacity 0.5s ease;
 }
 .loaderout {
   height: 60px;

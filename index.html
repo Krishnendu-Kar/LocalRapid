@@ -292,10 +292,16 @@
         }, 2000);
 
         // Hide loader once page is ready (with min 10ms wait)
-        window.addEventListener("load", function() {
-            setTimeout(() => {
-            document.getElementById("page-loader").style.display = "none";
-            }, 10);
+       window.addEventListener("load", function() {
+    setTimeout(() => {
+        const loader = document.getElementById("page-loader");
+        loader.style.opacity = "0"; // Start fading out
+        
+        // Wait for the CSS transition (0.5s) to finish, then remove it
+        setTimeout(() => {
+                    loader.style.display = "none";
+                }, 10); 
+            }, 10); // Optional small delay so user sees the "loaded" state
         });
 
 
