@@ -301,6 +301,7 @@
             return;
         }
 
+        document.title = `${orderData.orderId} LocaalRapid`;
         // Header Info
         document.getElementById('invId').textContent = orderData.orderId;
         document.getElementById('barcodeDisplay').textContent = "*" + orderData.orderId + "*";
