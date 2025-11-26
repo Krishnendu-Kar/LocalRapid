@@ -299,7 +299,7 @@
                 // CONFIGURATION
                 const CYCLE_HOURS = 5; 
                 const ACTIVE_HOURS = 1; 
-                const ITEMS_PER_CYCLE = 5; // How many products to show per deal
+                const ITEMS_PER_CYCLE = 5; 
 
                 const CYCLE_MS = CYCLE_HOURS * 60 * 60 * 1000;
                 const ACTIVE_MS = ACTIVE_HOURS * 60 * 60 * 1000;
@@ -309,23 +309,23 @@
                     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     const msSinceMidnight = now - startOfDay;
                     
-                    // 2. Calculate Timer Logic (Same as before)
                     const msInCurrentCycle = msSinceMidnight % CYCLE_MS;
                     
-                    // 3. NEW: Calculate Rotation Logic
-                    // We use total time since 1970 to get a unique "Cycle ID" that changes every 5 hours
-                    // This ensures the products are different even at the same time on different days.
-                    const globalCycleIndex = Math.floor(now.getTime() / CYCLE_MS);
-                    
-                    // Use the cycle index to pick a starting point in your product array
-                    const startIndex = (globalCycleIndex * ITEMS_PER_CYCLE) % allFlashProducts.length;
-                    
-                    // Slice the array to get the 5 products for THIS specific cycle
-                    // If we reach the end of the array, we wrap around to the beginning
+                    // --- NEW LOGIC: PREVENT DUPLICATES ---
                     let currentCycleProducts = [];
-                    for (let i = 0; i < ITEMS_PER_CYCLE; i++) {
-                        const index = (startIndex + i) % allFlashProducts.length;
-                        currentCycleProducts.push(allFlashProducts[index]);
+
+                    // If we have fewer products than 5, just show what we have (Don't rotate/repeat)
+                    if (allFlashProducts.length <= ITEMS_PER_CYCLE) {
+                        currentCycleProducts = allFlashProducts;
+                    } else {
+                        // Only rotate if we have plenty of products
+                        const globalCycleIndex = Math.floor(now.getTime() / CYCLE_MS);
+                        const startIndex = (globalCycleIndex * ITEMS_PER_CYCLE) % allFlashProducts.length;
+                        
+                        for (let i = 0; i < ITEMS_PER_CYCLE; i++) {
+                            const index = (startIndex + i) % allFlashProducts.length;
+                            currentCycleProducts.push(allFlashProducts[index]);
+                        }
                     }
 
                     const formatTime = (ms) => {
@@ -341,35 +341,35 @@
                         container.className = "flash-section-active";
                         statusText.innerHTML = "Hurry! Ends in:";
                         
-                        // Only update DOM if the content has changed (prevents flickering)
-                        // We check if the first product ID matches what's currently shown
+                        // Check if we need to update the display
                         const firstCard = productContainer.querySelector('.flash-card');
                         const currentFirstId = firstCard ? firstCard.getAttribute('data-id') : null;
                         
-                        if (currentFirstId != currentCycleProducts[0].id || productContainer.classList.contains("blurred-content")) {
+                        // Render only if content changed or if we are unlocking
+                        if ((currentCycleProducts.length > 0 && currentFirstId != currentCycleProducts[0].id) || productContainer.classList.contains("blurred-content")) {
                             
                             productContainer.classList.remove("blurred-content");
                             const existingOverlay = container.querySelector('.locked-overlay');
                             if(existingOverlay) existingOverlay.remove();
 
-                            // Render the SPECIFIC products for this cycle
-                            productContainer.innerHTML = currentCycleProducts.map(p => {
-                                const discount = Math.round(((p.originalPrice - p.price)/p.originalPrice)*100);
-                                return `
-                                <a href="product-details.html?id=${p.id}" class="flash-card" data-id="${p.id}">
-                                    <div class="discount-percent" style="position:absolute; top:5px; left:5px; z-index:1;">
-                                        ${discount}% OFF
-                                    </div>
-                                    <img src="${p.image}" alt="${p.name}" loading="lazy">
-                                    <h4>${p.name}</h4>
-                                    <div class="price">₹${p.price} <del>₹${p.originalPrice}</del></div>
-                                    <button class="flash-add-btn" onclick="addFlashProductToCart(event, ${p.id})">
-                                        Add to Cart
-                                    </button>
-                                </a>
-                            `}).join('');
+                            if (currentCycleProducts.length === 0) {
+                                productContainer.innerHTML = "<p style='padding:20px; width:100%; text-align:center;'>No deals available right now.</p>";
+                            } else {
+                                productContainer.innerHTML = currentCycleProducts.map(p => {
+                                    const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price)/p.originalPrice)*100) : 0;
+                                    return `
+                                    <div class="flash-card" data-id="${p.id}">
+                                        ${discount > 0 ? `<div class="discount-percent" style="position:absolute; top:5px; left:5px; z-index:1;">${discount}% OFF</div>` : ''}
+                                        <img src="${p.image}" alt="${p.name}" loading="lazy">
+                                        <h4>${p.name}</h4>
+                                        <div class="price">₹${p.price} ${p.originalPrice ? `<del>₹${p.originalPrice}</del>` : ''}</div>
+                                        <button class="flash-add-btn" onclick="addFlashProductToCart(event, ${p.id})">
+                                            Add to Cart
+                                        </button>
+                                    </div>                                    
+                                `}).join('');
+                            }
                         }
-
                         const timeLeft = ACTIVE_MS - msInCurrentCycle;
                         timerDisplay.innerText = formatTime(timeLeft);
                     } 
@@ -387,15 +387,21 @@
                                 overlay.innerHTML = '<i class="fa-solid fa-lock"></i> Deals Locked';
                                 container.appendChild(overlay);
                             }
-                            // Show mystery cards
-                            productContainer.innerHTML = currentCycleProducts.map(p => `
-                                <div class="flash-card">
-                                    <img src="${p.image}" alt="Mystery">
-                                    <h4>???</h4>
-                                    <div class="price">₹???</div>
-                                    <button class="flash-add-btn" disabled>Locked</button>
-                                </div>
-                            `).join('');
+                            
+                            // Show mystery cards (use actual count, or max 5)
+                            const mysteryCount = currentCycleProducts.length > 0 ? currentCycleProducts.length : 5;
+                            
+                            let mysteryHTML = '';
+                            for(let i=0; i<mysteryCount; i++) {
+                                mysteryHTML += `
+                                    <div class="flash-card">
+                                        <img src="https://via.placeholder.com/150?text=?" alt="Mystery">
+                                        <h4>???</h4>
+                                        <div class="price">₹???</div>
+                                        <button class="flash-add-btn" disabled>Locked</button>
+                                    </div>`;
+                            }
+                            productContainer.innerHTML = mysteryHTML;
                         }
 
                         const timeLeft = CYCLE_MS - msInCurrentCycle;
