@@ -276,17 +276,13 @@
             // 4. Update the HTML (Fixing the 'innerHTML' typo)
             locationElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${truncatedText}`;
 
-            // ====== FLASH DEAL LOGIC (FIXED TIMER) ======
+        // ====== FLASH DEAL LOGIC (WITH AUTO ROTATION) ======
 
-            // Helper to find the full product object and add to cart
             function addFlashProductToCart(event, productId) {
                 event.preventDefault(); 
                 event.stopPropagation(); 
-                
                 const product = packetProducts.find(p => p.id === productId);
-                if (product) {
-                    addToCart(product);
-                }
+                if (product) addToCart(product);
             }
 
             function initFlashDeal() {
@@ -297,28 +293,41 @@
 
                 if (!container) return;
 
-                const flashProducts = packetProducts.filter(p => p.category === 'hourdeal');
-
+                // 1. Get ALL pool of hourdeal products
+                const allFlashProducts = packetProducts.filter(p => p.category === 'hourdeal');
+                
                 // CONFIGURATION
                 const CYCLE_HOURS = 5; 
                 const ACTIVE_HOURS = 1; 
+                const ITEMS_PER_CYCLE = 5; // How many products to show per deal
 
-                // Convert hours to milliseconds for precise math
                 const CYCLE_MS = CYCLE_HOURS * 60 * 60 * 1000;
                 const ACTIVE_MS = ACTIVE_HOURS * 60 * 60 * 1000;
 
                 function update() {
                     const now = new Date();
-                    
-                    // 1. Calculate time passed since local midnight (00:00:00)
-                    // This ensures the deals align with YOUR clock (e.g. 10:00 AM, not 10:30 AM)
                     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     const msSinceMidnight = now - startOfDay;
-
-                    // 2. Where are we in the current 5-hour cycle?
+                    
+                    // 2. Calculate Timer Logic (Same as before)
                     const msInCurrentCycle = msSinceMidnight % CYCLE_MS;
+                    
+                    // 3. NEW: Calculate Rotation Logic
+                    // We use total time since 1970 to get a unique "Cycle ID" that changes every 5 hours
+                    // This ensures the products are different even at the same time on different days.
+                    const globalCycleIndex = Math.floor(now.getTime() / CYCLE_MS);
+                    
+                    // Use the cycle index to pick a starting point in your product array
+                    const startIndex = (globalCycleIndex * ITEMS_PER_CYCLE) % allFlashProducts.length;
+                    
+                    // Slice the array to get the 5 products for THIS specific cycle
+                    // If we reach the end of the array, we wrap around to the beginning
+                    let currentCycleProducts = [];
+                    for (let i = 0; i < ITEMS_PER_CYCLE; i++) {
+                        const index = (startIndex + i) % allFlashProducts.length;
+                        currentCycleProducts.push(allFlashProducts[index]);
+                    }
 
-                    // 3. Helper to format milliseconds into HH:MM:SS
                     const formatTime = (ms) => {
                         const totalSeconds = Math.floor(ms / 1000);
                         const h = Math.floor(totalSeconds / 3600);
@@ -327,21 +336,27 @@
                         return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
                     };
 
-                    // --- SCENARIO 1: ACTIVE DEAL (First hour of the cycle) ---
+                    // --- SCENARIO 1: ACTIVE DEAL ---
                     if (msInCurrentCycle < ACTIVE_MS) {
                         container.className = "flash-section-active";
                         statusText.innerHTML = "Hurry! Ends in:";
                         
-                        // Render products if not visible
-                        if (productContainer.innerHTML.trim() === "" || productContainer.classList.contains("blurred-content")) {
+                        // Only update DOM if the content has changed (prevents flickering)
+                        // We check if the first product ID matches what's currently shown
+                        const firstCard = productContainer.querySelector('.flash-card');
+                        const currentFirstId = firstCard ? firstCard.getAttribute('data-id') : null;
+                        
+                        if (currentFirstId != currentCycleProducts[0].id || productContainer.classList.contains("blurred-content")) {
+                            
                             productContainer.classList.remove("blurred-content");
                             const existingOverlay = container.querySelector('.locked-overlay');
                             if(existingOverlay) existingOverlay.remove();
 
-                            productContainer.innerHTML = flashProducts.map(p => {
+                            // Render the SPECIFIC products for this cycle
+                            productContainer.innerHTML = currentCycleProducts.map(p => {
                                 const discount = Math.round(((p.originalPrice - p.price)/p.originalPrice)*100);
                                 return `
-                                <a href="product-details.html?id=${p.id}" class="flash-card">
+                                <a href="product-details.html?id=${p.id}" class="flash-card" data-id="${p.id}">
                                     <div class="discount-percent" style="position:absolute; top:5px; left:5px; z-index:1;">
                                         ${discount}% OFF
                                     </div>
@@ -355,17 +370,15 @@
                             `}).join('');
                         }
 
-                        // Calculate time left in ACTIVE state
                         const timeLeft = ACTIVE_MS - msInCurrentCycle;
                         timerDisplay.innerText = formatTime(timeLeft);
                     } 
                     
-                    // --- SCENARIO 2: WAITING PERIOD (Remaining 4 hours) ---
+                    // --- SCENARIO 2: WAITING PERIOD ---
                     else {
                         container.className = "flash-section-waiting";
                         statusText.innerText = "Next Deal Starts In:";
                         
-                        // Lock and Blur
                         if (!productContainer.classList.contains("blurred-content")) {
                             productContainer.classList.add("blurred-content");
                             if(!container.querySelector('.locked-overlay')) {
@@ -374,7 +387,8 @@
                                 overlay.innerHTML = '<i class="fa-solid fa-lock"></i> Deals Locked';
                                 container.appendChild(overlay);
                             }
-                            productContainer.innerHTML = flashProducts.map(p => `
+                            // Show mystery cards
+                            productContainer.innerHTML = currentCycleProducts.map(p => `
                                 <div class="flash-card">
                                     <img src="${p.image}" alt="Mystery">
                                     <h4>???</h4>
@@ -384,7 +398,6 @@
                             `).join('');
                         }
 
-                        // Calculate time left in WAITING state (Time until end of cycle)
                         const timeLeft = CYCLE_MS - msInCurrentCycle;
                         timerDisplay.innerText = formatTime(timeLeft);
                     }
