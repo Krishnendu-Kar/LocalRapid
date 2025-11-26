@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
-        dot.addEventListener('click', () => {
+        dot.addEventListener('mouseover', () => {
             goToSlide(i);
             resetInterval();
         });
