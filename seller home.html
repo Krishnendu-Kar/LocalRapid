@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Become a Seller on LocalRapid</title>
     <link rel="shortcut icon" href="LocaalRapid.ico" type="image/x-icon">
-        <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
-       
-    <!-- Load Tailwind CSS -->
+    <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="sidebar.css">
+ <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Configure Tailwind to use Inter font -->
     <script>
@@ -26,6 +27,17 @@
         }
     </script>
     <style>
+    .border:hover {
+            outline: 3px solid rgb(37, 28, 223);
+            border-radius: 5px;
+        }
+        .bar-a.active {
+        border:2px solid #fad170bc;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px #ffd77abc;
+        color:brown;
+    }
+
         /* Custom styles for process timeline */
         .timeline-step {
             position: relative;
@@ -79,25 +91,45 @@
             height: 30px;
             filter: invert(30%) sepia(72%) saturate(3048%) hue-rotate(203deg) brightness(102%) contrast(103%);
         }
+         @media (max-width: 381px) {
+            .logo img {
+                display: none;
+            }}
+        @media (max-width: 560px) {
+            .start-selling {
+                display: none;
+            }}
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+<header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <!-- Logo -->
-            <div class="text-3xl font-extrabold text-localrapid-blue">
-             <a href="index.html">LocaalRapid </a>   
+            
+            <div class="flex items-center gap-4">
+                
+                <div id="global-sidebar-container" style="color: #0a0528;"></div>
+
+                <div class="text-3xl logo font-extrabold text-localrapid-blue">
+                    <a href="index.html" class="flex items-center">
+                        LocaalRapid
+                        <img src="LocaalRapid.png" alt="Logo" loading="lazy" style="height: 40px; width: auto; margin-left: 10px;">
+                    </a>   
+                </div>
+
             </div>
-            <!-- Auth Buttons -->
+
             <div class="flex items-center space-x-4">
-                <a href="seller registration.html" class="bg-localrapid-blue text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                <a href="seller registration.html" class="bg-localrapid-blue text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors start-selling">
                     Start Selling
                 </a>
             </div>
+
         </nav>
     </header>
+
+    <script src="sidebar.js"></script>
 
     <!-- Main Content -->
     <main>
@@ -125,16 +157,16 @@
                     <!-- Stats Cards -->
                     <div class="lg:w-1/2 grid grid-cols-2 gap-4 w-full center">
                        
-                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
+                        <div class="bg-white p-5 rounded-lg shadow-lg border-gray-100 text-center">
                             <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">24x7</h3>
                             <p class="text-gray-600 font-medium">Seller Support</p>
                         </div>
-                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">UNLIMITED</h3>
+                        <div class="bg-white p-5 rounded-lg shadow-lg border-gray-100 text-center">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">INFINITE</h3>
                             <p class="text-gray-600 font-medium">Categories to Sell</p>
                         </div>
-                        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-100 text-center">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">UNLIMITED</h3>
+                        <div class="bg-white p-5 rounded-lg shadow-lg  border-gray-100 text-center">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-localrapid-blue mb-1">INFINITE</h3>
                             <p class="text-gray-600 font-medium">Services to Provide Without Limits</p>
                         </div>
                        

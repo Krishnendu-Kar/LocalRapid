@@ -39,45 +39,8 @@
         <header>
             <div class="navbar">
                 <!-- Hamburger Button -->
-                <div class="hamburger border" onclick="toggleSidebar()">
-                    <i class="fa-solid fa-bars-staggered"></i> All
-                </div>
-                <!-- Sidebar -->
-                <div class="sidebar" id="sidebar">
-                    
-                    <a class="active-a bar-a" href="index.html">Home</a>
-                    <a class="bar-a" href="bestdealCategory.html">best deal</a>
-                    <a class="bar-a" href="comboCategory.html">combo offer</a>
-                    <a class="bar-a" href="groceryCategory.html">staples</a>
-                    <a class="bar-a" href="medicineCategory.html">Medicine</a>
-                    <a class="bar-a" href="candleCategory.html">Candle</a>
-                    <a class="bar-a" href="soapSampooDiterjentCategory.html">Soap Sampoo Diterjents</a>
-                    <a class="bar-a" href="oilCategory.html">Oil</a>
-                    <a class="bar-a" href="biscuitCategory.html">Biscuits</a>
-                    <a class="bar-a" href="colddrinkCategory.html">cold drink</a>
-                    <a class="bar-a" href="dailyProductCategory.html">Many daily use products</a>
-                    <a class="bar-a" href="educationCategory.html">study material</a>
-                    <a class="bar-a" href="otherCategory.html">Other</a>
-                    <a class="bar-a" href="lucky winners.html">lucky winners</a>
-                    <a class="bar-a" href="tutorial video.html">Tutorial video</a>
-                    <a class="bar-a" href="seller home.html">Become a seller</a>
-                    <a class="bar-a" href="about_us.html">About Us</a> 
-                </div>
-
-                <!-- Overlay -->
-                <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-                <script>
-                    function toggleSidebar() {
-                    document.getElementById("sidebar").classList.toggle("active");
-                    document.getElementById("overlay").classList.toggle("active");
-                    }
-                    // Sidebar toggle
-                        function toggleSidebar() {
-                            document.getElementById("sidebar").classList.toggle("active");
-                            document.getElementById("overlay").classList.toggle("active");
-                        }
-                </script>
+                <div id="global-sidebar-container"></div>
+                <script src="sidebar.js"></script> 
                 <div class="nav-logo border" onclick="window.location.href='index.html'">
                     <div class="logo-name"></div>
                     <div class="logo" load="lazy"></div>

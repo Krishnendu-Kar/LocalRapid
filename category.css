@@ -47,15 +47,21 @@ html, body {
     border:none;
     flex-grow:1;    
 }
+.search-input:focus{
+    outline:none;
+}
 .search-icon{
     height: 37px;
     width: 45px;
     display:flex;
-    background-color:#2E3A59;
+    background: linear-gradient(90deg, #fffbf7, #fbca9f);
     justify-content:center;
     border-top-right-radius:5px;
     border-bottom-right-radius:5px;
     align-items:center;
+}
+.fa-solid.fa-magnifying-glass{
+    color:rgb(223, 74, 0);
 }
 .cart{
     height: 44px;
@@ -128,6 +134,7 @@ html, body {
     .hamburger {
       width:64px;
       font-size: 22px;
+      padding: 12px;
       cursor: pointer;
       display:flex;
       align-items:center;
@@ -191,7 +198,12 @@ html, body {
         color:brown;
     }
 
-
+.bar-a.active {
+        border:2px solid #fad170bc;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px #ffd77abc;
+        color:brown;
+    }
 
 .shop-section{    
     /* min-height:100vh; */

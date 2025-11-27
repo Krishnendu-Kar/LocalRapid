@@ -7,9 +7,21 @@
      <link rel="shortcut icon" href="LocaalRapid.ico" type="image/x-icon">
         <link rel="icon" href="LocaalRapid.ico" type="image/x-icon">
         <link rel="apple-touch-icon" href="LocaalRapid.ico" sizes="180x180">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="sidebar.css">
 
     <title>Lucky Winner - LocalRapid</title>
    <style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .border:hover {
+            outline: 3px solid rgb(255, 219, 250);
+            border-radius: 5px;
+        }
         .soon{
             display:flex;
             position:relative;
@@ -18,9 +30,55 @@
             justify-content:center;
             align-items:center;
         }
+        /* Style for the active link */
+.bar-a.active {
+        border:2px solid #fad170bc;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px #ffd77abc;
+        color:brown;
+    }
+
+
     </style>
 </head>
 <body>
+    <header style="
+    width: 100%;
+    background: #FF5959;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Pushes everything to the left */
+    gap: 20px; /* Adds space between the Hamburger and the Logo */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    ">
+
+    <div id="global-sidebar-container" style="color: #F9F9EC;"></div>
+
+    <div class="border" style="
+        display: flex; 
+        align-items: center; 
+        font-size: 22px; 
+        font-weight: 700; 
+        color: #F9F9EC; 
+        padding: 8px 12px;
+        cursor: pointer;" 
+        onclick="window.location.href='index.html'">
+        
+        LocaalRapid
+        
+        <img src="LocaalRapid.png" alt="Logo" style="height: 30px; width: auto; margin-left: 10px;">
+    </div>
+
+</header>
+
+<script src="sidebar.js"></script>
+        
+    </header>
+
     <div class="soon">We shall start this soon. Keep your order ID saved.</div>
 </body>
 </html>

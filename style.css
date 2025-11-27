@@ -1,7 +1,7 @@
 * {
     margin: 0px;
     padding: 0px;
-    border:border-box;
+    box-sizing: border-box;
 }
 html, body {
     overflow-x: hidden;
@@ -142,7 +142,14 @@ header{
     font-size: 18px;
     text-transform:capitalize;
 }
+.order{
+    padding: 5px;
+}
+.seller{
+    padding: 5px;
+}
 .feedback{
+    padding: 5px;
     padding-right:15px;
 }
 @media (max-width: 650px){
@@ -232,11 +239,15 @@ header{
     border:none;
     flex-grow: 1;    
 }
+.search-input:focus {
+    outline:none;
+    
+}
 .search-icon{
     height: 37px;
     width: 45px;
     display:flex;
-    background: linear-gradient(135deg, #ffc3fb, #d70675);
+    background: linear-gradient(90deg, #ffffff, #fdacd7);
     justify-content:center;
     border-top-right-radius:5px;
     border-bottom-right-radius:5px;
@@ -355,6 +366,12 @@ header{
       color:brown;
     }
     .active-a {
+        border:2px solid #fad170bc;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px #ffd77abc;
+        color:brown;
+    }
+    .bar-a.active {
         border:2px solid #fad170bc;
         border-radius: 5px;
         box-shadow: 0 2px 8px #ffd77abc;

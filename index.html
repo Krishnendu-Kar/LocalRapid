@@ -96,47 +96,12 @@
             </div>
             <div class="panel">
                 <!-- Hamburger Button -->
-                <div class="hamburger border" onclick="toggleSidebar()">
-                <i class="fa-solid fa-bars-staggered"></i> <p class="hamburger-text"> All</p>
-                </div>
-
-                
-
-            <!-- Sidebar -->
-            <div class="sidebar" id="sidebar">
-                
-                    <a class="active-a bar-a" href="index.html">Home</a>
-                    <a class="bar-a" href="bestdealCategory.html">best deal</a>
-                    <a class="bar-a" href="comboCategory.html">combo offer</a>
-                    <a class="bar-a" href="groceryCategory.html">staples</a>
-                    <a class="bar-a" href="medicineCategory.html">Medicine</a>
-                    <a class="bar-a" href="candleCategory.html">Candle</a>
-                    <a class="bar-a" href="soapSampooDiterjentCategory.html">Soap Sampoo Diterjents</a>
-                    <a class="bar-a" href="oilCategory.html">Oil</a>
-                    <a class="bar-a" href="biscuitCategory.html">Biscuits</a>
-                    <a class="bar-a" href="colddrinkCategory.html">cold drink</a>
-                    <a class="bar-a" href="dailyProductCategory.html">Many daily use products</a>
-                    <a class="bar-a" href="educationCategory.html">study material</a>
-                    <a class="bar-a" href="otherCategory.html">Other</a>
-                    <a class="bar-a" href="lucky winners.html">lucky winners</a>
-                    <a class="bar-a" href="tutorial video.html">Tutorial video</a>
-                    <a class="bar-a" href="seller home.html">Become a seller</a>
-                    <a class="bar-a" href="about_us.html">About Us</a> 
-                </div>
-
-            <!-- Overlay -->
-            <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-            <script>
-                function toggleSidebar() {
-                document.getElementById("sidebar").classList.toggle("active");
-                document.getElementById("overlay").classList.toggle("active");
-                }
-            </script>
+                 <div id="global-sidebar-container"></div>
+                <script src="sidebar.js"></script>
                 <!-- Navbar Links -->
                 <div class="nav-search search-wrapper border">
                     <input type="search" class="search-input search-boxAni" id="productSearch" onkeyup="searchProducts()" placeholder=" ">
-                    <div class="search-icon" onclick="searchProducts()"><p><i class="fa-solid fa-magnifying-glass"></i></p></div>
+                    <div class="search-icon" onclick="searchProducts()"><p><i class="fa-solid fa-magnifying-glass" style="color: #d70675;"></i></p></div>
                 </div>
                 <ul>
                     <li><a class="panel-a1 border" href="lucky winners.html">lucky winners</a></li>
@@ -166,13 +131,13 @@
                         <div class="slide">
                             <picture>
                                 <source media="(min-width: 911px)" srcset="soap_slider_pc.png">
-                                <img src="soap slider.png" alt="Description for banner 1">
+                                <img src="soap slider.png" alt="Description for banner 1" loading="eager">
                             </picture>
                         </div>
                         <div class="slide">
                             <picture>
                                 <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_2.jpg">
-                                <img src="snacks.png" alt="Description for banner 2">
+                                <img src="snacks.png" alt="Description for banner 2" loading="lazy">
                             </picture>
                         </div>
                         <div class="slide">
@@ -498,19 +463,20 @@
             i = (i + 1) % messages.length;
         }, 2000);
 
-        // Hide loader once page is ready (with min 10ms wait)
-       window.addEventListener("load", function() {
-    setTimeout(() => {
-        const loader = document.getElementById("page-loader");
-        loader.style.opacity = "0"; // Start fading out
-        
-        // Wait for the CSS transition (0.5s) to finish, then remove it
-        setTimeout(() => {
-                    loader.style.display = "none";
-                }, 10); 
-            }, 10); // Optional small delay so user sees the "loaded" state
+    // Remove loader as soon as DOM is ready (much faster)
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                const loader = document.getElementById("page-loader");
+                if(loader) {
+                    loader.style.opacity = "0"; 
+                    setTimeout(() => {
+                        loader.style.display = "none";
+                    }, 10); 
+                }
+            }, 10); // Small 0.5s delay to make animation smooth
         });
-
+        
+       
 
 
 
@@ -577,23 +543,7 @@
 
                 // Start animation
                 typeAnimation();
-            // Helper function to display the initial 78 random products
-            function displayInitialProducts() {
-                // 1. IMPROVEMENT: Create a safe copy of the products array before sorting
-                // This prevents the original 'products' array from being permanently shuffled.
-                const productCopy = [...packetProducts];
 
-                // 2. Get 78 random products from the copy
-                const featuredProducts = productCopy.sort(() => 0.5 - Math.random()).slice(0, 78);
-                
-                // Display the products (using the default 'initial' context)
-                displayProducts(featuredProducts, 'productList');
-            }
-
-            // This function runs when the page is fully loaded
-            document.addEventListener("DOMContentLoaded", function() {
-                displayInitialProducts();
-            });
 
             // This function is called every time the user types in the search bar
             function searchProducts() {
