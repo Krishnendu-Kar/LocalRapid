@@ -188,7 +188,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get("id"));
             const product = packetProducts.find(p => p.id === productId);
-
+ 
             if (product) {
                 document.title = `${product.name} - LocaalRapid`;
                 renderProductDetails(product);
@@ -206,6 +206,37 @@
 
         // PASTE THIS UPDATED FUNCTION INTO YOUR SCRIPT
         function renderProductDetails(product) {
+            if (product.category === 'snacks') {
+                product.location = 'Snacks';
+            }
+            if (product.category === 'bestdeal') {
+                product.location = 'Best Deal';
+            }
+            if (product.category === 'combo') {
+                product.location = 'Combo Packs';
+            }
+            if (product.category === 'soapSampooDiterjent') {
+                product.location = 'Soap Shampoo Diterjent';
+            }
+            if (product.category === 'oil') {
+                product.location = 'Oil';
+            }
+            if (product.category === 'biscuit') {
+                product.location = 'Biscuits';
+            }
+            if (product.category === 'colddrink') {
+                product.location = 'Cold Drinks';
+            }
+            if (product.category === 'dailyProduct') {
+                product.location = 'Daily Needs';
+            }
+            if (product.category === 'education') {
+                product.location = 'Study Materials';
+            }
+            if (product.category === 'other') {
+                product.location = 'Other Products';
+            }
+
             const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
             const discountpercent = discount.toFixed(2);
             const discountText = discountpercent > 0 ? `${discountpercent}%` : "Best Quality";
@@ -214,17 +245,18 @@
             const productInfoContainer = document.getElementById('product-info');
             const priceHTML = (product.price === product.originalPrice || !product.originalPrice)
                 ? `₹${product.price}`
-                : `${discountpercent > 0 ? discountHTML : ''}<del>₹${product.originalPrice}</del> ₹${product.price}  `;
+                : `<span class="proMrp"> ₹${product.price} </span> <del>₹${product.originalPrice}</del> ${discountpercent > 0 ? discountHTML : ''}`;
 
+                product.sub_category = product.sub_category.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
             productInfoContainer.innerHTML = `
-                <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name} </abbr></h1>
                 <p>${product.message ? `<p class="message" style="font-size:0.7em;position:relative;bottom:-10px;"> ${product.message} </p>` : ''}</p>
+                <h1><abbr style="text-decoration: none;" title="${product.name}">${product.name} </abbr></h1>
                 <p class="price"> ${priceHTML}</p>
                 <p class="tax">(Inclusive of all taxes)</p>
-                <p class="product-location">Product Location: Home / ${product.location || 'find yourself'} / ${product.name}</p>
+                <p class="product-location">Product Location: Home › ${product.location || 'find yourself'} › ${product.name}</p>
 
                 ${product.expiryDate ? `
-                <p class="exp-date interactive-text" id="expiry-date-message">
+                <p class="exp-date" id="expiry-date-message">
                 Expiry Date: ${product.expiryDate} <i class="fa-solid fa-circle-info exp-i"></i>
                 </p>
                 ` : ''}
@@ -236,11 +268,11 @@
                     <p>Because we frequently receive new shipments, the exact 'Best Before' date on the item you receive may vary slightly. Rest assured, we guarantee every product is well within its freshness period.</p>
                     </div>
                 </div>
-
+                <br>
                 ${product.leftAmount ?
                 `
                 <p class="left" id="stock-message">
-                    People are buying this too rapidly! Hurry up! Only ${product.leftAmount} in stock, grab yours now or you may miss it <i class="fa-solid fa-circle-info left-i"></i>
+                     <i class="fa-solid fa-fire"></i> Hurry up! Only ${product.leftAmount} in stock. <i class="fa-solid fa-circle-info left-i"></i>
                 </p>
 
                 <div class="info-modal-overlay hidden" id="info-modal-overlay">
@@ -260,11 +292,12 @@
 
                 <div id="countdown-container"></div>
                 ${product.delivery_time ? `<p class="delivery_time"><img src="delivery-man.png" alt="Delivery" width="30px" height="30px"> Your order is expected to arrive in approximately ${product.delivery_time} </p>` : ''}
-                <p class="product-subcategory">${product.sub_category || 'no sub category'}</p>
+                
                 <p class="product-message">${product.little_details || ''}</p>
                 <div class="product-details">
                     <h2 class="product-details-head">Product Full Details</h2>
-                    <p class="product-details">Amount: ${product.amount || 'Amount has not been published'} <br> ${product.details || 'No more additional details are available.'}</p>
+                    
+                    <p class="product-details">Category: ${product.sub_category || 'no sub category'} <br> Amount: ${product.amount || 'Amount has not been published'} <br> ${product.details || 'No more additional details are available.'}</p>
                 </div>
                 <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
             `;
@@ -314,7 +347,7 @@
                        ${product.delivery_time ? `<p class="delivery_time-rec" style="font-size:10px;"><i class="fa-solid fa-clock"></i> ${product.delivery_time} </p>` : ''}
                     </div>
                     ${product.timer ? `<div id="timer-${product.id}"></div>` : ''}
-                    ${product.message ? `<p class="message"> ${product.message} </p>` : ''}
+                    ${product.message ? `<p class="rec-message"> ${product.message} </p>` : ''}
                     <div class="product-amount">${product.amount || ''}</div>
                     <div class="little_details">${product.little_details}</div>
                     <p>${discountDisplay}${originalPriceDisplay} ₹${product.price}</p>

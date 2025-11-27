@@ -303,39 +303,38 @@ h1{
     font-weight:700;
 }
 del {
-    text-decoration: double line-through;
-    color: red;
+    text-decoration: line-through;
+    color: rgb(164, 160, 160);
     margin-left: 10px;
 }
 .discount-percent{
-    color:#03be0f;
+    font-size:0.55em;
+    color:#dc0f0f;
     font-weight:650;
-    font-size:20px;
+   background-color:#f7e7e7;
+    border-radius:5px;
+    padding:2px 4px 2px 4px;
 }
 .tax{
-    font-size:0.6em;
+    font-size:0.75em;
     position:relative;
     top:-25px;
+    color:#4e4949;
+    font-weight:500;
 }
 .exp-date {
     font-size:0.8em;
     font-weight: bold;
     position:relative;
+    display:inline;
     top:-15px;
-    animation: bluePulse 2.5s infinite alternate;
+    color:#555555;
+    height:18px;
+    background-color:#f2f2f2;
+    border-radius:5px;
+    padding: 6px;
 }
 
-@keyframes bluePulse {
-  0% {
-    color: #002fff;
-  }
-  50% {
-    color: rgb(37, 143, 255);
-  }
-  100% {
-    color: #0006b8;
-  }
-}
 /* Style for BOTH interactive text elements */
 .interactive-text {
     cursor: pointer;
@@ -418,13 +417,13 @@ del {
     }
 }
 .exp-i{
-    color:rgb(146, 6, 239);
+    color:rgb(62, 6, 107);
     font-size:0.7em;
     position:relative;
     top:-4px;
 }
 .left-i{
-    color:rgb(0, 55, 255);
+    color:rgb(177, 65, 0);
     font-size:0.7em;
     position:relative;
     top:-4px;
@@ -436,10 +435,13 @@ del {
     top:-4px;
 }
 .left {
-    font-size:0.8em;
-    font-weight: bold;
-    position:relative;
-    top:-15px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #c2410c;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
     animation: redPulse 1.2s infinite alternate;
 }
 
@@ -568,7 +570,7 @@ del {
     margin:10px; 
 }
  .rec-countdown-timer{
-        font-size: 0.6rem;
+    font-size: 0.7rem;
     color: #f80f0f; /* A reddish color */
     letter-spacing: 1px;
     text-align: center;
@@ -576,39 +578,47 @@ del {
     font-weight: 500;
     background-color:#f9f0f7;
     border-radius:10px;
-    padding:2px 4px 2px 4px;
+    padding: 3px 5px 3px 5px;
  }
     .add-cart.disabled {
         background-color: #ccc;
         cursor: not-allowed;
         opacity: 0.7;
     }
-.message{
-    font-size:0.6em;
+.message, .rec-message{
+    font-weight: 800;
     display:inline;
-    font-weight:lighter;
+    font-weight:700;
     text-transform:capitalize;
     border-radius:8px;
     font-family:Arial, Helvetica, sans-serif;
-    padding:2px 3px 2px 3px;
+    padding:8px;
     animation:blink-message 2s ease-in 0.14s infinite alternate;
+}
+.message{
+    font-size:1.2em;
+}
+.rec-message{
+    font-size:0.6em;
+    padding: 6px;
 }
 @keyframes blink-message {
     from{
-        color:#00930a;
+        color:#05a273;
         background-color:#edf9e9;
-    border:1px solid #a1dc65;
+
     }
     to{color:white;
         background-color:hwb(0 100% 0%);
-    border:1px solid #ffffff;
+
     }
+}
+.proMrp{
+    font-size:1.25em;
+    font-weight:600;
 }
 .product-subcategory{
     text-transform:capitalize;
-    font-size:1.3em;
-    font-weight:700;
-    color:#b28573;
 }
 .product-message{
     text-transform:capitalize;
