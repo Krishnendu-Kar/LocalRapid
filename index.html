@@ -125,38 +125,7 @@
             </div>
         </header>
         <main>
-            <div class="sub-header">
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <div class="slide">
-                            <picture>
-                                <source media="(min-width: 911px)" srcset="soap_slider_pc.png">
-                                <img src="soap slider.png" alt="Description for banner 1" loading="eager">
-                            </picture>
-                        </div>
-                        <div class="slide">
-                            <picture>
-                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_2.jpg">
-                                <img src="snacks.png" alt="Description for banner 2" loading="lazy">
-                            </picture>
-                        </div>
-                        <div class="slide">
-                            <picture>
-                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_3.jpg">
-                                <img src="cold drink.png" alt="Description for banner 3">
-                            </picture>
-                        </div>
-                        <div class="slide">
-                            <picture>
-                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_4.jpg">
-                                <img src="staples.png" alt="Description for banner 4">
-                            </picture>
-                        </div>
-                    </div>
-                    <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
-                    <div class="slider-dots"></div>
-                </div>
+            
                <div class="category-scroll-container">
                     <div class="cat-item" onclick="window.location.href='comboCategory.html'">
                         <i class="bi bi-collection-fill"></i>
@@ -196,6 +165,38 @@
                     </div>
                 </div>
             </div>
+            <div class="sub-header">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slide">
+                            <picture>
+                                <source media="(min-width: 911px)" srcset="soap_slider_pc.png">
+                                <img src="soap slider.png" alt="Description for banner 1" loading="eager">
+                            </picture>
+                        </div>
+                        <div class="slide">
+                            <picture>
+                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_2.jpg">
+                                <img src="snacks.png" alt="Description for banner 2" loading="lazy">
+                            </picture>
+                        </div>
+                        <div class="slide">
+                            <picture>
+                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_3.jpg">
+                                <img src="cold drink.png" alt="Description for banner 3">
+                            </picture>
+                        </div>
+                        <div class="slide">
+                            <picture>
+                                <source media="(min-width: 469px)" srcset="YOUR_DESKTOP_IMAGE_4.jpg">
+                                <img src="staples.png" alt="Description for banner 4">
+                            </picture>
+                        </div>
+                    </div>
+                    <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="slider-dots"></div>
+                </div>
 
                 </div>
                 <div id="flash-sale-section" class="flash-section-hidden">
@@ -389,7 +390,7 @@
             // Check if btn exists to avoid errors
             if (!btn) return; 
 
-            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
                 btn.style.display = "block";
             } else {
                 btn.style.display = "none";

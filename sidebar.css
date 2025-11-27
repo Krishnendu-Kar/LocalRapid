@@ -7,7 +7,6 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      /* z-index: 1100; always above sidebar */
     }
     .hamburger:active{
         color:#ed8544;

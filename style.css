@@ -447,18 +447,49 @@ header{
         transform: translateX(-100%); 
     }
 }
+.category-scroll-container {
+    display: flex;
+    margin-top: 134px;
+    justify-content: space-between;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 15px;
+    background: linear-gradient(134deg, #ff4545, #2919ff);
+    box-shadow: inset 0 18px 28px -4px rgba(0, 0, 0, 0.55);
+    scrollbar-width: none; 
+
+    /* --- THE HORIZON DESIGN --- */
+    
+    /* 1. Critical: Add bottom padding so text doesn't touch the edge */
+    padding-bottom: 45px; 
+
+    /* 2. The Curve Mask */
+    /* This creates a smooth curve that dips slightly in the middle */
+    --curve-depth: 30px;
+    -webkit-mask-image: radial-gradient(ellipse 120% 100% at 50% -10%, rgba(0, 0, 0, 0.904) 75%, transparent 100%);
+    mask-image: radial-gradient(ellipse 120% 100% at 50% -10%, rgba(0, 0, 0, 0.985) 75%, transparent 100%);
+
+}
+.category-scroll-container::-webkit-scrollbar { 
+    display: none; 
+}
 .sub-header{
-     background-color:rgb(23, 2, 73);
+     background-color:rgb(255, 255, 255);
+     display:flex;
+        align-items:center;
+        justify-content: center;
 }
 /* --- Slider Styles --- */
 .slider-container {
-    width: 100%;
-    background-color:rgb(23, 2, 73);
+    width: 98%;
+    background-color:rgb(181, 150, 255);
     max-width: 1600px; /* Optional: Constrain the max width */
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-top: 134px;
+    border-radius: 12px;
+    box-shadow: inset 0 18px 28px -4px rgba(0, 0, 0, 0.55);
+    margin-top: 10px;
 }
 
 .slider-wrapper {
@@ -530,21 +561,6 @@ header{
 }
 
 .dot.active { background-color: white; }
-
-.category-scroll-container {
-    display: flex;
-    justify-content: space-between;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 15px;
-    background: linear-gradient(134deg, #ff4545, #2919ff);
-    box-shadow: inset 0 18px 28px -4px rgba(0, 0, 0, 0.55);
-    /* Hide scrollbar for neatness */
-    scrollbar-width: none; 
-}
-.category-scroll-container::-webkit-scrollbar { 
-    display: none; 
-}
 
 .cat-item {
     flex: 0 0 auto; /* Don't shrink */
