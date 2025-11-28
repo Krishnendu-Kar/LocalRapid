@@ -38,10 +38,31 @@ const packetProducts= [
     sub_category: "chips",
     image: "",
     little_details: "",
-    details: { 
-            "Is it spicy": "Yes", 
-            "Ingredients": "Potato, Chili etc" 
-        },
+    details: {
+                "General": {
+                    "Brand": "Tedhe Medhe",
+                    "Type": "Namkeen Snacks",
+                    "Flavour": "Masala",
+                    "Pack of": "1",
+                    "Container Type": "Pouch",
+                    "Maximum Shelf Life": "5 Months",
+                    "Ingredients": "Corn, Wheat Flour, Edible Vegetable Oil, Spices, Salt",
+                    "Food Preference": "Vegetarian"
+                },
+                "Warranty": {
+                    "Domestic Warranty": "NA",
+                    "Warranty Summary": "No Warranty",
+                    "Covered in Warranty": "Not Applicable"
+                },
+                "Nutritional Info (per 100g)": {
+                    "Energy": "533 kcal",
+                    "Protein": "6.3 g",
+                    "Carbohydrates": "53.2 g",
+                    "Fat": "32.4 g",
+                    "Sodium": "650 mg"
+                }
+            },
+
     quantity: 1
     },
     

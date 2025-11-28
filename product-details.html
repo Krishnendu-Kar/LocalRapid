@@ -244,15 +244,27 @@
 
         // Check if details is an Object
         if (typeof product.details === 'object' && product.details !== null) {
-            // Loop through every key in the object ("Is it spicy", "Ingredients", etc.)
-            for (let key in product.details) {
-                let value = product.details[key];
-                extraDetailsHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+            // Loop through the main keys (e.g., "Warranty", "General")
+            for (let header in product.details){
+                let section = product.details[header];
+                // CASE 1: It is a Group/Section (Like "Warranty" -> { ... })
+                if ( typeof section === 'object' && section !== null ) {
+                    extraDetailsHTML += `<h3 class="detail-header">${header}</h3><ul>`;
+                    extraDetailsHTML += `<div class="detail-table">`;
+                        for (let key in section) {
+                            extraDetailsHTML += `<div class="detail-row"><span class="detail-key">${key}:</span> <span class="detail-value">${section[key]}</span></div>`;
+                        }
+                        extraDetailsHTML += `</div>`;
+                    extraDetailsHTML += `</ul>`;
+                }   
+                else if (typeof section === 'string' || typeof section === 'number'){
+                    extraDetailsHTML = `<p>${product.details}</p>`;
+                }
             }
-        } 
-        // Fallback if it's just a string
-        else if (typeof product.details === 'string') {
-            extraDetailsHTML = product.details;
+        }
+        else if (typeof product.details === 'string' || typeof product.details === 'number'){
+            extraDetailsHTML += `<h3 class="detail-header">Description</h3><ul>`;
+            extraDetailsHTML += `<p>${product.details}</p>`;
         }
             
 
@@ -316,9 +328,16 @@
                 <div class="product-details">
                     <h2 class="product-details-head">Product Full Details</h2>
                     
-                    <p class="product-details">Category:${product.sub_category || 'no sub category'} <br> Amount: ${product.amount || 'Amount has not been published'}
+                    <p class="product-details">Category: ${product.sub_category || 'no sub category'} <br> Amount: ${product.amount || 'Amount has not been published'}
                         <br><br>
-                    <p class="product-key-details"> ${extraDetailsHTML} </p>
+                    <div id="details-wrapper" class="details-wrapper">
+                        <div class="product-key-details"> 
+                            ${extraDetailsHTML} 
+                        </div>
+                        <div id="details-blur" class="details-blur">
+                            <button id="read-more-btn" class="read-more-btn">Read More <i class="fa-solid fa-angle-down"></i></button>
+                        </div>
+                    </div>
                     </p>
                 </div>
                 <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
@@ -348,6 +367,29 @@
 
             // ****** NEW: Call the function to set up modal listeners ******
             setupModalListeners();
+            // --- START: Read More Logic ---
+            // --- START: Smart Read More Logic ---
+                const wrapper = document.getElementById('details-wrapper');
+                const blur = document.getElementById('details-blur');
+                const btn = document.getElementById('read-more-btn');
+
+                // Wait a tiny moment for styles to apply
+                setTimeout(() => {
+                    // Compare total content height vs visible box height
+                    // If content is larger than the visible box (plus a 5px buffer), show button.
+                    if (wrapper.scrollHeight > wrapper.clientHeight + 5) {
+                        // Content is overflowing: Button stays visible
+                        btn.addEventListener('click', function() {
+                            wrapper.classList.add('expanded');
+                            blur.style.display = 'none';
+                        });
+                    } else {
+                        // Content fits perfectly: Hide button and blur
+                        blur.style.display = 'none';
+                        wrapper.style.maxHeight = 'none'; 
+                    }
+                }, 100); 
+                // --- END: Smart Read More Logic ---
         }
 
         // --- REFACTORED CARD CREATION LOGIC ---

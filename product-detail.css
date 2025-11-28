@@ -631,10 +631,98 @@ del {
     font-size: 1.01em;
     color:#77776e;
     padding: 4px;
-    font-weight: 650;
+}
+.product-key-details{
+    font-size: 1.01em;
+    color:#666161;
+    padding: 4px;
+}
+.detail-value{
+    font-weight:600;
+    color:#444444;
 }
 .product-key-details::first-letter{
     text-transform:capitalize;
+}
+/* Table Layout for Details */
+.detail-table, .simple-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-top: 1px solid #f0f0f0; /* Optional: Separator line */
+}
+
+.detail-row {
+    display: flex;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0; /* Light line between rows */
+}
+
+.detail-key {
+    color: #878787; /* The Grey color from your image */
+    width: 35%;     /* Key takes up 35% of width */
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #212121; /* Dark Black for values */
+    width: 65%;     /* Value takes up rest */
+    font-weight: 500;
+}
+
+.detail-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #000;
+}
+/* Container that limits the height initially */
+.details-wrapper {
+    position: relative;
+    max-height: 280px; /* Adjust this height to show more/less initially */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+/* Class to add when button is clicked (shows everything) */
+.details-wrapper.expanded {
+    max-height: none; /* Removes the limit */
+    overflow: visible;
+}
+
+/* The Blur Effect Overlay */
+.details-blur {  /* <--- CHANGED FROM .details-blur-overlay */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; 
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1) 80%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    z-index: 5; /* Added to ensure it sits on top */
+}
+
+/* The Button Style */
+.read-more-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: #333;
+    z-index: 10; /* Ensures button is clickable */
+}
+
+.read-more-btn:hover {
+    background-color: #f0f0f0;
 }
 /* product-detail.css */
 
@@ -809,7 +897,6 @@ del {
 .little_details{
     text-transform:capitalize;
     color:#b28573;
-    font-weight:500;
     font-size:0.8em;
 }
     .product-card p {
