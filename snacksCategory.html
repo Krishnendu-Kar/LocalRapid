@@ -84,33 +84,16 @@
             ©2025 PickRapid; All Right will be reserved
         </footer>
 
-        <script src="category search-box Animation.js"></script>
         
         <script src="products.js"></script>
         <script src="app.js"></script>
+        <script src="category-loader.js"></script>
         <script src="category.js"></script>
+        <script src="go to top.js"></script>
+        <script src="category search-box Animation.js"></script>
 
         <script>
-            // This function runs when the page is fully loaded
-            document.addEventListener("DOMContentLoaded", function() {
-                // Get the current filename (e.g., "biscuitCategory.html")
-                const path = window.location.pathname;
-                const pageFilename = path.split("/").pop(); 
-                
-                // Extract the category name from the filename. 
-                // IMPORTANT: The name must match the category in products.js!
-                // "biscuitCategory.html" becomes "biscuit"
-                const categoryName = pageFilename.replace('Category.html', '');
-
-                // Filter the global 'products' array to get only items of this category
-                const categoryProducts = packetProducts.filter(product => product.category === categoryName);
-                
-                // Use the shared function from app.js to display the products
-                displayProducts(categoryProducts, 'productList');
-
-                // Dynamically highlight the active link in the sidebar
-                setActiveSidebarLink(pageFilename);
-            });
+       
 
             // Cleaned up functions for this page
             function toggleSidebar() {
@@ -130,17 +113,6 @@
 
                 displayProducts(filteredProducts, 'productList');
             }
-
-            // ⭐ Bonus: This function automatically sets the 'active' link in your sidebar
-            // function setActiveSidebarLink(currentPage) {
-            //     const sidebarLinks = document.querySelectorAll('.sidebar a');
-            //     sidebarLinks.forEach(link => {
-            //         link.classList.remove('active-a'); // First, remove active from all links
-            //         if (link.getAttribute('href') === currentPage) {
-            //             link.classList.add('active-a'); // Then, add it to the matching link
-            //         }
-            //     });
-            // }
         </script>
     </body>
 </html>
