@@ -46,15 +46,17 @@ html, body {
     font-size:1rem;
     border:none;
     flex-grow:1;    
+    padding-left:8px;
 }
 .search-input:focus{
     outline:none;
+    padding-left:8px;
 }
 .search-icon{
     height: 37px;
     width: 45px;
     display:flex;
-    background: linear-gradient(90deg, #fffbf7, #fbca9f);
+    background: linear-gradient(90deg, #fffbf7, #fea5a5);
     justify-content:center;
     border-top-right-radius:5px;
     border-bottom-right-radius:5px;
@@ -127,9 +129,7 @@ html, body {
     display:flex;
     align-items:center;
     justify-content:center;}
-    /* .nav-search{
-    width: 550px;
-    } */
+    
 }
  /* Hamburger Button */
     .hamburger {

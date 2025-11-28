@@ -7,20 +7,94 @@
 html, body {
     overflow-x: hidden;
 }
+header {width: 100%;
+    background: #FF5959;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 999;}
 .border:hover {
-    border: 2px solid rgb(255, 219, 250);
+    border: 2.3px solid rgb(255, 219, 250);
     border-radius: 5px;
+}
+@media (max-width: 490px){
+    .logo-name {
+        display: none;
+    }
 }
 .navbar{
     height: 54px;
-    width: 100%;
+    width: 80%;
     background-color:#ff5959;
     color:rgb(249, 249, 236);
     display:flex;
-    /* justify-content:center; */
+    /* position:relative; */
+    left: 0px;
+    justify-content:flex-start;
     align-items:center;
 }
+.nav-search{
+    height: 37px;
+    min-width: 180px;
+    max-width: 700px;
+    margin-top:5px;
+    display:flex;
+    align-items:center;
+    flex-grow: 1;
+    border-radius:7px;
+    
+}
+@media (max-width: 345px){
+.nav-search{
+    min-width: 180px;
+    margin-right: 38px;}
+}
+@media (min-width: 380px) and (max-width: 490px){
+    .nav-search{
+    min-width: 220px;
+}}
 
+@media (min-width: 500px) and (max-width: 1160px){
+    .nav-search{
+        max-width: 385px;
+    }
+}
+@media (max-width: 554px){
+    .nav-search{
+        margin-right: 45px;
+    }
+}
+
+.search-input{
+    height: 37px;
+    width: 21vw;
+    font-size:1rem;
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+    border:none;
+    flex-grow: 1; 
+    padding-left:8px;   
+}
+.search-input:focus {
+    outline:none;
+    padding-left:8px;
+}
+.search-icon{
+    height: 37px;
+    width: 45px;
+    display:flex;
+    background: linear-gradient(90deg, #ffffff, #fdacd7);
+    justify-content:center;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    align-items:center;
+}
+.search-icon:focus {
+            color: #ce3f7b;
+            opacity: 1; /* Firefox */
+        }
 
 .cart{
     height: 3em;
@@ -33,7 +107,7 @@ html, body {
     display:inline-block;
     position:fixed;
     right: 5px;
-    top:0px;
+    top: 52px !important;
     border: 2px rgb(148, 3, 3);
     border-radius: 8px; 
     z-index:9;
@@ -43,7 +117,9 @@ html, body {
     z-index:9;
     
 }
-
+.hamburger{
+    padding: 5px 0px 5px 0px !important;
+}
 .logo-name{
     color:rgb(233, 228, 214);
     font-size:1.5rem;
@@ -55,11 +131,9 @@ html, body {
     height: 50px;
     width: 65px;}
     .nav-logo{
-    margin-left:5px;
     height: 50px;
     width: 200px;
     position:relative;
-    left: 44px;
     display:flex;
     align-items:center;
     justify-content:center;}
@@ -827,7 +901,12 @@ del {
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     background: linear-gradient(45deg, #f06595, #ff6b6b);
 }
-
+@media (max-width: 366px){
+    .feedback-btn {
+    padding: 15px 19px;
+    font-size: 16px;
+    }
+}
 .recommended-container {
     width:100vw;
       margin: 20px 0px 60px 0px;
