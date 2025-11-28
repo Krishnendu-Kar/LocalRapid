@@ -262,11 +262,15 @@
                 }
             }
         }
-        else if (typeof product.details === 'string' || typeof product.details === 'number'){
-            extraDetailsHTML += `<h3 class="detail-header">Description</h3><ul>`;
-            extraDetailsHTML += `<p>${product.details}</p>`;
-        }
-            
+        // Check if it exists AND is a string or number
+        else if (product.details && (typeof product.details === 'string' || typeof product.details === 'number')) {
+            extraDetailsHTML += `
+                <div class="simple-details">
+                    <h3 class="detail-header">Description</h3>
+                    <p class="detail-text">${product.details}</p>
+                </div>
+            `;
+        } 
 
             const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
             const discountpercent = discount.toFixed(2);
