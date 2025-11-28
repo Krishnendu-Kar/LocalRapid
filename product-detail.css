@@ -633,6 +633,9 @@ del {
     padding: 4px;
     font-weight: 650;
 }
+.product-key-details::first-letter{
+    text-transform:capitalize;
+}
 /* product-detail.css */
 
 .delivery_time {

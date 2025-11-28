@@ -239,6 +239,22 @@
             if (product.category === 'other') {
                 product.location = 'Other Products';
             }
+        // NEW CODE: Create a variable to hold the HTML
+        let extraDetailsHTML = "";
+
+        // Check if details is an Object
+        if (typeof product.details === 'object' && product.details !== null) {
+            // Loop through every key in the object ("Is it spicy", "Ingredients", etc.)
+            for (let key in product.details) {
+                let value = product.details[key];
+                extraDetailsHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+            }
+        } 
+        // Fallback if it's just a string
+        else if (typeof product.details === 'string') {
+            extraDetailsHTML = product.details;
+        }
+            
 
             const discount = ((product.originalPrice - product.price) / product.originalPrice) * 100;
             const discountpercent = discount.toFixed(2);
@@ -300,7 +316,10 @@
                 <div class="product-details">
                     <h2 class="product-details-head">Product Full Details</h2>
                     
-                    <p class="product-details">Category: ${product.sub_category || 'no sub category'} <br> Amount: ${product.amount || 'Amount has not been published'} <br> ${product.details || 'No more additional details are available.'}</p>
+                    <p class="product-details">Category:${product.sub_category || 'no sub category'} <br> Amount: ${product.amount || 'Amount has not been published'}
+                        <br><br>
+                    <p class="product-key-details"> ${extraDetailsHTML} </p>
+                    </p>
                 </div>
                 <button class="add-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
             `;

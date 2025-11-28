@@ -38,7 +38,10 @@ const packetProducts= [
     sub_category: "chips",
     image: "",
     little_details: "",
-    details: "",
+    details: { 
+            "Is it spicy": "Yes", 
+            "Ingredients": "Potato, Chili etc" 
+        },
     quantity: 1
     },
     
