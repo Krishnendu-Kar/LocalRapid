@@ -144,6 +144,7 @@ header{
 }
 .order{
     padding: 5px;
+    text-decoration:none;
 }
 .seller{
     padding: 5px;
@@ -185,8 +186,16 @@ header{
         margin-left:4px;
     }
     .logo-name{
-        font-size: 16px;
+        font-size: 20px;
        margin-left:0px;
+    }
+    .location-name{
+        font-size: 15.5px ;
+    }
+    .order{
+        font-size: 15.5px !important;
+        cursor:pointer;
+        margin-right: 0px;
     }
 }
 /* Top panel */
